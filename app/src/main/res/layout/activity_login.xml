@@ -6,4 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".activities.LoginActivity">
 
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="EmailId"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="90dp"
+        tools:layout_editor_absoluteY="227dp" />
+
+    <EditText
+        android:id="@+id/editText9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        tools:layout_editor_absoluteX="90dp"
+        tools:layout_editor_absoluteY="304dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        tools:layout_editor_absoluteX="138dp"
+        tools:layout_editor_absoluteY="422dp" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="TextView"
+        android:textColor="#2196F3"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="276dp"
+        tools:layout_editor_absoluteY="376dp"
+        tools:text="SignUp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
