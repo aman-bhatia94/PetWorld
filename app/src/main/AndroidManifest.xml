@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.ateam.com.ateam.petworld.activities.SitterDashboard"></activity>
+        <activity android:name=".activities.BookAppointment"></activity>
+        <activity android:name=".activities.Profile" />
+        <activity android:name=".activities.SearchSitters" />
+        <activity android:name="com.ateam.com.ateam.petworld.activities.SitterDashboard" />
         <activity android:name="com.ateam.com.ateam.petworld.activities.OwnerDashboard" />
         <activity android:name="com.ateam.com.ateam.petworld.activities.RegisterActivity" />
         <activity android:name="com.ateam.com.ateam.petworld.activities.LoginActivity">
