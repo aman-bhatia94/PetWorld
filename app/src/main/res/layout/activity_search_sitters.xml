@@ -55,7 +55,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Search Text"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:drawableRight="@drawable/ic_search"/>
 
             </LinearLayout>
 
@@ -96,9 +97,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+
             </LinearLayout>
         </ScrollView>
 
@@ -108,5 +107,9 @@
             android:layout_height="wrap_content"
             android:text="No Results Found!"
             android:textSize="@dimen/text_view_default_size"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>
