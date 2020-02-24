@@ -1,48 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
     tools:context=".activities.LoginActivity">
 
-    <EditText
-        android:id="@+id/editText5"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="EmailId"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="90dp"
-        tools:layout_editor_absoluteY="227dp" />
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/userEmailId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/userEmailId"
+            android:inputType="textEmailAddress"
+            android:autofillHints="@string/userEmailId"
+            tools:layout_editor_absoluteX="90dp"
+            tools:layout_editor_absoluteY="227dp" />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/editText9"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        tools:layout_editor_absoluteX="90dp"
-        tools:layout_editor_absoluteY="304dp" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        tools:layout_editor_absoluteX="138dp"
-        tools:layout_editor_absoluteY="422dp" />
+        <EditText
+            android:id="@+id/userPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/userPassword"
+            android:autofillHints="@string/userPassword"
+            android:inputType="textPassword"
+            tools:layout_editor_absoluteX="90dp"
+            tools:layout_editor_absoluteY="304dp" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView8"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:text="TextView"
-        android:textColor="#2196F3"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="276dp"
-        tools:layout_editor_absoluteY="376dp"
-        tools:text="SignUp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/signUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/signUpLink"
+            android:textColor="#2196F3"
+            tools:layout_editor_absoluteX="276dp"
+            tools:layout_editor_absoluteY="376dp"
+            android:onClick="onClickSignUp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickLogin"
+            android:text="@string/userLogin"
+            tools:layout_editor_absoluteX="138dp"
+            tools:layout_editor_absoluteY="422dp" />
+    </LinearLayout>
+
+</LinearLayout>
