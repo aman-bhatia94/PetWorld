@@ -20,6 +20,8 @@ public class LoginActivity extends AppCompatActivity {
     //method that handles the behavior after user has clicked Login
     public void onClickLogin(View view) {
 
+        Intent intent = new Intent(this,OwnerDashboard.class);
+        startActivity(intent);
 
     }
 
