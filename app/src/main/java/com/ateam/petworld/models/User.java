@@ -6,6 +6,7 @@ public class User {
     private String lastName;
     private int id;
     private int roleId;
+    private Location location;
 
     public String getFirstName() {
         return firstName;
@@ -39,4 +40,11 @@ public class User {
         this.roleId = roleId;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }
