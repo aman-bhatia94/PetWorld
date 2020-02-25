@@ -6,11 +6,33 @@ public class Appointments {
     private int id;
 
 
-    //ownerId
-    private int ownerId;
+    //owner
+    private Owner owner;
 
     //sitterId
-    private int sitterId;
+    private Sitter sitter;
+
+    private String appointmentDate;
+    private String appointMentTime;
 
 
+    public int getId() {
+        return id;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public Sitter getSitter() {
+        return sitter;
+    }
+
+    public String getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public String getAppointMentTime() {
+        return appointMentTime;
+    }
 }
