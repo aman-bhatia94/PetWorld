@@ -1,5 +1,9 @@
 package com.ateam.petworld.models;
 
+import android.media.Image;
+
+import java.awt.image.*;
+
 public class User {
 
     private String firstName;
@@ -7,6 +11,15 @@ public class User {
     private int id;
     private int roleId;
     private Location location;
+    private Image displayImage;
+
+    public Image getDisplayImage() {
+        return displayImage;
+    }
+
+    public void setDisplayImage(Image displayImage) {
+        this.displayImage = displayImage;
+    }
 
     public String getFirstName() {
         return firstName;
