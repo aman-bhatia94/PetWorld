@@ -15,6 +15,8 @@ public class Appointments {
     private String appointmentDate;
     private String appointMentTime;
 
+    private boolean upcomingAppointment;
+
 
     public int getId() {
         return id;
@@ -34,5 +36,9 @@ public class Appointments {
 
     public String getAppointMentTime() {
         return appointMentTime;
+    }
+
+    public boolean isUpcomingAppointment(){
+        return upcomingAppointment;
     }
 }

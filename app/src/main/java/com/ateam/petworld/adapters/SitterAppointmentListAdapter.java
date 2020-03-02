@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,20 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ateam.petworld.R;
 import com.ateam.petworld.models.Appointments;
-import com.ateam.petworld.models.Owner;
-import com.ateam.petworld.models.User;
+import com.ateam.petworld.R.color;
 
 import java.util.List;
 
-public class AppointmentListAdapter extends RecyclerView.Adapter<AppointmentListAdapter.ViewHolder> {
+public class SitterAppointmentListAdapter extends RecyclerView.Adapter<SitterAppointmentListAdapter.ViewHolder>{
 
     private List<Appointments> appointmentsList;
 
-    public AppointmentListAdapter(List<Appointments> appointmentsList) {
+    public SitterAppointmentListAdapter(List<Appointments> appointmentsList){
         this.appointmentsList = appointmentsList;
     }
-
-
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -34,6 +30,7 @@ public class AppointmentListAdapter extends RecyclerView.Adapter<AppointmentList
         TextView appointmentTime;
         Button cancelButton;
         Button rescheduleButton;
+        View horizontalDivider;
 
         ViewHolder(View itemView){
             super(itemView);
@@ -46,30 +43,37 @@ public class AppointmentListAdapter extends RecyclerView.Adapter<AppointmentList
             appointmentTime = (TextView)itemView.findViewById(R.id.appointmentTime);
             cancelButton = (Button)itemView.findViewById(R.id.cancelAppointmentButton);
             rescheduleButton = (Button)itemView.findViewById(R.id.rescheduleAppointmentButton);
+            horizontalDivider = (View)itemView.findViewById(R.id.divider);
 
         }
 
     }
 
-
     @Override
-    public ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+    public SitterAppointmentListAdapter.ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.appointment_row,parent,false);
-        return new AppointmentListAdapter.ViewHolder(view);
+        return new SitterAppointmentListAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder( SitterAppointmentListAdapter.ViewHolder holder, int position) {
 
         Appointments appointment = appointmentsList.get(position);
 
         /*
-        TODO set user depending on role
+        TODO set color background
          */
 
-        holder.userName.setText(appointment.getSitter().getFirstName());
+        holder.userName.setText(appointment.getOwner().getFirstName()+" "+appointment.getOwner().getLastName());
         holder.appointmentDate.setText(appointment.getAppointmentDate());
         holder.appointmentTime.setText(appointment.getAppointMentTime());
+
+        if(appointment.isUpcomingAppointment()){
+            holder.horizontalDivider.setBackgroundColor(getResources().getColor(R.color.upcomingAppointment));
+        }
+        else{
+            holder.horizontalDivider.setBackgroundColor(getResources().getColor(R.color.pastAppointment));
+        }
 
     }
 
@@ -77,7 +81,4 @@ public class AppointmentListAdapter extends RecyclerView.Adapter<AppointmentList
     public int getItemCount() {
         return appointmentsList.size();
     }
-
-
-
 }
