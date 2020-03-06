@@ -5,15 +5,14 @@ public class Appointments {
     //appointment id
     private int id;
 
-
     //owner
     private Owner owner;
 
     //sitterId
     private Sitter sitter;
 
-    private String appointmentDate;
-    private String appointMentTime;
+    private String appointmentStartDate;
+    private String appointmentEndDate;
 
     private boolean upcomingAppointment;
 
@@ -30,12 +29,12 @@ public class Appointments {
         return sitter;
     }
 
-    public String getAppointmentDate() {
-        return appointmentDate;
+    public String getAppointmentStartDate() {
+        return appointmentStartDate;
     }
 
-    public String getAppointMentTime() {
-        return appointMentTime;
+    public String getAppointmentEndDate() {
+        return appointmentEndDate;
     }
 
     public boolean isUpcomingAppointment(){

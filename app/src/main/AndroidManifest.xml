@@ -12,25 +12,17 @@
 
         <activity android:name=".activities.BookAppointment" />
         <activity android:name=".activities.Profile" />
-        <activity android:name=".activities.SearchSitters" />
+        <activity android:name=".activities.SearchSitters">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name="com.ateam.petworld.activities.SitterDashboard" />
         <activity android:name="com.ateam.petworld.activities.OwnerDashboard" />
         <activity android:name="com.ateam.petworld.activities.RegisterActivity" />
-        <activity android:name="com.ateam.petworld.activities.LoginActivity">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.ateam.petworld.MainApplication">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name="com.ateam.petworld.activities.LoginActivity"></activity>
+        <activity android:name="com.ateam.petworld.MainActivity" />
     </application>
 
 </manifest>

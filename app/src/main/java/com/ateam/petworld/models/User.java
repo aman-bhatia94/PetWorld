@@ -10,6 +10,8 @@ public class User {
     private int id;
     private int roleId;
     private Location location;
+    private String emailId;
+    private String phoneNumber;
     private Image displayImage;
 
     public Image getDisplayImage() {
@@ -42,6 +44,22 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public int getRoleId() {
