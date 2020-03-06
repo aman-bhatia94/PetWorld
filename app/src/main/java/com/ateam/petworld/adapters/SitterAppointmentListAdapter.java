@@ -17,11 +17,11 @@ import com.ateam.petworld.R.color;
 
 import java.util.List;
 
-public class SitterAppointmentListAdapter extends RecyclerView.Adapter<SitterAppointmentListAdapter.ViewHolder>{
+public class SitterAppointmentListAdapter extends RecyclerView.Adapter<SitterAppointmentListAdapter.ViewHolder> {
 
     private List<Appointments> appointmentsList;
 
-    public SitterAppointmentListAdapter(List<Appointments> appointmentsList){
+    public SitterAppointmentListAdapter(List<Appointments> appointmentsList) {
         this.appointmentsList = appointmentsList;
     }
 
@@ -34,31 +34,31 @@ public class SitterAppointmentListAdapter extends RecyclerView.Adapter<SitterApp
         Button rescheduleButton;
         View horizontalDivider;
 
-        ViewHolder(View itemView){
+        ViewHolder(View itemView) {
             super(itemView);
 
             /*View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_row, parent, false);
         return new MovieListAdapter.ViewHolder(view);*/
 
-            userName = (TextView)itemView.findViewById(R.id.appointmentUserName);
-            appointmentDate = (TextView)itemView.findViewById(R.id.appointmentDate);
-            appointmentTime = (TextView)itemView.findViewById(R.id.appointmentTime);
-            cancelButton = (Button)itemView.findViewById(R.id.cancelAppointmentButton);
-            rescheduleButton = (Button)itemView.findViewById(R.id.rescheduleAppointmentButton);
-            horizontalDivider = (View)itemView.findViewById(R.id.divider);
+            userName = (TextView) itemView.findViewById(R.id.appointmentUserName);
+            appointmentDate = (TextView) itemView.findViewById(R.id.appointmentDate);
+            appointmentTime = (TextView) itemView.findViewById(R.id.appointmentTime);
+            cancelButton = (Button) itemView.findViewById(R.id.cancelAppointmentButton);
+            rescheduleButton = (Button) itemView.findViewById(R.id.rescheduleAppointmentButton);
+            horizontalDivider = (View) itemView.findViewById(R.id.divider);
 
         }
 
     }
 
     @Override
-    public SitterAppointmentListAdapter.ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.appointment_row,parent,false);
+    public SitterAppointmentListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.appointment_row, parent, false);
         return new SitterAppointmentListAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder( SitterAppointmentListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(SitterAppointmentListAdapter.ViewHolder holder, int position) {
 
         Appointments appointment = appointmentsList.get(position);
 
@@ -66,15 +66,14 @@ public class SitterAppointmentListAdapter extends RecyclerView.Adapter<SitterApp
         TODO set color background
          */
 
-        holder.userName.setText(appointment.getOwner().getFirstName()+" "+appointment.getOwner().getLastName());
+        holder.userName.setText(appointment.getOwner().getFirstName() + " " + appointment.getOwner().getLastName());
         holder.appointmentDate.setText(appointment.getAppointmentDate());
         holder.appointmentTime.setText(appointment.getAppointMentTime());
 
-        if(appointment.isUpcomingAppointment()){
-            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(),R.color.upcomingAppointment));
-        }
-        else{
-            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(),R.color.pastAppointment));
+        if (appointment.isUpcomingAppointment()) {
+            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(), R.color.upcomingAppointment));
+        } else {
+            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(), R.color.pastAppointment));
         }
 
     }
