@@ -17,7 +17,7 @@ import java.util.List;
 
 public class SearchSitterListAdapter extends RecyclerView.Adapter<SearchSitterListAdapter.ViewHolder> {
     private List<Sitter> mSitterList;
-    private final String buttonString = "BOOK FOR $%.3f PER DAY";
+    private final String buttonString = "BOOK FOR $%.2f PER DAY";
 
     public SearchSitterListAdapter(List<Sitter> mSitterList) {
         this.mSitterList = mSitterList;
@@ -43,7 +43,7 @@ public class SearchSitterListAdapter extends RecyclerView.Adapter<SearchSitterLi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_search_result, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_result_row, parent, false);
         return new ViewHolder(view);
     }
 
@@ -52,7 +52,7 @@ public class SearchSitterListAdapter extends RecyclerView.Adapter<SearchSitterLi
         Sitter sitter = mSitterList.get(position);
 //        Picasso.get().load(imageBasePath + sitter.getPosterPath()).into(holder.ivMovie);
         holder.tvDisplayName.setText(sitter.getFirstName() + " " + sitter.getLastName());
-        holder.tvDisplayLocation.setText(sitter.getLocation().getDisplayName());
+        holder.tvDisplayLocation.setText("Irvine, CA");
         holder.tvDistance.setText(String.valueOf("0.3"));
         holder.btnBookAppointment.setText(String.format(buttonString, sitter.getPayPerDay()));
     }

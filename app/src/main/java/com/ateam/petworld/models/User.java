@@ -2,7 +2,6 @@ package com.ateam.petworld.models;
 
 import android.media.Image;
 
-import java.awt.image.*;
 
 public class User {
 

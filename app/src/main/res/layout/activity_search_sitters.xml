@@ -28,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -54,9 +55,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:drawableRight="@drawable/ic_search"
                     android:hint="Search Text"
-                    android:inputType="textPersonName"
-                    android:drawableRight="@drawable/ic_search"/>
+                    android:inputType="textPersonName" />
 
             </LinearLayout>
 
@@ -102,15 +103,15 @@
         </ScrollView>
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/tv_no_result_found"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="No Results Found!"
-            android:textSize="@dimen/text_view_default_size"/>
+            android:textSize="@dimen/text_view_default_size" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_sitter_search_result"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rv_sitter_search_result"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>
