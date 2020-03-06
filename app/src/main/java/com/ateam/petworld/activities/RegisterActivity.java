@@ -16,5 +16,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void onlocationCheckBoxClick(View view) {
+
     }
 }
