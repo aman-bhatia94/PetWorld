@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ateam.petworld.MainActivity">
+        <activity android:name="com.ateam.petworld.MainApplication">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

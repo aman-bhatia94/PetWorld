@@ -6,8 +6,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ateam.petworld.MainApplication;
 import com.ateam.petworld.R;
 import com.ateam.petworld.models.Appointments;
 
@@ -16,7 +18,6 @@ import java.util.List;
 public class OwnerAppointmentListAdapter extends RecyclerView.Adapter<OwnerAppointmentListAdapter.ViewHolder> {
 
     private List<Appointments> appointmentsList;
-
     public OwnerAppointmentListAdapter(List<Appointments> appointmentsList) {
         this.appointmentsList = appointmentsList;
     }
@@ -70,10 +71,10 @@ public class OwnerAppointmentListAdapter extends RecyclerView.Adapter<OwnerAppoi
         holder.appointmentTime.setText(appointment.getAppointMentTime());
 
         if(appointment.isUpcomingAppointment()){
-            holder.horizontalDivider.setBackgroundColor(getResources().getColor(R.color.upcomingAppointment));
+            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(),R.color.upcomingAppointment));
         }
         else{
-            holder.horizontalDivider.setBackgroundColor(getResources().getColor(R.color.pastAppointment));
+            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(),R.color.pastAppointment));
         }
 
     }
