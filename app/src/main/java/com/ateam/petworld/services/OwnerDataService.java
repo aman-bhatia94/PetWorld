@@ -35,7 +35,7 @@ public class OwnerDataService {
                 .lastName(owner.getLastName())
                 .emailId(owner.getEmailId())
                 .phoneNumber(owner.getPhoneNumber())
-                .password("123")
+                .password("123") a
                 .ownerLocationId(owner.getLocation().getId())
                 .build();
         awsAppSyncClient.mutate(CreateOwnerMutation.builder().input(requestObj).build()).enqueue(
