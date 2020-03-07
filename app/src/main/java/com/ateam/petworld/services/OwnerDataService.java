@@ -89,7 +89,9 @@ public class OwnerDataService {
 
     public List<Owner> searchOwners(Owner owner) {
         List<Owner> responseData = new ArrayList<>();
-        awsAppSyncClient.query(ListOwnersQuery.builder().build())
+        awsAppSyncClient.query(ListOwnersQuery.builder()
+//                .filter()
+                .build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(new GraphQLCall.Callback<ListOwnersQuery.Data>() {
                     @Override
