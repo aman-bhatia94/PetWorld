@@ -1,6 +1,7 @@
 package com.ateam.petworld.models;
 
 public class Sitter extends User {
+
     private double payPerDay;
 
     public double getPayPerDay() {
