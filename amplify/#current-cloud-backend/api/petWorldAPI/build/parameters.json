@@ -1,0 +1,8 @@
+{
+    "CreateAPIKey": 1,
+    "AppSyncApiName": "petWorldAPI",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": "false",
+    "S3DeploymentBucket": "amplify-petworld-dev-162938-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/f00af9073618f4d2389a5293f35276fefdfe3705"
+}

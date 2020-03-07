@@ -1,0 +1,42 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-petworld-dev-162938-authRole",
+			"UnauthRoleArn": "arn:aws:iam::044147372184:role/amplify-petworld-dev-162938-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::044147372184:role/amplify-petworld-dev-162938-authRole",
+			"Region": "us-east-2",
+			"DeploymentBucketName": "amplify-petworld-dev-162938-deployment",
+			"UnauthRoleName": "amplify-petworld-dev-162938-unauthRole",
+			"StackName": "amplify-petworld-dev-162938",
+			"StackId": "arn:aws:cloudformation:us-east-2:044147372184:stack/amplify-petworld-dev-162938/bd051db0-600a-11ea-b778-0279c28b0d70",
+			"AmplifyAppId": "d14tku92pfkbkv"
+		}
+	},
+	"api": {
+		"petWorldAPI": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "API_KEY",
+						"apiKeyConfig": {
+							"description": "",
+							"apiKeyExpirationDays": "365"
+						}
+					}
+				},
+				"GraphQLAPIIdOutput": "iy4ygbajxvhelp5tzdjia4yykm",
+				"GraphQLAPIEndpointOutput": "https://uotvzotcsbblvmnerm3pgq4qve.appsync-api.us-east-2.amazonaws.com/graphql",
+				"GraphQLAPIKeyOutput": "da2-cqmxbaycbvcmtna76yjzdfw5cu"
+			},
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-petworld-dev-162938-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"logicalId": "apipetWorldAPI"
+			},
+			"lastPushTimeStamp": "2020-03-07T09:44:21.088Z",
+			"lastPushDirHash": "Mfr9qafa/mrnmtnrNAcbC9SNXhE="
+		}
+	}
+}

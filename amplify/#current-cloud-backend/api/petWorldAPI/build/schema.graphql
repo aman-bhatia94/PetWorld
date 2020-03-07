@@ -1,0 +1,438 @@
+type Owner {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  emailId: String!
+  phoneNumber: String
+  password: String!
+  location: Location
+  appointment(filter: ModelAppointmentFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelAppointmentConnection
+  displayImage: String
+}
+
+type Sitter {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  emailId: String!
+  phoneNumber: String
+  password: String!
+  location: Location
+  appointment(filter: ModelAppointmentFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelAppointmentConnection
+  displayImage: String
+  payPerDay: Float!
+}
+
+type Appointment {
+  id: ID!
+  startDate: String!
+  endDate: String!
+  owner: Owner
+  sitter: Sitter
+  totalAmount: Float!
+}
+
+type Location {
+  id: ID!
+  longitude: String!
+  latitude: String!
+  displayName: String!
+  displayPlace: String!
+  displayAddress: String!
+  owner(filter: ModelOwnerFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelOwnerConnection
+  sitter(filter: ModelSitterFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelSitterConnection
+  name: String
+  houseNo: String
+  neighbourhood: String
+  road: String
+  suburb: String
+  city: String
+  state: String
+  postCode: String
+  country: String
+  countryCode: String
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelOwnerConnection {
+  items: [Owner]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelOwnerFilterInput {
+  id: ModelIDInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  emailId: ModelStringInput
+  phoneNumber: ModelStringInput
+  password: ModelStringInput
+  displayImage: ModelStringInput
+  and: [ModelOwnerFilterInput]
+  or: [ModelOwnerFilterInput]
+  not: ModelOwnerFilterInput
+}
+
+type Query {
+  getOwner(id: ID!): Owner
+  listOwners(filter: ModelOwnerFilterInput, limit: Int, nextToken: String): ModelOwnerConnection
+  getSitter(id: ID!): Sitter
+  listSitters(filter: ModelSitterFilterInput, limit: Int, nextToken: String): ModelSitterConnection
+  getAppointment(id: ID!): Appointment
+  listAppointments(filter: ModelAppointmentFilterInput, limit: Int, nextToken: String): ModelAppointmentConnection
+  getLocation(id: ID!): Location
+  listLocations(filter: ModelLocationFilterInput, limit: Int, nextToken: String): ModelLocationConnection
+}
+
+input CreateOwnerInput {
+  id: ID
+  firstName: String!
+  lastName: String!
+  emailId: String!
+  phoneNumber: String
+  password: String!
+  displayImage: String
+  ownerLocationId: ID
+}
+
+input UpdateOwnerInput {
+  id: ID!
+  firstName: String
+  lastName: String
+  emailId: String
+  phoneNumber: String
+  password: String
+  displayImage: String
+  ownerLocationId: ID
+}
+
+input DeleteOwnerInput {
+  id: ID
+}
+
+type Mutation {
+  createOwner(input: CreateOwnerInput!, condition: ModelOwnerConditionInput): Owner
+  updateOwner(input: UpdateOwnerInput!, condition: ModelOwnerConditionInput): Owner
+  deleteOwner(input: DeleteOwnerInput!, condition: ModelOwnerConditionInput): Owner
+  createSitter(input: CreateSitterInput!, condition: ModelSitterConditionInput): Sitter
+  updateSitter(input: UpdateSitterInput!, condition: ModelSitterConditionInput): Sitter
+  deleteSitter(input: DeleteSitterInput!, condition: ModelSitterConditionInput): Sitter
+  createAppointment(input: CreateAppointmentInput!, condition: ModelAppointmentConditionInput): Appointment
+  updateAppointment(input: UpdateAppointmentInput!, condition: ModelAppointmentConditionInput): Appointment
+  deleteAppointment(input: DeleteAppointmentInput!, condition: ModelAppointmentConditionInput): Appointment
+  createLocation(input: CreateLocationInput!, condition: ModelLocationConditionInput): Location
+  updateLocation(input: UpdateLocationInput!, condition: ModelLocationConditionInput): Location
+  deleteLocation(input: DeleteLocationInput!, condition: ModelLocationConditionInput): Location
+}
+
+input ModelOwnerConditionInput {
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  emailId: ModelStringInput
+  phoneNumber: ModelStringInput
+  password: ModelStringInput
+  displayImage: ModelStringInput
+  and: [ModelOwnerConditionInput]
+  or: [ModelOwnerConditionInput]
+  not: ModelOwnerConditionInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Subscription {
+  onCreateOwner: Owner @aws_subscribe(mutations: ["createOwner"])
+  onUpdateOwner: Owner @aws_subscribe(mutations: ["updateOwner"])
+  onDeleteOwner: Owner @aws_subscribe(mutations: ["deleteOwner"])
+  onCreateSitter: Sitter @aws_subscribe(mutations: ["createSitter"])
+  onUpdateSitter: Sitter @aws_subscribe(mutations: ["updateSitter"])
+  onDeleteSitter: Sitter @aws_subscribe(mutations: ["deleteSitter"])
+  onCreateAppointment: Appointment @aws_subscribe(mutations: ["createAppointment"])
+  onUpdateAppointment: Appointment @aws_subscribe(mutations: ["updateAppointment"])
+  onDeleteAppointment: Appointment @aws_subscribe(mutations: ["deleteAppointment"])
+  onCreateLocation: Location @aws_subscribe(mutations: ["createLocation"])
+  onUpdateLocation: Location @aws_subscribe(mutations: ["updateLocation"])
+  onDeleteLocation: Location @aws_subscribe(mutations: ["deleteLocation"])
+}
+
+type ModelSitterConnection {
+  items: [Sitter]
+  nextToken: String
+}
+
+input ModelSitterFilterInput {
+  id: ModelIDInput
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  emailId: ModelStringInput
+  phoneNumber: ModelStringInput
+  password: ModelStringInput
+  displayImage: ModelStringInput
+  payPerDay: ModelFloatInput
+  and: [ModelSitterFilterInput]
+  or: [ModelSitterFilterInput]
+  not: ModelSitterFilterInput
+}
+
+input CreateSitterInput {
+  id: ID
+  firstName: String!
+  lastName: String!
+  emailId: String!
+  phoneNumber: String
+  password: String!
+  displayImage: String
+  payPerDay: Float!
+  sitterLocationId: ID
+}
+
+input UpdateSitterInput {
+  id: ID!
+  firstName: String
+  lastName: String
+  emailId: String
+  phoneNumber: String
+  password: String
+  displayImage: String
+  payPerDay: Float
+  sitterLocationId: ID
+}
+
+input DeleteSitterInput {
+  id: ID
+}
+
+input ModelSitterConditionInput {
+  firstName: ModelStringInput
+  lastName: ModelStringInput
+  emailId: ModelStringInput
+  phoneNumber: ModelStringInput
+  password: ModelStringInput
+  displayImage: ModelStringInput
+  payPerDay: ModelFloatInput
+  and: [ModelSitterConditionInput]
+  or: [ModelSitterConditionInput]
+  not: ModelSitterConditionInput
+}
+
+type ModelAppointmentConnection {
+  items: [Appointment]
+  nextToken: String
+}
+
+input ModelAppointmentFilterInput {
+  id: ModelIDInput
+  startDate: ModelStringInput
+  endDate: ModelStringInput
+  totalAmount: ModelFloatInput
+  and: [ModelAppointmentFilterInput]
+  or: [ModelAppointmentFilterInput]
+  not: ModelAppointmentFilterInput
+}
+
+input CreateAppointmentInput {
+  id: ID
+  startDate: String!
+  endDate: String!
+  totalAmount: Float!
+  appointmentOwnerId: ID
+  appointmentSitterId: ID
+}
+
+input UpdateAppointmentInput {
+  id: ID!
+  startDate: String
+  endDate: String
+  totalAmount: Float
+  appointmentOwnerId: ID
+  appointmentSitterId: ID
+}
+
+input DeleteAppointmentInput {
+  id: ID
+}
+
+input ModelAppointmentConditionInput {
+  startDate: ModelStringInput
+  endDate: ModelStringInput
+  totalAmount: ModelFloatInput
+  and: [ModelAppointmentConditionInput]
+  or: [ModelAppointmentConditionInput]
+  not: ModelAppointmentConditionInput
+}
+
+type ModelLocationConnection {
+  items: [Location]
+  nextToken: String
+}
+
+input ModelLocationFilterInput {
+  id: ModelIDInput
+  longitude: ModelStringInput
+  latitude: ModelStringInput
+  displayName: ModelStringInput
+  displayPlace: ModelStringInput
+  displayAddress: ModelStringInput
+  name: ModelStringInput
+  houseNo: ModelStringInput
+  neighbourhood: ModelStringInput
+  road: ModelStringInput
+  suburb: ModelStringInput
+  city: ModelStringInput
+  state: ModelStringInput
+  postCode: ModelStringInput
+  country: ModelStringInput
+  countryCode: ModelStringInput
+  and: [ModelLocationFilterInput]
+  or: [ModelLocationFilterInput]
+  not: ModelLocationFilterInput
+}
+
+input CreateLocationInput {
+  id: ID
+  longitude: String!
+  latitude: String!
+  displayName: String!
+  displayPlace: String!
+  displayAddress: String!
+  name: String
+  houseNo: String
+  neighbourhood: String
+  road: String
+  suburb: String
+  city: String
+  state: String
+  postCode: String
+  country: String
+  countryCode: String
+}
+
+input UpdateLocationInput {
+  id: ID!
+  longitude: String
+  latitude: String
+  displayName: String
+  displayPlace: String
+  displayAddress: String
+  name: String
+  houseNo: String
+  neighbourhood: String
+  road: String
+  suburb: String
+  city: String
+  state: String
+  postCode: String
+  country: String
+  countryCode: String
+}
+
+input DeleteLocationInput {
+  id: ID
+}
+
+input ModelLocationConditionInput {
+  longitude: ModelStringInput
+  latitude: ModelStringInput
+  displayName: ModelStringInput
+  displayPlace: ModelStringInput
+  displayAddress: ModelStringInput
+  name: ModelStringInput
+  houseNo: ModelStringInput
+  neighbourhood: ModelStringInput
+  road: ModelStringInput
+  suburb: ModelStringInput
+  city: ModelStringInput
+  state: ModelStringInput
+  postCode: ModelStringInput
+  country: ModelStringInput
+  countryCode: ModelStringInput
+  and: [ModelLocationConditionInput]
+  or: [ModelLocationConditionInput]
+  not: ModelLocationConditionInput
+}
