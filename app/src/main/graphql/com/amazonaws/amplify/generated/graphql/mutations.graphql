@@ -1,0 +1,646 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateOwner(
+  $input: CreateOwnerInput!
+  $condition: ModelOwnerConditionInput
+) {
+  createOwner(input: $input, condition: $condition) {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+  }
+}
+mutation UpdateOwner(
+  $input: UpdateOwnerInput!
+  $condition: ModelOwnerConditionInput
+) {
+  updateOwner(input: $input, condition: $condition) {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+  }
+}
+mutation DeleteOwner(
+  $input: DeleteOwnerInput!
+  $condition: ModelOwnerConditionInput
+) {
+  deleteOwner(input: $input, condition: $condition) {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+  }
+}
+mutation CreateSitter(
+  $input: CreateSitterInput!
+  $condition: ModelSitterConditionInput
+) {
+  createSitter(input: $input, condition: $condition) {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+    payPerDay
+  }
+}
+mutation UpdateSitter(
+  $input: UpdateSitterInput!
+  $condition: ModelSitterConditionInput
+) {
+  updateSitter(input: $input, condition: $condition) {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+    payPerDay
+  }
+}
+mutation DeleteSitter(
+  $input: DeleteSitterInput!
+  $condition: ModelSitterConditionInput
+) {
+  deleteSitter(input: $input, condition: $condition) {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+    payPerDay
+  }
+}
+mutation CreateAppointment(
+  $input: CreateAppointmentInput!
+  $condition: ModelAppointmentConditionInput
+) {
+  createAppointment(input: $input, condition: $condition) {
+    id
+    startDate
+    endDate
+    owner {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+    }
+    sitter {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+      payPerDay
+    }
+    totalAmount
+  }
+}
+mutation UpdateAppointment(
+  $input: UpdateAppointmentInput!
+  $condition: ModelAppointmentConditionInput
+) {
+  updateAppointment(input: $input, condition: $condition) {
+    id
+    startDate
+    endDate
+    owner {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+    }
+    sitter {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+      payPerDay
+    }
+    totalAmount
+  }
+}
+mutation DeleteAppointment(
+  $input: DeleteAppointmentInput!
+  $condition: ModelAppointmentConditionInput
+) {
+  deleteAppointment(input: $input, condition: $condition) {
+    id
+    startDate
+    endDate
+    owner {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+    }
+    sitter {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+      payPerDay
+    }
+    totalAmount
+  }
+}
+mutation CreateLocation(
+  $input: CreateLocationInput!
+  $condition: ModelLocationConditionInput
+) {
+  createLocation(input: $input, condition: $condition) {
+    id
+    longitude
+    latitude
+    displayName
+    displayPlace
+    displayAddress
+    owner {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+      }
+      nextToken
+    }
+    sitter {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+        payPerDay
+      }
+      nextToken
+    }
+    name
+    houseNo
+    neighbourhood
+    road
+    suburb
+    city
+    state
+    postCode
+    country
+    countryCode
+  }
+}
+mutation UpdateLocation(
+  $input: UpdateLocationInput!
+  $condition: ModelLocationConditionInput
+) {
+  updateLocation(input: $input, condition: $condition) {
+    id
+    longitude
+    latitude
+    displayName
+    displayPlace
+    displayAddress
+    owner {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+      }
+      nextToken
+    }
+    sitter {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+        payPerDay
+      }
+      nextToken
+    }
+    name
+    houseNo
+    neighbourhood
+    road
+    suburb
+    city
+    state
+    postCode
+    country
+    countryCode
+  }
+}
+mutation DeleteLocation(
+  $input: DeleteLocationInput!
+  $condition: ModelLocationConditionInput
+) {
+  deleteLocation(input: $input, condition: $condition) {
+    id
+    longitude
+    latitude
+    displayName
+    displayPlace
+    displayAddress
+    owner {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+      }
+      nextToken
+    }
+    sitter {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+        payPerDay
+      }
+      nextToken
+    }
+    name
+    houseNo
+    neighbourhood
+    road
+    suburb
+    city
+    state
+    postCode
+    country
+    countryCode
+  }
+}

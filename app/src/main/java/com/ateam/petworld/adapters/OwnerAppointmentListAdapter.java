@@ -13,6 +13,8 @@ import com.ateam.petworld.MainApplication;
 import com.ateam.petworld.R;
 import com.ateam.petworld.models.Appointments;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class OwnerAppointmentListAdapter extends RecyclerView.Adapter<OwnerAppointmentListAdapter.ViewHolder> {
@@ -21,6 +23,34 @@ public class OwnerAppointmentListAdapter extends RecyclerView.Adapter<OwnerAppoi
 
     public OwnerAppointmentListAdapter(List<Appointments> appointmentsList) {
         this.appointmentsList = appointmentsList;
+    }
+
+    @NotNull
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.appointment_row, parent, false);
+        return new OwnerAppointmentListAdapter.ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+
+        Appointments appointment = appointmentsList.get(position);
+
+        /*
+        TODO set color background
+         */
+
+        holder.userName.setText(appointment.getSitter().getFirstName());
+        holder.appointmentDate.setText(appointment.getAppointmentStartDate());
+//        holder.appointmentTime.setText(appointment.getAppointMentTime());
+
+        if (appointment.isUpcomingAppointment()) {
+            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(), R.color.upcomingAppointment));
+        } else {
+            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(), R.color.pastAppointment));
+        }
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -38,41 +68,13 @@ public class OwnerAppointmentListAdapter extends RecyclerView.Adapter<OwnerAppoi
             /*View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_row, parent, false);
         return new MovieListAdapter.ViewHolder(view);*/
 
-            userName = (TextView) itemView.findViewById(R.id.appointmentUserName);
-            appointmentDate = (TextView) itemView.findViewById(R.id.appointmentDate);
-            appointmentTime = (TextView) itemView.findViewById(R.id.appointmentTime);
-            cancelButton = (Button) itemView.findViewById(R.id.cancelAppointmentButton);
-            rescheduleButton = (Button) itemView.findViewById(R.id.rescheduleAppointmentButton);
-            horizontalDivider = (View) itemView.findViewById(R.id.divider);
+            userName = itemView.findViewById(R.id.appointmentUserName);
+            appointmentDate = itemView.findViewById(R.id.appointmentDate);
+            appointmentTime = itemView.findViewById(R.id.appointmentTime);
+            cancelButton = itemView.findViewById(R.id.cancelAppointmentButton);
+            rescheduleButton = itemView.findViewById(R.id.rescheduleAppointmentButton);
+            horizontalDivider = itemView.findViewById(R.id.divider);
 
-        }
-
-    }
-
-
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.appointment_row, parent, false);
-        return new OwnerAppointmentListAdapter.ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-
-        Appointments appointment = appointmentsList.get(position);
-
-        /*
-        TODO set color background
-         */
-
-        holder.userName.setText(appointment.getSitter().getFirstName());
-        holder.appointmentDate.setText(appointment.getAppointmentDate());
-        holder.appointmentTime.setText(appointment.getAppointMentTime());
-
-        if (appointment.isUpcomingAppointment()) {
-            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(), R.color.upcomingAppointment));
-        } else {
-            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(), R.color.pastAppointment));
         }
 
     }

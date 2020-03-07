@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/element_default_margin">
         <EditText
-            android:id="@+id/userEmailId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -30,7 +29,6 @@
         android:layout_marginTop="@dimen/element_default_margin">
 
         <EditText
-            android:id="@+id/userPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -46,7 +44,6 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/signUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
@@ -64,7 +61,6 @@
         android:layout_margin="@dimen/element_default_margin">
 
         <Button
-            android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="onClickLogin"

@@ -3,7 +3,7 @@ package com.ateam.petworld.models;
 public class Appointments {
 
     //appointment id
-    private int id;
+    private String id;
 
     //owner
     private Owner owner;
@@ -17,7 +17,7 @@ public class Appointments {
     private boolean upcomingAppointment;
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -37,7 +37,7 @@ public class Appointments {
         return appointmentEndDate;
     }
 
-    public boolean isUpcomingAppointment(){
+    public boolean isUpcomingAppointment() {
         return upcomingAppointment;
     }
 }

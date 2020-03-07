@@ -1,0 +1,610 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateOwner {
+  onCreateOwner {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+  }
+}
+subscription OnUpdateOwner {
+  onUpdateOwner {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+  }
+}
+subscription OnDeleteOwner {
+  onDeleteOwner {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+  }
+}
+subscription OnCreateSitter {
+  onCreateSitter {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+    payPerDay
+  }
+}
+subscription OnUpdateSitter {
+  onUpdateSitter {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+    payPerDay
+  }
+}
+subscription OnDeleteSitter {
+  onDeleteSitter {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+    payPerDay
+  }
+}
+subscription OnCreateAppointment {
+  onCreateAppointment {
+    id
+    startDate
+    endDate
+    owner {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+    }
+    sitter {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+      payPerDay
+    }
+    totalAmount
+  }
+}
+subscription OnUpdateAppointment {
+  onUpdateAppointment {
+    id
+    startDate
+    endDate
+    owner {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+    }
+    sitter {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+      payPerDay
+    }
+    totalAmount
+  }
+}
+subscription OnDeleteAppointment {
+  onDeleteAppointment {
+    id
+    startDate
+    endDate
+    owner {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+    }
+    sitter {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+      payPerDay
+    }
+    totalAmount
+  }
+}
+subscription OnCreateLocation {
+  onCreateLocation {
+    id
+    longitude
+    latitude
+    displayName
+    displayPlace
+    displayAddress
+    owner {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+      }
+      nextToken
+    }
+    sitter {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+        payPerDay
+      }
+      nextToken
+    }
+    name
+    houseNo
+    neighbourhood
+    road
+    suburb
+    city
+    state
+    postCode
+    country
+    countryCode
+  }
+}
+subscription OnUpdateLocation {
+  onUpdateLocation {
+    id
+    longitude
+    latitude
+    displayName
+    displayPlace
+    displayAddress
+    owner {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+      }
+      nextToken
+    }
+    sitter {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+        payPerDay
+      }
+      nextToken
+    }
+    name
+    houseNo
+    neighbourhood
+    road
+    suburb
+    city
+    state
+    postCode
+    country
+    countryCode
+  }
+}
+subscription OnDeleteLocation {
+  onDeleteLocation {
+    id
+    longitude
+    latitude
+    displayName
+    displayPlace
+    displayAddress
+    owner {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+      }
+      nextToken
+    }
+    sitter {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+        payPerDay
+      }
+      nextToken
+    }
+    name
+    houseNo
+    neighbourhood
+    road
+    suburb
+    city
+    state
+    postCode
+    country
+    countryCode
+  }
+}

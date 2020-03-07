@@ -1,0 +1,350 @@
+# this is an auto generated file. This will be overwritten
+query GetOwner($id: ID!) {
+  getOwner(id: $id) {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+  }
+}
+query ListOwners(
+  $filter: ModelOwnerFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listOwners(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+    }
+    nextToken
+  }
+}
+query GetSitter($id: ID!) {
+  getSitter(id: $id) {
+    id
+    firstName
+    lastName
+    emailId
+    phoneNumber
+    password
+    location {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    appointment {
+      items {
+        id
+        startDate
+        endDate
+        totalAmount
+      }
+      nextToken
+    }
+    displayImage
+    payPerDay
+  }
+}
+query ListSitters(
+  $filter: ModelSitterFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listSitters(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+      payPerDay
+    }
+    nextToken
+  }
+}
+query GetAppointment($id: ID!) {
+  getAppointment(id: $id) {
+    id
+    startDate
+    endDate
+    owner {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+    }
+    sitter {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+      }
+      appointment {
+        nextToken
+      }
+      displayImage
+      payPerDay
+    }
+    totalAmount
+  }
+}
+query ListAppointments(
+  $filter: ModelAppointmentFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAppointments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      startDate
+      endDate
+      owner {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+      }
+      sitter {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+        payPerDay
+      }
+      totalAmount
+    }
+    nextToken
+  }
+}
+query GetLocation($id: ID!) {
+  getLocation(id: $id) {
+    id
+    longitude
+    latitude
+    displayName
+    displayPlace
+    displayAddress
+    owner {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+      }
+      nextToken
+    }
+    sitter {
+      items {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+        payPerDay
+      }
+      nextToken
+    }
+    name
+    houseNo
+    neighbourhood
+    road
+    suburb
+    city
+    state
+    postCode
+    country
+    countryCode
+  }
+}
+query ListLocations(
+  $filter: ModelLocationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listLocations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+      }
+      sitter {
+        nextToken
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+    }
+    nextToken
+  }
+}

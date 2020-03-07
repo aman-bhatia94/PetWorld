@@ -5,7 +5,6 @@
     <dimen name="button_default_padding">20dp</dimen>
 
     <dimen name="text_view_header1_size">40sp</dimen>
-    <dimen name="text_view_header2_size">30sp</dimen>
     <dimen name="text_view_header3_size">20sp</dimen>
     <dimen name="text_view_default_size">16sp</dimen>
 

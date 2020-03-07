@@ -1,9 +1,9 @@
 package com.ateam.petworld.activities;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 
 import com.ateam.petworld.R;
 import com.ateam.petworld.adapters.OwnerAppointmentListAdapter;

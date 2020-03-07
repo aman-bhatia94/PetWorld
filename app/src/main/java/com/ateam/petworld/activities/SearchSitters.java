@@ -1,12 +1,12 @@
 package com.ateam.petworld.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ateam.petworld.R;
 import com.ateam.petworld.adapters.SearchSitterListAdapter;
@@ -33,7 +33,7 @@ public class SearchSitters extends AppCompatActivity {
         if (searchSitterList.size() > 0) {
             tvNoResultsFound.setVisibility(View.GONE);
             rvSitterSearchResult.setAdapter(new SearchSitterListAdapter(searchSitterList));
-        } else{
+        } else {
             tvNoResultsFound.setVisibility(View.VISIBLE);
         }
     }

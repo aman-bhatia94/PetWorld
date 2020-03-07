@@ -2,7 +2,7 @@ package com.ateam.petworld.models;
 
 public class Location {
 
-    private int id;
+    private String id;
     private double longitude;
     private double latitude;
     private String displayName;
@@ -10,11 +10,11 @@ public class Location {
     private String displayAddress;
     private Address address;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

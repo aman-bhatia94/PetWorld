@@ -7,7 +7,7 @@ public class User {
 
     private String firstName;
     private String lastName;
-    private int id;
+    private String id;
     private int roleId;
     private Location location;
     private String emailId;
@@ -38,11 +38,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
