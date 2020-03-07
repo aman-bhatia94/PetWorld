@@ -3,11 +3,15 @@ package com.ateam.petworld.services;
 import android.util.Log;
 
 import com.amazonaws.amplify.generated.graphql.CreateLocationMutation;
+import com.amazonaws.amplify.generated.graphql.GetLocationQuery;
+import com.amazonaws.amplify.generated.graphql.GetOwnerQuery;
 import com.amazonaws.mobileconnectors.appsync.AWSAppSyncClient;
+import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.ateam.petworld.models.Location;
+import com.ateam.petworld.models.Owner;
 
 import java.util.Objects;
 
@@ -46,4 +50,46 @@ public class LocationDataService {
                 }
         );
     }
+
+    public Location getLocationById(String locationId) {
+        Location responseData = new Location();
+        awsAppSyncClient.query(GetLocationQuery.builder().id(locationId).build())
+                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
+                .enqueue(new GraphQLCall.Callback<GetLocationQuery.Data>() {
+                    @Override
+                    public void onResponse(@Nonnull Response<GetLocationQuery.Data> response) {
+
+                        GetLocationQuery.GetLocation locationQueryResponse = response.data() != null ? response.data().getLocation() : null;
+                        if (locationQueryResponse == null)
+                            return;
+
+                        responseData.setId(locationQueryResponse.id());
+                        responseData.setDisplayAddress(locationQueryResponse.displayAddress());
+                        responseData.setCity(locationQueryResponse.city());
+                        responseData.setCountry(locationQueryResponse.country());
+                        responseData.setCountryCode(locationQueryResponse.countryCode());
+                        responseData.setDisplayName(locationQueryResponse.displayName());
+                        responseData.setHouseNumber(locationQueryResponse.houseNo());
+                        responseData.setLatitude(Double.parseDouble(locationQueryResponse.latitude()));
+                        responseData.setLongitude(Double.parseDouble(locationQueryResponse.longitude()));
+                        responseData.setDisplayPlace(locationQueryResponse.displayPlace());
+                        responseData.setName(locationQueryResponse.name());
+                        responseData.setNeighbourhood(locationQueryResponse.neighbourhood());
+                        responseData.setPostcode(locationQueryResponse.postCode());
+                        responseData.setRoad(locationQueryResponse.road());
+                        responseData.setState(locationQueryResponse.state());
+                        responseData.setSuburb(locationQueryResponse.suburb());
+
+                    }
+
+                    @Override
+                    public void onFailure(@Nonnull ApolloException e) {
+                        Log.e("Error", e.toString());
+                    }
+                }
+                );
+        return responseData;
+    }
+
+
 }

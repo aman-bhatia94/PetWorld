@@ -8,7 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ateam.petworld.R;
 import com.ateam.petworld.factory.ClientFactory;
+import com.ateam.petworld.models.Location;
 import com.ateam.petworld.models.Owner;
+import com.ateam.petworld.services.LocationDataService;
 import com.ateam.petworld.services.OwnerDataService;
 
 public class LoginActivity extends AppCompatActivity {
@@ -20,15 +22,18 @@ public class LoginActivity extends AppCompatActivity {
         ClientFactory.init(this);
         OwnerDataService ownerDataService = new OwnerDataService(ClientFactory.appSyncClient());
         Owner owner = new Owner();
+
+        LocationDataService locationDataService = new LocationDataService(ClientFactory.appSyncClient());
+        Location location = locationDataService.getLocationById("445597");
         //create
 //        Location location = new Location();
 //        location.setId("445597");
-//        owner.setFirstName("Adam");
-//        owner.setLastName("Eve");
-//        owner.setEmailId("adamE@contact.apple.in");
-//        owner.setPhoneNumber("6666666666");
-//        owner.setLocation(location);
-//        ownerDataService.createOwner(owner);
+        owner.setFirstName("Aman");
+        owner.setLastName("Bhatia");
+        owner.setEmailId("aman@gmail.com");
+        owner.setPhoneNumber("9997778888");
+        owner.setLocation(location);
+        ownerDataService.createOwner(owner);
 
 //        LocationDataService locationDataService = new LocationDataService(awsAppSyncClient);
 //        Location location = new Location();
@@ -40,8 +45,8 @@ public class LoginActivity extends AppCompatActivity {
 //        location.setLatitude(29.4055273);
 //        locationDataService.createLocation(location);
         //get
-        owner.setId("39515a0c-bbd0-47b6-87de-95e116757138");
-        ownerDataService.getOwner(owner);
+        //owner.setId("39515a0c-bbd0-47b6-87de-95e116757138");
+        //ownerDataService.getOwner(owner);
     }
 
 
