@@ -2,8 +2,10 @@ package com.ateam.petworld.models;
 
 import android.media.Image;
 
+import java.io.Serializable;
 
-public class User {
+
+public class User implements Serializable {
 
     private String firstName;
     private String lastName;
@@ -11,6 +13,7 @@ public class User {
     private int roleId;
     private Location location;
     private String emailId;
+    private String password;
     private String phoneNumber;
     private Image displayImage;
 
@@ -52,6 +55,14 @@ public class User {
 
     public void setEmailId(String emailId) {
         this.emailId = emailId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhoneNumber() {

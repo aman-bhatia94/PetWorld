@@ -67,6 +67,7 @@ public class OwnerDataService {
                                  responseData.setLastName(ownerQueryResponse.lastName());
                                  responseData.setPhoneNumber(ownerQueryResponse.phoneNumber());
                                  responseData.setEmailId(ownerQueryResponse.emailId());
+                                 responseData.setPassword(ownerQueryResponse.password());
                                  responseData.setId(ownerQueryResponse.id());
                                  Location location = new Location();
                                  if (ownerQueryResponse.location() == null)

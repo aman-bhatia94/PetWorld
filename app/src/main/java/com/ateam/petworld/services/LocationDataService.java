@@ -47,7 +47,7 @@ public class LocationDataService {
         );
     }
 
-    public Location getLocationById(Location location) {
+    public Location getLocation(Location location) {
         Location responseData = new Location();
         awsAppSyncClient.query(GetLocationQuery.builder().id(location.getId()).build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
