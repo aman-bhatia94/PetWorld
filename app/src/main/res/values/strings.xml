@@ -7,7 +7,9 @@
     <string name="firstName">FirstName</string>
     <string name="lastName">LastName</string>
     <string name="userName">UserName</string>
-    <string name="city">City</string>
+    <string name="location">Country</string>
+    <string name="search">Search</string>
+    <string name="phone">PhoneNumber</string>
     <string name="locationPrompt">Use my current location</string>
     <string name="registerUser">RegisterMe!</string>
 </resources>

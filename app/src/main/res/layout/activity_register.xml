@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <EditText
+            android:id="@+id/et_first_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -27,6 +28,7 @@
     android:layout_height="wrap_content">
         
         <EditText
+            android:id="@+id/et_last_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -42,21 +44,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/userName"
-            android:autofillHints="@string/userName"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="182dp"
-            tools:layout_editor_absoluteY="227dp" />
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <EditText
+            android:id="@+id/et_register_email_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -73,6 +61,7 @@
         android:layout_height="wrap_content">
     
         <EditText
+            android:id="@+id/et_register_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -83,17 +72,34 @@
             tools:layout_editor_absoluteY="365dp" />
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/phone"
+            android:autofillHints="@string/phone"
+            tools:layout_editor_absoluteX="176dp"
+            tools:layout_editor_absoluteY="432dp"
+            />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
     
         <EditText
+            android:id="@+id/et_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/city"
-            android:autofillHints="@string/city"
+            android:hint="@string/location"
+            android:autofillHints="@string/location"
             android:inputType="text"
             tools:layout_editor_absoluteX="176dp"
             tools:layout_editor_absoluteY="432dp" />
@@ -101,21 +107,32 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/bt_search_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/locationPrompt"
-            tools:layout_editor_absoluteX="135dp"
-            tools:layout_editor_absoluteY="537dp" />
-        
-        <CheckBox
+            android:ems="10"
+            android:hint="@string/search"
+            android:autofillHints="@string/search"
+            tools:layout_editor_absoluteX="176dp"
+            tools:layout_editor_absoluteY="432dp"
+            android:onClick="onSearchButtonClick"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="21dp"
-            tools:layout_editor_absoluteY="525dp" 
-            android:onClick="onlocationCheckBoxClick"/>
+            tools:layout_editor_absoluteY="525dp"
+            android:text="@string/locationPrompt"
+            android:onClick="onUseMyLocationButtonClick"/>
         
     </LinearLayout>
 
@@ -127,6 +144,7 @@
             android:layout_height="wrap_content"
             android:text="@string/registerUser"
             tools:layout_editor_absoluteX="125dp"
-            tools:layout_editor_absoluteY="661dp" />
+            tools:layout_editor_absoluteY="661dp"
+            android:onClick="onRegisterButtonClick"/>
     </LinearLayout>
 </LinearLayout>
