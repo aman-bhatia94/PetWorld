@@ -73,8 +73,8 @@ public class OwnerDataService {
                                  if (ownerQueryResponse.location() == null)
                                      return;
                                  location.setId(Objects.requireNonNull(ownerQueryResponse.location()).id());
-                                 location.setLatitude(Double.parseDouble(Objects.requireNonNull(ownerQueryResponse.location()).latitude()));
-                                 location.setLongitude(Double.parseDouble(Objects.requireNonNull(ownerQueryResponse.location()).longitude()));
+                                 location.setLatitude((Objects.requireNonNull(ownerQueryResponse.location()).latitude()));
+                                 location.setLongitude((Objects.requireNonNull(ownerQueryResponse.location()).longitude()));
                                  location.setDisplayName(Objects.requireNonNull(ownerQueryResponse.location()).displayName());
                                  responseData.setLocation(location);
                              }

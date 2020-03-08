@@ -60,6 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     //service specific declarations
     private LocationIQRESTService locationIQRESTService;
+    private Intent locationRESTIntent;
+    private boolean bound = false;
 
     private ServiceConnection connection = new ServiceConnection() {
         @Override
@@ -68,12 +70,13 @@ public class RegisterActivity extends AppCompatActivity {
                     = (LocationIQRESTService.LocationIQBinder) binder;
 
             locationIQRESTService = locationIQBinder.getLocationRESTServiceBinder();
-
+            bound = true;
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             //unbounded from service
+            bound = false;
         }
     };
 
@@ -174,15 +177,29 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         ownerDataService = new OwnerDataService(ClientFactory.appSyncClient());
         locationDataService = new LocationDataService(ClientFactory.appSyncClient());
-        /*awsAppSyncClient = AWSAppSyncClient.builder()
-                .context(getApplicationContext())
-                .awsConfiguration(new AWSConfiguration(getApplicationContext()))
-                .build();*/
-
         if(savedInstanceState != null){
 
+            emailId = savedInstanceState.getString("userEmail");
+            password = savedInstanceState.getString("password");
+            firstName = savedInstanceState.getString("firstName");
+            lastName = savedInstanceState.getString("lastName");
+            location = savedInstanceState.getString("location");
+            phoneNumber = savedInstanceState.getString("phoneNumber");
+            latitude = savedInstanceState.getString("latitude");
+            longitude = savedInstanceState.getString("longitude");
+            useUserLocation = savedInstanceState.getBoolean("useUserLocation");
+
+            locationRESTIntent = new Intent(this,LocationIQRESTService.class);
+            if(latitude == null || longitude == null){
+                bindService(locationRESTIntent,connection,Context.BIND_AUTO_CREATE);
+            }
+
         }
-        ClientFactory.init(this);
+        else {
+            locationRESTIntent = new Intent(this, LocationIQRESTService.class);
+            ClientFactory.init(this);
+            bindService(locationRESTIntent, connection, Context.BIND_AUTO_CREATE);
+        }
     }
 
     @Override
