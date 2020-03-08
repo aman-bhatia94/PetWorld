@@ -3,8 +3,8 @@ package com.ateam.petworld.models;
 public class Location {
 
     private String id;
-    private double longitude;
-    private double latitude;
+    private String longitude;
+    private String latitude;
     private String displayName;
     private String displayPlace;
     private String displayAddress;
@@ -107,19 +107,19 @@ public class Location {
         this.id = id;
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 

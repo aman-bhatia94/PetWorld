@@ -1,5 +1,6 @@
 package com.ateam.petworld.interfaces;
 import com.ateam.petworld.models.Location;
+import com.ateam.petworld.models.LocationIQREST;
 import com.ateam.petworld.models.PossibleLocations;
 
 import retrofit2.Call;
@@ -10,7 +11,7 @@ public interface LocationApiWebService {
 
 
     @GET("reverse.php")
-    Call<Location> getUserLocation(@Query("api_key") String apiKey, @Query("lat") String latitude, @Query("lon") String longitude, @Query("format") String format);
+    Call<LocationIQREST> getUserLocation(@Query("api_key") String apiKey, @Query("lat") String latitude, @Query("lon") String longitude, @Query("format") String format);
 
     @GET("autocomplete.php")
     Call<PossibleLocations> getAllPossibleLocations(@Query("api_key") String apiKey,@Query("location") String location);

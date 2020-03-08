@@ -66,8 +66,8 @@ public class LocationDataService {
                                  responseData.setCountryCode(locationQueryResponse.countryCode());
                                  responseData.setDisplayName(locationQueryResponse.displayName());
                                  responseData.setHouseNumber(locationQueryResponse.houseNo());
-                                 responseData.setLatitude(Double.parseDouble(locationQueryResponse.latitude()));
-                                 responseData.setLongitude(Double.parseDouble(locationQueryResponse.longitude()));
+                                 responseData.setLatitude(locationQueryResponse.latitude());
+                                 responseData.setLongitude(locationQueryResponse.longitude());
                                  responseData.setDisplayPlace(locationQueryResponse.displayPlace());
                                  responseData.setName(locationQueryResponse.name());
                                  responseData.setNeighbourhood(locationQueryResponse.neighbourhood());

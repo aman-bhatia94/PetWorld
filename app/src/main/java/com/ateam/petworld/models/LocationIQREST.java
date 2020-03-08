@@ -3,6 +3,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class LocationIQREST {
 
+    @SerializedName("place_id")
+    private String id;
+
     @SerializedName("display_name")
     private String displayName;
 
@@ -30,6 +33,14 @@ public class LocationIQREST {
         this.address = address;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getDisplayName() {
         return displayName;
     }
@@ -54,6 +65,44 @@ public class LocationIQREST {
         return address;
     }
 
+    public String getName() {
+        return address.getName();
+    }
 
+    public String getHouseNumber() {
+        return address.getHouseNumber();
+    }
+
+    public String getRoad() {
+        return address.getRoad();
+    }
+
+    public String getNeighbourhood() {
+        return address.getNeighbourhood();
+    }
+
+    public String getSuburb() {
+        return address.getSuburb();
+    }
+
+    public String getCity() {
+        return address.getCity();
+    }
+
+    public String getState() {
+        return address.getState();
+    }
+
+    public String getPostcode() {
+        return address.getPostcode();
+    }
+
+    public String getCountry() {
+        return address.getCountry();
+    }
+
+    public String getCountry_code() {
+        return address.getCountry_code();
+    }
 
 }
