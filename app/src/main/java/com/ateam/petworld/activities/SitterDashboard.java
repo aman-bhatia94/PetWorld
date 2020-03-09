@@ -21,6 +21,5 @@ public class SitterDashboard extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rv_sitter_appointment_list);
         List<Appointments> sitterAppointmentList = new ArrayList<>();
         recyclerView.setAdapter(new OwnerAppointmentListAdapter(sitterAppointmentList));
-
     }
 }

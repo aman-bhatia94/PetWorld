@@ -2,7 +2,7 @@ package com.ateam.petworld.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Address{
+public class Address {
     @SerializedName("name")
     private String name;
 
