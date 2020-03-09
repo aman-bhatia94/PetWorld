@@ -1,4 +1,5 @@
 package com.ateam.petworld.models;
+
 import com.google.gson.annotations.SerializedName;
 
 public class LocationIQREST {
@@ -16,15 +17,15 @@ public class LocationIQREST {
     private String displayAddress;
 
     @SerializedName("lat")
-    private String latitude;
+    private double latitude;
 
     @SerializedName("lon")
-    private String longitude;
+    private double longitude;
 
     @SerializedName("address")
     private Address address;
 
-    public LocationIQREST(String displayName, String displayPlace, String displayAddress, String latitude, String longitude, Address address) {
+    public LocationIQREST(String displayName, String displayPlace, String displayAddress, double latitude, double longitude, Address address) {
         this.displayName = displayName;
         this.displayPlace = displayPlace;
         this.displayAddress = displayAddress;
@@ -53,11 +54,11 @@ public class LocationIQREST {
         return displayAddress;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 

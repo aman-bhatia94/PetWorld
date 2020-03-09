@@ -1,7 +1,5 @@
 package com.ateam.petworld.models;
 
-import android.media.Image;
-
 import java.io.Serializable;
 
 
@@ -10,18 +8,17 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String id;
-    private int roleId;
     private Location location;
     private String emailId;
     private String password;
     private String phoneNumber;
-    private Image displayImage;
+    private String displayImage;
 
-    public Image getDisplayImage() {
+    public String getDisplayImage() {
         return displayImage;
     }
 
-    public void setDisplayImage(Image displayImage) {
+    public void setDisplayImage(String displayImage) {
         this.displayImage = displayImage;
     }
 
@@ -71,14 +68,6 @@ public class User implements Serializable {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
     }
 
     public Location getLocation() {

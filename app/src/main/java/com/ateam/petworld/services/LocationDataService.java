@@ -66,8 +66,8 @@ public class LocationDataService {
                                  responseData.setCountryCode(locationQueryResponse.countryCode());
                                  responseData.setDisplayName(locationQueryResponse.displayName());
                                  responseData.setHouseNumber(locationQueryResponse.houseNo());
-                                 responseData.setLatitude(locationQueryResponse.latitude());
-                                 responseData.setLongitude(locationQueryResponse.longitude());
+                                 responseData.setLatitude(Double.parseDouble(locationQueryResponse.latitude()));
+                                 responseData.setLongitude(Double.parseDouble(locationQueryResponse.longitude()));
                                  responseData.setDisplayPlace(locationQueryResponse.displayPlace());
                                  responseData.setName(locationQueryResponse.name());
                                  responseData.setNeighbourhood(locationQueryResponse.neighbourhood());
@@ -75,7 +75,6 @@ public class LocationDataService {
                                  responseData.setRoad(locationQueryResponse.road());
                                  responseData.setState(locationQueryResponse.state());
                                  responseData.setSuburb(locationQueryResponse.suburb());
-
                              }
 
                              @Override
@@ -86,6 +85,4 @@ public class LocationDataService {
                 );
         return responseData;
     }
-
-
 }
