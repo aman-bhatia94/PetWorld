@@ -26,7 +26,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 
-public class LocationIQRESTService extends Service {
+public class LocationIQRESTService{
 
 
     static final String BASE_URL = "https://us1.locationiq.com/v1/";
@@ -34,21 +34,6 @@ public class LocationIQRESTService extends Service {
     static Retrofit retrofit = null;
     Location location;
     List<Location> possibleLocations;
-
-    private final IBinder binder = new LocationIQBinder();
-
-    public class LocationIQBinder extends Binder{
-        public LocationIQRESTService getLocationRESTServiceBinder(){
-            return LocationIQRESTService.this;
-        }
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) {
-
-        return binder;
-    }
 
     public Location fetchUserLocation(String longitude, String latitude){
         if (retrofit == null) {

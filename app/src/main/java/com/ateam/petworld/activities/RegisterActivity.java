@@ -6,36 +6,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
-import android.provider.Settings;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.RadioButton;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.amazonaws.mobile.config.AWSConfiguration;
-import com.amazonaws.mobileconnectors.appsync.AWSAppSyncClient;
 import com.ateam.petworld.R;
-import com.ateam.petworld.factory.ClientFactory;
-import com.ateam.petworld.models.Owner;
-import com.ateam.petworld.services.LocationDataService;
+import com.ateam.petworld.models.Location;
 import com.ateam.petworld.services.LocationIQRESTService;
-import com.ateam.petworld.services.OwnerDataService;
+import com.ateam.petworld.services.MyLocationService;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
-import java.util.List;
+import java.util.ArrayList;
+
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -48,135 +36,41 @@ public class RegisterActivity extends AppCompatActivity {
     private String latitude;
     private String longitude;
     private boolean useUserLocation;
-    private com.ateam.petworld.models.Location userLocationData;
-    private Owner owner;
-    private AWSAppSyncClient awsAppSyncClient;
+    private boolean isOwner;
+    private Location location;
 
-    OwnerDataService ownerDataService;
-    LocationDataService locationDataService;
-    //Location specific declarations
-    private int PERMISSION_ID = 1;
-    FusedLocationProviderClient mFusedLocationClient;
-
-    //service specific declarations
     private LocationIQRESTService locationIQRESTService;
-    private Intent locationRESTIntent;
+
+    //Android coordinates specific declarations
+    int PERMISSION_ID = 44;
+    private MyLocationService locationService;
+    Intent intentLocations;
+    ArrayList<String> coordinates = new ArrayList<>();
     private boolean bound = false;
 
+    //Create a service connection
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder binder) {
-            LocationIQRESTService.LocationIQBinder locationIQBinder
-                    = (LocationIQRESTService.LocationIQBinder) binder;
 
-            locationIQRESTService = locationIQBinder.getLocationRESTServiceBinder();
+            MyLocationService.LocationBinder locationBinder =
+                    (MyLocationService.LocationBinder) binder;
+
+            locationService = locationBinder.getLoc();
             bound = true;
+
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            //unbounded from service
             bound = false;
-        }
-    };
-
-    //source https://www.androdocs.com/java/getting-current-location-latitude-longitude-in-android-using-java.html
-    private boolean checkPermissions() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        return false;
-    }
-
-    //source https://www.androdocs.com/java/getting-current-location-latitude-longitude-in-android-using-java.html
-    private void requestPermissions() {
-        ActivityCompat.requestPermissions(
-                this,
-                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
-                PERMISSION_ID
-        );
-    }
-
-    //source https://www.androdocs.com/java/getting-current-location-latitude-longitude-in-android-using-java.html
-    private boolean isLocationEnabled() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-                LocationManager.NETWORK_PROVIDER
-        );
-    }
-
-    //source https://www.androdocs.com/java/getting-current-location-latitude-longitude-in-android-using-java.html
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_ID) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Granted. Start getting the location information
-                getLastLocation();
-            }
-        }
-    }
-
-    private void getLastLocation(){
-        if (checkPermissions()) {
-            if (isLocationEnabled()) {
-                mFusedLocationClient.getLastLocation().addOnCompleteListener(
-                        new OnCompleteListener<Location>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Location> task) {
-                                Location location = task.getResult();
-                                if (location == null) {
-                                    requestNewLocationData();
-                                } else {
-                                    latitude = location.getLatitude()+"";
-                                    longitude = location.getLongitude()+"";
-                                }
-                            }
-                        }
-                );
-            } else {
-                Toast.makeText(this, "Turn on location", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-            }
-        } else {
-            requestPermissions();
-        }
-    }
-
-    private void requestNewLocationData(){
-
-        LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setNumUpdates(1);
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        mFusedLocationClient.requestLocationUpdates(
-                mLocationRequest, mLocationCallback,
-                Looper.myLooper()
-        );
-
-    }
-
-    private LocationCallback mLocationCallback = new LocationCallback() {
-        @Override
-        public void onLocationResult(LocationResult locationResult) {
-            Location mLastLocation = locationResult.getLastLocation();
-
-            latitude = mLastLocation.getLatitude()+"";
-            longitude = mLastLocation.getLongitude()+"";
-
         }
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         setContentView(R.layout.activity_register);
-        ownerDataService = new OwnerDataService(ClientFactory.appSyncClient());
-        locationDataService = new LocationDataService(ClientFactory.appSyncClient());
         if(savedInstanceState != null){
 
             emailId = savedInstanceState.getString("userEmail");
@@ -188,20 +82,64 @@ public class RegisterActivity extends AppCompatActivity {
             latitude = savedInstanceState.getString("latitude");
             longitude = savedInstanceState.getString("longitude");
             useUserLocation = savedInstanceState.getBoolean("useUserLocation");
-
-            locationRESTIntent = new Intent(this,LocationIQRESTService.class);
-            if(latitude == null || longitude == null){
-                bindService(locationRESTIntent,connection,Context.BIND_AUTO_CREATE);
-            }
-
+            isOwner = savedInstanceState.getBoolean("isOwner");
+            bindService(intentLocations,connection, Context.BIND_AUTO_CREATE);
         }
-        else {
-            locationRESTIntent = new Intent(this, LocationIQRESTService.class);
-            ClientFactory.init(this);
-            bindService(locationRESTIntent, connection, Context.BIND_AUTO_CREATE);
-        }
+        intentLocations = new Intent(this,MyLocationService.class);
+        bindService(intentLocations,connection, Context.BIND_AUTO_CREATE);
     }
 
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                PERMISSION_ID
+        );
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_ID) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                coordinates = locationService.getLastLocation();
+            }
+        }
+        latitude = coordinates.get(0);
+        longitude = coordinates.get(1);
+
+        //fetched location based on the coordinates from LocationIQREST done(in RequestPermission)
+
+        location =
+
+
+    }
+
+    private void runLocationService() {
+
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                //new code
+                if(bound){
+                    coordinates = locationService.getLastLocation();
+                    if(coordinates.size() == 0 || coordinates.get(0).equals("no_permission")){
+                        //request permission
+                        requestPermissions();
+                    }
+                    else{
+                        latitude = coordinates.get(0);
+                        longitude = coordinates.get(1);
+                    }
+                }
+                if(!bound){
+                    handler.postDelayed(this,1000);
+                }
+            }
+        });
+
+    }
     @Override
     public void onSaveInstanceState(Bundle savedInstance) {
 
@@ -215,57 +153,53 @@ public class RegisterActivity extends AppCompatActivity {
         savedInstance.putString("latitude",latitude);
         savedInstance.putString("longitude",longitude);
         savedInstance.putBoolean("useUserLocation",useUserLocation);
-
+        savedInstance.putBoolean("isOwner",isOwner);
     }
-
-
 
     public void onSearchButtonClick(View view) {
 
-        List<com.ateam.petworld.models.Location> locations = locationIQRESTService.fetchUserLocation(location);
+        //List<com.ateam.petworld.models.Location> locations = locationIQRESTService.fetchUserLocation(location);
         //give the user an option to select one of these
-
 
     }
 
     public void onRegisterButtonClick(View view) {
 
-        //add location only if not already present
-        com.ateam.petworld.models.Location location = locationDataService.getLocation(userLocationData);
-        if(location != null){
-            //location already exists
+        //Use the fetched location based on the coordinates from LocationIQREST done(in RequestPermission)
 
-        }
-        else{
-            locationDataService.createLocation(userLocationData);
-        }
-        //add owner data
-        owner = new Owner();
-        owner.setEmailId(emailId);
-        owner.setPassword(password);
-        owner.setFirstName(firstName);
-        owner.setLastName(lastName);
-        owner.setPhoneNumber(phoneNumber);
-        owner.setLocation(userLocationData);
+        //check if this location is present in database
 
-        ownerDataService.createOwner(owner);
+        //if not add it
 
-        Intent intent = new Intent(this,LoginActivity.class);
-        startActivity(intent);
+        //check if owner or sitter
 
+        //check if the user is already present, based on email id
+
+        //if present dont add
+        //else
+        //add to the database
 
     }
 
     public void onUseMyLocationButtonClick(View view) {
 
-        useUserLocation = true;
-        getLastLocation();
-        userLocationData = locationIQRESTService.fetchUserLocation(longitude,latitude);
+        runLocationService();
+    }
 
-        //if location already exists
-        //just map it to the owner
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
 
-
-
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.rb_owner:
+                if (checked)
+                    isOwner = true;
+                    break;
+            case R.id.rb_sitter:
+                if (checked)
+                    isOwner = false;
+                    break;
+        }
     }
 }

@@ -20,6 +20,7 @@
         android:theme="@style/AppTheme">
 
         <service android:name="org.eclipse.paho.android.service.MqttService" />
+        <service android:name="com.ateam.petworld.services.MyLocationService" />
 
         <activity android:name=".activities.BookAppointment" />
         <activity android:name=".activities.Profile" />
