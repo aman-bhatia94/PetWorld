@@ -17,5 +17,4 @@
     <string name="dp_select_dates_msg">Please select the start and end dates</string>
     <string name="dateFormat" translatable="false">ddMMyyyy</string>
     <string name="booking_success">Successfully Booked!</string>
-    
 </resources>

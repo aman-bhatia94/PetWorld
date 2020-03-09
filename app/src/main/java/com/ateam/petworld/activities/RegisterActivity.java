@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String longitude;
     private boolean useUserLocation;
     private boolean isOwner;
-    private Location location;
+    private Location fetchedLocation;
 
     private LocationIQRESTService locationIQRESTService;
 
@@ -85,6 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
             isOwner = savedInstanceState.getBoolean("isOwner");
             bindService(intentLocations,connection, Context.BIND_AUTO_CREATE);
         }
+        locationIQRESTService = new LocationIQRESTService();
         intentLocations = new Intent(this,MyLocationService.class);
         bindService(intentLocations,connection, Context.BIND_AUTO_CREATE);
     }
@@ -109,10 +110,17 @@ public class RegisterActivity extends AppCompatActivity {
         longitude = coordinates.get(1);
 
         //fetched location based on the coordinates from LocationIQREST done(in RequestPermission)
-
-        location =
-
-
+        System.out.println("latitude: "+latitude);
+        System.out.println("longitude"+longitude);
+        fetchedLocation = locationIQRESTService.fetchUserLocation(longitude,latitude);
+        if(fetchedLocation == null){
+            //couldn't fetch
+            System.out.println("could not fetch the location");
+        }
+        else{
+            //fetched
+            System.out.println("fetched the location");
+        }
     }
 
     private void runLocationService() {

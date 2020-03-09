@@ -13,6 +13,8 @@ import com.ateam.petworld.models.Location;
 import com.ateam.petworld.models.LocationIQREST;
 import com.ateam.petworld.models.PossibleLocations;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class LocationIQRESTService{
         call.enqueue(new Callback<LocationIQREST>() {
             @Override
             public void onResponse(Call<LocationIQREST> call, Response<LocationIQREST> response) {
-
+                location = new Location();
                 location.setId(response.body().getId());
                 location.setLatitude(response.body().getLatitude());
                 location.setLongitude(response.body().getLongitude());
