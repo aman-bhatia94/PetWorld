@@ -65,7 +65,7 @@ public class LocationIQRESTService {
         return location;
     }
 
-    public List<Location> fetchUserLocation(String userLocation) {
+    public List<Location> autoCompleteLocations(String userLocation, String countryCode) {
 
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
@@ -75,7 +75,7 @@ public class LocationIQRESTService {
         }
 
         LocationApiWebService locationApiWebService = retrofit.create(LocationApiWebService.class);
-        Call<PossibleLocations> call = locationApiWebService.getAllPossibleLocations(api_key, userLocation);
+        Call<PossibleLocations> call = locationApiWebService.getAllPossibleLocations(api_key, userLocation, countryCode);
         call.enqueue(new Callback<PossibleLocations>() {
             @Override
             public void onResponse(Call<PossibleLocations> call, Response<PossibleLocations> response) {
