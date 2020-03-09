@@ -28,32 +28,16 @@
             android:baselineAligned="false"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <EditText
+                android:id="@+id/et_search_sitter_name_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:drawableRight="@drawable/ic_search"
+                android:hint="Search Text"
+                android:inputType="textPersonName" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Filter By:"
-                    android:textSize="@dimen/text_view_default_size" />
-
-                <Spinner
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableRight="@drawable/ic_search"
-                    android:hint="Search Text"
-                    android:inputType="textPersonName" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"

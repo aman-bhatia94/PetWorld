@@ -116,7 +116,7 @@ public class BookAppointment extends AppCompatActivity implements SlyCalendarDia
             goToDashBoard();
         } else {
             Toast.makeText(this,
-                    getString(R.string.dp_select_dates_msg),
+                    "( Aman is an asshole)" + getString(R.string.dp_select_dates_msg),
                     Toast.LENGTH_LONG
             ).show();
         }

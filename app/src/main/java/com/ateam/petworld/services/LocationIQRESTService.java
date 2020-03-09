@@ -5,7 +5,6 @@ import android.util.Log;
 import com.ateam.petworld.interfaces.LocationApiWebService;
 import com.ateam.petworld.models.Location;
 import com.ateam.petworld.models.LocationIQREST;
-import com.ateam.petworld.models.PossibleLocations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +22,10 @@ public class LocationIQRESTService {
     static final String api_key = "e7570b7ec4b574";
     static Retrofit retrofit = null;
     Location location;
+    Location loc;
     List<Location> possibleLocations;
 
-    public LocationIQRESTService(){
+    public LocationIQRESTService() {
         location = new Location();
         possibleLocations = new ArrayList<>();
     }
@@ -78,17 +78,26 @@ public class LocationIQRESTService {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }
-
+//        possibleLocations = new ArrayList<>();
         LocationApiWebService locationApiWebService = retrofit.create(LocationApiWebService.class);
-        Call<PossibleLocations> call = locationApiWebService.getAllPossibleLocations(api_key, userLocation, countryCode);
-        call.enqueue(new Callback<PossibleLocations>() {
+        Call<List<LocationIQREST>> call = locationApiWebService.getAllPossibleLocations(api_key, userLocation, countryCode);
+        call.enqueue(new Callback<List<LocationIQREST>>() {
             @Override
-            public void onResponse(Call<PossibleLocations> call, Response<PossibleLocations> response) {
-                possibleLocations = (List<Location>) response.body();
+            public void onResponse(Call<List<LocationIQREST>> call, Response<List<LocationIQREST>> response) {
+                List<LocationIQREST> result = response.body();
+//                possibleLocations = new ArrayList<>();
+                for (LocationIQREST eachObj : result) {
+                    location = new Location();
+                    location.setId(eachObj.getId());
+                    location.setDisplayName(eachObj.getDisplayName());
+                    location.setDisplayPlace(eachObj.getDisplayPlace());
+                    location.setDisplayAddress(eachObj.getDisplayAddress());
+                    possibleLocations.add(location);
+                }
             }
 
             @Override
-            public void onFailure(Call<PossibleLocations> call, Throwable t) {
+            public void onFailure(Call<List<LocationIQREST>> call, Throwable t) {
                 Log.e("error", t.toString());
                 possibleLocations = null;
             }
