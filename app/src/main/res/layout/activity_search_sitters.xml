@@ -10,7 +10,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="Search"
         android:textAlignment="center"
         android:textSize="@dimen/text_view_header1_size" />
@@ -20,15 +19,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginVertical="@dimen/element_default_margin"
-        android:layout_weight="1"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"

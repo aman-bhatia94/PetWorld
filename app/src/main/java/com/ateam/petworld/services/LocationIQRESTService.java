@@ -1,19 +1,12 @@
 package com.ateam.petworld.services;
-import android.app.Service;
-import android.content.Intent;
-import android.os.Binder;
-import android.os.IBinder;
+
 import android.util.Log;
 
-import androidx.annotation.Nullable;
-
 import com.ateam.petworld.interfaces.LocationApiWebService;
-import com.ateam.petworld.models.Address;
 import com.ateam.petworld.models.Location;
 import com.ateam.petworld.models.LocationIQREST;
 import com.ateam.petworld.models.PossibleLocations;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,13 +14,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 
-public class LocationIQRESTService{
-
+public class LocationIQRESTService {
 
     static final String BASE_URL = "https://us1.locationiq.com/v1/";
     static final String api_key = "e7570b7ec4b574";
@@ -35,7 +24,7 @@ public class LocationIQRESTService{
     Location location;
     List<Location> possibleLocations;
 
-    public Location fetchUserLocation(String longitude, String latitude){
+    public Location fetchUserLocation(String longitude, String latitude) {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
@@ -44,7 +33,7 @@ public class LocationIQRESTService{
         }
 
         LocationApiWebService locationApiWebService = retrofit.create(LocationApiWebService.class);
-        Call<LocationIQREST> call = locationApiWebService.getUserLocation(api_key,latitude,longitude,"json");
+        Call<LocationIQREST> call = locationApiWebService.getUserLocation(api_key, latitude, longitude, "json");
         call.enqueue(new Callback<LocationIQREST>() {
             @Override
             public void onResponse(Call<LocationIQREST> call, Response<LocationIQREST> response) {
@@ -70,14 +59,14 @@ public class LocationIQRESTService{
 
             @Override
             public void onFailure(Call<LocationIQREST> call, Throwable t) {
-                Log.e("error",t.toString());
+                Log.e("error", t.toString());
                 location = null;
             }
         });
         return location;
     }
 
-    public List<Location> fetchUserLocation(String userLocation){
+    public List<Location> fetchUserLocation(String userLocation) {
 
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
@@ -87,7 +76,7 @@ public class LocationIQRESTService{
         }
 
         LocationApiWebService locationApiWebService = retrofit.create(LocationApiWebService.class);
-        Call<PossibleLocations> call = locationApiWebService.getAllPossibleLocations(api_key,userLocation);
+        Call<PossibleLocations> call = locationApiWebService.getAllPossibleLocations(api_key, userLocation);
         call.enqueue(new Callback<PossibleLocations>() {
             @Override
             public void onResponse(Call<PossibleLocations> call, Response<PossibleLocations> response) {
@@ -96,7 +85,7 @@ public class LocationIQRESTService{
 
             @Override
             public void onFailure(Call<PossibleLocations> call, Throwable t) {
-                Log.e("error",t.toString());
+                Log.e("error", t.toString());
                 possibleLocations = null;
             }
         });

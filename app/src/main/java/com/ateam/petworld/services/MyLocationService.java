@@ -2,7 +2,6 @@ package com.ateam.petworld.services;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -16,8 +15,6 @@ import android.provider.Settings;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatCallback;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -42,27 +39,8 @@ public class MyLocationService extends Service {
 
     private final IBinder binder = new LocationBinder();
 
-    public class LocationBinder extends Binder {
-
-        public MyLocationService getLoc(){
-            return MyLocationService.this;
-        }
-
-
-    }
-
-    //called when a component wants to bind to a service
-    @Override
-    public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        System.out.println("I am bound now ");
-        return binder;
-    }
-
     @SuppressLint("MissingPermission")
-    public ArrayList<String> getLastLocation(){
+    public ArrayList<String> getLastLocation() {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 mFusedLocationClient.getLastLocation().addOnCompleteListener(
@@ -73,8 +51,8 @@ public class MyLocationService extends Service {
                                 if (location == null) {
                                     requestNewLocationData();
                                 } else {
-                                    latitude = location.getLatitude()+"";
-                                    longitude = location.getLongitude()+"";
+                                    latitude = location.getLatitude() + "";
+                                    longitude = location.getLongitude() + "";
                                     coordinates.add(latitude);
                                     coordinates.add(longitude);
 
@@ -96,8 +74,18 @@ public class MyLocationService extends Service {
         return coordinates;
     }
 
+    //called when a component wants to bind to a service
+    @Override
+    public IBinder onBind(Intent intent) {
+        // TODO: Return the communication channel to the service.
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        System.out.println("I am bound now ");
+        return binder;
+    }
+
     @SuppressLint("MissingPermission")
-    private void requestNewLocationData(){
+    private void requestNewLocationData() {
 
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -111,6 +99,13 @@ public class MyLocationService extends Service {
                 Looper.myLooper()
         );
 
+    }
+
+    public class LocationBinder extends Binder {
+
+        public MyLocationService getLoc() {
+            return MyLocationService.this;
+        }
     }
 
     private LocationCallback mLocationCallback = new LocationCallback() {
@@ -131,7 +126,6 @@ public class MyLocationService extends Service {
         }
         return false;
     }
-
 
 
     private boolean isLocationEnabled() {

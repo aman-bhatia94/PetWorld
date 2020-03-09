@@ -54,11 +54,6 @@ public class SearchSitters extends AppCompatActivity {
                 tvNoResultsFound.setVisibility(View.VISIBLE);
             }
         }, 500);
-
-//        Button button = findViewById(R.id.btn_book_appointment);
-//        button.setOnClickListener(view -> {
-//
-//        });
     }
 
     public void bookAppointment(Sitter sitter) {

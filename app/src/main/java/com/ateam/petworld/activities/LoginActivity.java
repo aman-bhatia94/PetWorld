@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
 
         }
         ClientFactory.init(this);
@@ -65,18 +65,19 @@ public class LoginActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstance) {
 
         super.onSaveInstanceState(savedInstance);
-        savedInstance.putString("userEmail",emailId);
-        savedInstance.putString("userPassword",password);
+        savedInstance.putString("userEmail", emailId);
+        savedInstance.putString("userPassword", password);
 
     }
+
     //method that handles the behavior after user has clicked Login
     public void onClickLogin(View view) {
 
 
-        EditText etEmail = (EditText)findViewById(R.id.et_user_email_id);
+        EditText etEmail = (EditText) findViewById(R.id.et_user_email_id);
         emailId = etEmail.getText().toString();
 
-        EditText etPassword = (EditText)findViewById(R.id.et_user_password);
+        EditText etPassword = (EditText) findViewById(R.id.et_user_password);
         password = etPassword.getText().toString();
 
         //check if this user exists or not
@@ -84,17 +85,15 @@ public class LoginActivity extends AppCompatActivity {
         owner.setPassword(password);
 
         Owner ownerExists = ownerDataService.getOwner(owner);
-        if(ownerExists == null){
-            Toast toast = Toast.makeText(getApplicationContext(),"User doesn't exist",Toast.LENGTH_LONG);
-            Intent intent = new Intent(this,LoginActivity.class);
+        if (ownerExists == null) {
+            Toast toast = Toast.makeText(getApplicationContext(), "User doesn't exist", Toast.LENGTH_LONG);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-        }
-        else{
+        } else {
             Intent intent = new Intent(this, OwnerDashboard.class);
-            intent.putExtra("owner",ownerExists);
+            intent.putExtra("owner", ownerExists);
             startActivity(intent);
         }
-
 
 
     }
