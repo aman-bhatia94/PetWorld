@@ -6,6 +6,8 @@ import com.ateam.petworld.interfaces.LocationApiWebService;
 import com.ateam.petworld.models.Location;
 import com.ateam.petworld.models.LocationIQREST;
 import com.ateam.petworld.models.PossibleLocations;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -23,6 +25,11 @@ public class LocationIQRESTService {
     Location location;
     List<Location> possibleLocations;
 
+    public LocationIQRESTService(){
+        location = new Location();
+        possibleLocations = new ArrayList<>();
+    }
+
     public Location fetchUserLocation(String longitude, String latitude) {
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
@@ -36,7 +43,7 @@ public class LocationIQRESTService {
         call.enqueue(new Callback<LocationIQREST>() {
             @Override
             public void onResponse(Call<LocationIQREST> call, Response<LocationIQREST> response) {
-                location = new Location();
+
                 location.setId(response.body().getId());
                 location.setLatitude(response.body().getLatitude());
                 location.setLongitude(response.body().getLongitude());
@@ -52,8 +59,6 @@ public class LocationIQRESTService {
                 location.setSuburb(response.body().getSuburb());
                 location.setDisplayPlace(response.body().getDisplayPlace());
                 location.setDisplayName(response.body().getDisplayName());
-
-
             }
 
             @Override

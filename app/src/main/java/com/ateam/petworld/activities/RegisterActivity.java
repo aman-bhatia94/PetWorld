@@ -16,11 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.ateam.petworld.R;
+
 import com.ateam.petworld.models.Location;
+
 import com.ateam.petworld.services.LocationIQRESTService;
 import com.ateam.petworld.services.MyLocationService;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
+
 
 import java.util.ArrayList;
 
@@ -113,6 +114,10 @@ public class RegisterActivity extends AppCompatActivity {
         System.out.println("latitude: "+latitude);
         System.out.println("longitude"+longitude);
         fetchedLocation = locationIQRESTService.fetchUserLocation(longitude,latitude);
+
+        //creating a delayed handler to handle this event
+        final Handler handler = new Handler();
+
         if(fetchedLocation == null){
             //couldn't fetch
             System.out.println("could not fetch the location");
@@ -121,6 +126,17 @@ public class RegisterActivity extends AppCompatActivity {
             //fetched
             System.out.println("fetched the location");
         }
+
+        /*handler.postDelayed(() -> {
+            if(fetchedLocation == null){
+                //couldn't fetch
+                System.out.println("could not fetch the location");
+            }
+            else{
+                //fetched
+                System.out.println("fetched the location");
+            }
+        }, 500);*/
     }
 
     private void runLocationService() {
