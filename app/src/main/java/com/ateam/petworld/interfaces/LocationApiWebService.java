@@ -11,9 +11,9 @@ public interface LocationApiWebService {
 
 
     @GET("reverse.php")
-    Call<LocationIQREST> getUserLocation(@Query("api_key") String apiKey, @Query("lat") String latitude, @Query("lon") String longitude, @Query("format") String format);
+    Call<LocationIQREST> getUserLocation(@Query("key") String apiKey, @Query("lat") String latitude, @Query("lon") String longitude, @Query("format") String format);
 
     @GET("autocomplete.php")
-    Call<PossibleLocations> getAllPossibleLocations(@Query("api_key") String apiKey, @Query("location") String location);
+    Call<PossibleLocations> getAllPossibleLocations(@Query("key") String apiKey, @Query("q") String location, @Query("countrycodes") String countryCode);
 
 }

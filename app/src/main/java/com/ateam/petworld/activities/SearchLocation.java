@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchLocation extends AppCompatActivity {
+    String searchText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,14 @@ public class SearchLocation extends AppCompatActivity {
     }
 
     private void getLocations() {
-
+        final Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                //new code
+                handler.postDelayed(this, 1000);
+            }
+        });
     }
 
 }
