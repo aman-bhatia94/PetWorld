@@ -72,10 +72,10 @@ public class OwnerDataService {
                                  Location location = new Location();
                                  if (ownerQueryResponse.location() == null)
                                      return;
-                                 location.setId(Objects.requireNonNull(ownerQueryResponse.location()).id());
-                                 location.setLatitude((Objects.requireNonNull(ownerQueryResponse.location()).latitude()));
-                                 location.setLongitude((Objects.requireNonNull(ownerQueryResponse.location()).longitude()));
-                                 location.setDisplayName(Objects.requireNonNull(ownerQueryResponse.location()).displayName());
+                                 location.setId(ownerQueryResponse.location().id());
+                                 location.setLatitude(Double.parseDouble((ownerQueryResponse.location()).latitude()));
+                                 location.setLongitude(Double.parseDouble((ownerQueryResponse.location()).longitude()));
+                                 location.setDisplayName(ownerQueryResponse.location().displayName());
                                  responseData.setLocation(location);
                              }
 

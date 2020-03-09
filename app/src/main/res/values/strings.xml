@@ -6,7 +6,6 @@
     <string name="userLogin">LogIn</string>
     <string name="firstName">FirstName</string>
     <string name="lastName">LastName</string>
-    <string name="userName">UserName</string>
     <string name="location">Country</string>
     <string name="search">Search</string>
     <string name="phone">PhoneNumber</string>
@@ -14,4 +13,9 @@
     <string name="registerUser">RegisterMe!</string>
     <string name="owner">Owner</string>
     <string name="sitter">Sitter</string>
+    <string name="dp_dateFormat" translatable="false">EE, dd MMM yyyy</string>
+    <string name="dp_select_dates_msg">Please select the start and end dates</string>
+    <string name="dateFormat" translatable="false">ddMMyyyy</string>
+    <string name="booking_success">Successfully Booked!</string>
+    
 </resources>
