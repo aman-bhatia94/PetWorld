@@ -82,8 +82,8 @@ public class BookAppointment extends AppCompatActivity implements SlyCalendarDia
             endDate = secondDate;
             long noOfDays = DateFunctions.calculateNoOfDays(startDate, endDate);
             double totalAmount = noOfDays * sitter.getPayPerDay();
-            tvPayPerDay.setText("$ " + String.valueOf(sitter.getPayPerDay()));
-            tvTotalAmount.setText("$ " + String.valueOf(totalAmount));
+            tvPayPerDay.setText(String.format("%s %s", getString(R.string.dollarSign), sitter.getPayPerDay()));
+            tvTotalAmount.setText(String.format("%s %s", getString(R.string.dollarSign), totalAmount));
             tvNoOfDays.setText(String.valueOf(noOfDays));
             String startDateString = new SimpleDateFormat(getString(R.string.dp_dateFormat), Locale.getDefault()).format(firstDate.getTime());
             String endDateString = new SimpleDateFormat(getString(R.string.dp_dateFormat), Locale.getDefault()).format(secondDate.getTime());
@@ -108,7 +108,7 @@ public class BookAppointment extends AppCompatActivity implements SlyCalendarDia
             appointment.setOwnerId(ownerId);
             appointment.setSitterId(sitterId);
             appointment.setTotalAmount(totalAmount);
-            appointment = appointmentDataService.createAppointment(appointment);
+            appointmentDataService.createAppointment(appointment);
             Toast.makeText(this,
                     getString(R.string.booking_success),
                     Toast.LENGTH_LONG
@@ -116,7 +116,7 @@ public class BookAppointment extends AppCompatActivity implements SlyCalendarDia
             goToDashBoard();
         } else {
             Toast.makeText(this,
-                    "( Aman is an asshole)" + getString(R.string.dp_select_dates_msg),
+                    getString(R.string.dp_select_dates_msg),
                     Toast.LENGTH_LONG
             ).show();
         }

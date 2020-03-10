@@ -7,7 +7,6 @@
     <string name="firstName">FirstName</string>
     <string name="lastName">LastName</string>
     <string name="location">Country</string>
-    <string name="search">Search</string>
     <string name="phone">PhoneNumber</string>
     <string name="locationPrompt">Use my current location</string>
     <string name="registerUser">RegisterMe!</string>
@@ -17,4 +16,10 @@
     <string name="dp_select_dates_msg">Please select the start and end dates</string>
     <string name="dateFormat" translatable="false">ddMMyyyy</string>
     <string name="booking_success">Successfully Booked!</string>
+    <string name="search">Search</string>
+    <string name="search_text">Search Text</string>
+    <string name="sort_by">Sort By:</string>
+    <string name="no_results_found">No Results Found!</string>
+    <string name="user_display_image">User Display Image</string>
+    <string name="dollarSign">\"$ \"</string>
 </resources>

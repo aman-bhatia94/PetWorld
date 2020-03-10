@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search"
+        android:text="@string/search"
         android:textAlignment="center"
         android:textSize="@dimen/text_view_header1_size" />
 
@@ -31,11 +31,12 @@
 
             <EditText
                 android:id="@+id/et_search_sitter_name_text"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawableRight="@drawable/ic_search"
-                android:hint="Search Text"
+                android:autofillHints="Search By Name"
+                android:drawableEnd="@drawable/ic_search"
+                android:hint="@string/search_text"
                 android:inputType="textPersonName" />
 
 
@@ -48,10 +49,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sort By:"
+                    android:text="@string/sort_by"
                     android:textSize="@dimen/text_view_default_size" />
 
                 <Spinner
+                    android:id="@+id/spn_sort_by_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -63,25 +65,11 @@
             android:layout_marginVertical="@dimen/element_default_margin"
             android:background="@color/black" />
 
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-
-            </LinearLayout>
-        </ScrollView>
-
         <TextView
             android:id="@+id/tv_no_result_found"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No Results Found!"
+            android:text="@string/no_results_found"
             android:textSize="@dimen/text_view_default_size" />
 
         <androidx.recyclerview.widget.RecyclerView

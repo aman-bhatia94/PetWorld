@@ -6,4 +6,5 @@
     <color name="black">#000000</color>
     <color name="upcomingAppointment">#008000</color>
     <color name="pastAppointment">#D81B60</color>
+    <color name="cardViewBk">#99ebff</color>
 </resources>
