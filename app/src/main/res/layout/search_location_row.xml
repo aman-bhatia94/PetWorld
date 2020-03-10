@@ -17,10 +17,4 @@
         android:layout_height="wrap_content"
         android:textStyle="italic" />
 
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_size"
-        android:background="@color/black" />
-
 </LinearLayout>
