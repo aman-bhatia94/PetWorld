@@ -107,6 +107,7 @@ public class SitterDataService {
                                      eachSitter.setId(item.id());
                                      eachSitter.setEmailId(item.emailId());
                                      eachSitter.setPhoneNumber(item.phoneNumber());
+                                     eachSitter.setPassword(item.password());
                                      eachSitter.setFirstName(item.firstName());
                                      eachSitter.setLastName(item.lastName());
                                      eachSitter.setPayPerDay(item.payPerDay());

@@ -109,6 +109,7 @@ public class OwnerDataService {
                             eachOwner.setPhoneNumber(item.phoneNumber());
                             eachOwner.setFirstName(item.firstName());
                             eachOwner.setLastName(item.lastName());
+                            eachOwner.setPassword(item.password());
                             responseData.add(eachOwner);
                         }
                     }

@@ -27,4 +27,6 @@
     <string name="no_results_found">No Results Found!</string>
     <string name="user_display_image">User Display Image</string>
     <string name="dollarSign">\"$ \"</string>
+    <string name="login_missing_values">Enter missing values</string>
+    <string name="user_absent">User doesn\'t exist or emailID,password field is empty</string>
 </resources>
