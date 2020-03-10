@@ -10,20 +10,29 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.ateam.petworld.R;
 
+import com.ateam.petworld.factory.ClientFactory;
 import com.ateam.petworld.models.Location;
 
+import com.ateam.petworld.models.Owner;
+import com.ateam.petworld.models.Sitter;
+import com.ateam.petworld.services.LocationDataService;
 import com.ateam.petworld.services.LocationIQRESTService;
 import com.ateam.petworld.services.MyLocationService;
+import com.ateam.petworld.services.OwnerDataService;
+import com.ateam.petworld.services.SitterDataService;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -39,6 +48,14 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean useUserLocation;
     private boolean isOwner;
     private Location fetchedLocation;
+    private boolean isLocationPresentInDatabase;
+    private LocationDataService locationDataService;
+    private OwnerDataService ownerDataService;
+    private SitterDataService sitterDataService;
+    private boolean isInfoEmpty;
+    private boolean isOwnerPresentInDatabase;
+    private boolean isSitterPresentInDatabase;
+
 
     private LocationIQRESTService locationIQRESTService;
 
@@ -84,11 +101,18 @@ public class RegisterActivity extends AppCompatActivity {
             longitude = savedInstanceState.getString("longitude");
             useUserLocation = savedInstanceState.getBoolean("useUserLocation");
             isOwner = savedInstanceState.getBoolean("isOwner");
+            isOwnerPresentInDatabase = savedInstanceState.getBoolean("isOwnerPresentInDatabase");
+            isSitterPresentInDatabase = savedInstanceState.getBoolean("isSitterPresentInDatabase");
+            isInfoEmpty = savedInstanceState.getBoolean("isInfoEmpty");
             bindService(intentLocations,connection, Context.BIND_AUTO_CREATE);
         }
         locationIQRESTService = new LocationIQRESTService();
         intentLocations = new Intent(this,MyLocationService.class);
         bindService(intentLocations,connection, Context.BIND_AUTO_CREATE);
+        ClientFactory.init(this);
+        locationDataService = new LocationDataService(ClientFactory.appSyncClient());
+        ownerDataService = new OwnerDataService(ClientFactory.appSyncClient());
+        sitterDataService = new SitterDataService(ClientFactory.appSyncClient());
     }
 
     private void requestPermissions() {
@@ -117,26 +141,31 @@ public class RegisterActivity extends AppCompatActivity {
 
         //creating a delayed handler to handle this event
         final Handler handler = new Handler();
-
-        if(fetchedLocation == null){
-            //couldn't fetch
-            System.out.println("could not fetch the location");
-        }
-        else{
-            //fetched
-            System.out.println("fetched the location");
-        }
-
-        /*handler.postDelayed(() -> {
+        handler.postDelayed(() -> {
             if(fetchedLocation == null){
                 //couldn't fetch
-                System.out.println("could not fetch the location");
+                System.out.println("could not fetch the location, check the api calls");
             }
             else{
                 //fetched
                 System.out.println("fetched the location");
+                //check if the location is already present in the database;
+                isLocationPresentInDatabase = checkLocationInDatabase(fetchedLocation);
+
+
             }
-        }, 500);*/
+        }, 1000);
+    }
+
+    private boolean checkLocationInDatabase(Location fetchedLocation){
+
+        Location location = locationDataService.getLocation(fetchedLocation);
+
+        if(location.getId() == null){
+            return false;
+        }
+        return true;
+
     }
 
     private void runLocationService() {
@@ -158,7 +187,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
                 if(!bound){
-                    handler.postDelayed(this,1000);
+                    handler.postDelayed(this,2000);
                 }
             }
         });
@@ -178,6 +207,9 @@ public class RegisterActivity extends AppCompatActivity {
         savedInstance.putString("longitude",longitude);
         savedInstance.putBoolean("useUserLocation",useUserLocation);
         savedInstance.putBoolean("isOwner",isOwner);
+        savedInstance.putBoolean("isOwnerPresentInDatabase",isOwnerPresentInDatabase);
+        savedInstance.putBoolean("isSitterPresentInDatabase",isSitterPresentInDatabase);
+        savedInstance.putBoolean("isInfoEmpty",isInfoEmpty);
     }
 
     public void onSearchButtonClick(View view) {
@@ -191,19 +223,132 @@ public class RegisterActivity extends AppCompatActivity {
 
         //Use the fetched location based on the coordinates from LocationIQREST done(in RequestPermission)
 
-        //check if this location is present in database
 
-        //if not add it
 
-        //check if owner or sitter
+        //check that fields are not empty
 
-        //check if the user is already present, based on email id
+        //get info from the textfields
+        EditText et_firstName = (EditText) findViewById(R.id.et_first_name);
+        firstName = et_firstName.getText().toString();
 
-        //if present dont add
-        //else
-        //add to the database
+        EditText et_lastName = (EditText) findViewById(R.id.et_last_name);
+        lastName = et_lastName.getText().toString();
 
+        EditText et_emailId = (EditText) findViewById(R.id.et_register_email_id);
+        emailId = et_emailId.getText().toString();
+
+        EditText et_register_password = (EditText) findViewById(R.id.et_register_password);
+        password = et_register_password.getText().toString();
+
+        EditText et_phoneNumber = (EditText) findViewById(R.id.et_phone_number);
+        phoneNumber = et_phoneNumber.getText().toString();
+
+        isInfoEmpty = checkFieldsEmpty(firstName,lastName, emailId, password, phoneNumber);
+
+        if(isInfoEmpty){
+            //create a toast to show user that fields are empty
+            Toast.makeText(this,
+                    getString(R.string.register_enter_missing_values),
+                    Toast.LENGTH_LONG
+            ).show();
+        }
+        else{
+            //check if this location is present in database
+            //if not add it
+            if(isLocationPresentInDatabase == true){
+                //location is already present so no need to add;
+                System.out.println("Location already present, not adding to database");
+            }
+            else if(isLocationPresentInDatabase == false){
+                locationDataService.createLocation(fetchedLocation);
+                System.out.println("Location added to database");
+            }
+            //check if owner or sitter
+            if(isOwner == true){
+                //check if owner is present already, if yes, dont add him again
+                Owner queryOwner = new Owner();
+                queryOwner.setEmailId(emailId);
+                List<Owner> ownerList = ownerDataService.searchOwners();
+                for(Owner owner : ownerList){
+
+                    if(owner.getEmailId().equals(queryOwner.getEmailId())){
+                        isOwnerPresentInDatabase = true;
+                        Toast.makeText(this,
+                                getString(R.string.register_owner_present),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        isOwnerPresentInDatabase = true;
+                        break;
+                    }
+                }
+
+                if(isOwnerPresentInDatabase == false){
+                    Owner owner = new Owner();
+                    owner.setEmailId(emailId);
+                    owner.setFirstName(firstName);
+                    owner.setLastName(lastName);
+                    owner.setPassword(password);
+                    owner.setPhoneNumber(phoneNumber);
+                    owner.setLocation(fetchedLocation);
+                    ownerDataService.createOwner(owner);
+                    Toast.makeText(this,
+                            getString(R.string.register_owner_added),
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+            }
+            else if(isOwner == false){
+                //its a sitter
+                Sitter querySitter = new Sitter();
+                querySitter.setEmailId(emailId);
+                List<Sitter> sitterList = sitterDataService.searchSitters();
+                for(Sitter sitter : sitterList){
+
+                    if(sitter.getEmailId().equals(querySitter.getEmailId())){
+                        isSitterPresentInDatabase = true;
+                        Toast.makeText(this,
+                                getString(R.string.register_sitter_present),
+                                Toast.LENGTH_LONG
+                        ).show();
+                        isSitterPresentInDatabase = true;
+                        break;
+
+                    }
+                }
+
+                if(isSitterPresentInDatabase == false){
+                    Sitter sitter = new Sitter();
+                    sitter.setEmailId(emailId);
+                    sitter.setFirstName(firstName);
+                    sitter.setLastName(lastName);
+                    sitter.setPassword(password);
+                    sitter.setPhoneNumber(phoneNumber);
+                    sitter.setLocation(fetchedLocation);
+                    sitterDataService.createSitter(sitter);
+                    Toast.makeText(this,
+                            getString(R.string.register_sitter_added),
+                            Toast.LENGTH_LONG
+                    ).show();
+                }
+
+
+            }
+        }
     }
+
+    private boolean checkFieldsEmpty(String firstName, String lastName, String emailId, String password, String phoneNumber) {
+
+        if(firstName == null || firstName.isEmpty()
+                || lastName == null || lastName.isEmpty()
+                || emailId == null || emailId.isEmpty()
+                || password == null || password.isEmpty()
+                || phoneNumber == null || phoneNumber.isEmpty()){
+
+            return true;
+        }
+        return false;
+    }
+
 
     public void onUseMyLocationButtonClick(View view) {
 

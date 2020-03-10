@@ -88,7 +88,9 @@ public class OwnerDataService {
         return responseData;
     }
 
-    public List<Owner> searchOwners(Owner owner) {
+    //trying....
+
+    public List<Owner> searchOwners() {
         List<Owner> responseData = new ArrayList<>();
         awsAppSyncClient.query(ListOwnersQuery.builder()
 //                .filter()

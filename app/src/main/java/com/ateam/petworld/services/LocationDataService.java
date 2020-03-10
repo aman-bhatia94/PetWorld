@@ -25,9 +25,9 @@ public class LocationDataService {
     public void createLocation(Location location) {
         CreateLocationInput requestObj = CreateLocationInput.builder()
                 .id(location.getId())
-                .displayName(location.getDisplayName())
-                .displayPlace(location.getDisplayPlace())
-                .displayAddress(location.getDisplayAddress())
+                .displayName(location.getDisplayName() == null ? " ": location.getDisplayName())
+                .displayPlace(location.getDisplayPlace() ==null? " ":location.getDisplayPlace())
+                .displayAddress(location.getDisplayAddress() ==null? " ": location.getDisplayAddress())
                 .latitude(String.valueOf(location.getLatitude()))
                 .longitude(String.valueOf(location.getLongitude()))
                 .build();

@@ -17,4 +17,9 @@
     <string name="dp_select_dates_msg">Please select the start and end dates</string>
     <string name="dateFormat" translatable="false">ddMMyyyy</string>
     <string name="booking_success">Successfully Booked!</string>
+    <string name="register_enter_missing_values">Enter missing values</string>
+    <string name="register_owner_added">Added you as an Owner</string>
+    <string name="register_owner_present">You already have an account</string>
+    <string name="register_sitter_added">Added you as a sitter</string>
+    <string name="register_sitter_present">You already have an account</string>
 </resources>
