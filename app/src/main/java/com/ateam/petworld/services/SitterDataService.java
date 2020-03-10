@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi;
 import com.amazonaws.amplify.generated.graphql.CreateSitterMutation;
 import com.amazonaws.amplify.generated.graphql.GetSitterQuery;
 import com.amazonaws.amplify.generated.graphql.ListSittersQuery;
+import com.amazonaws.amplify.generated.graphql.UpdateSitterMutation;
 import com.amazonaws.mobileconnectors.appsync.AWSAppSyncClient;
 import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
 import com.apollographql.apollo.GraphQLCall;
@@ -25,6 +26,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 import type.CreateSitterInput;
+import type.UpdateSitterInput;
 
 import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread;
 
@@ -144,5 +146,30 @@ public class SitterDataService {
                          }
                 );
         return responseData;
+    }
+
+    public void updateSitter(Sitter sitter) {
+        UpdateSitterInput requestObj = UpdateSitterInput.builder()
+                .id(sitter.getId())
+                .displayImage(sitter.getDisplayImage())
+                .emailId(sitter.getEmailId())
+                .firstName(sitter.getFirstName())
+                .lastName(sitter.getLastName())
+                .sitterLocationId(sitter.getLocation().getId())
+                .password(sitter.getPassword())
+                .phoneNumber(sitter.getPhoneNumber())
+                .payPerDay(sitter.getPayPerDay())
+                .build();
+        awsAppSyncClient.mutate(UpdateSitterMutation.builder().input(requestObj).build()).enqueue(new GraphQLCall.Callback<UpdateSitterMutation.Data>() {
+            @Override
+            public void onResponse(@Nonnull Response<UpdateSitterMutation.Data> response) {
+
+            }
+
+            @Override
+            public void onFailure(@Nonnull ApolloException e) {
+
+            }
+        });
     }
 }
