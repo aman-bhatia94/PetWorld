@@ -52,6 +52,8 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean isInfoEmpty;
     private boolean isOwnerPresentInDatabase;
     private boolean isSitterPresentInDatabase;
+    List<Owner> ownerList;
+    List<Sitter> sitterList;
 
 
     private LocationIQRESTService locationIQRESTService;
@@ -110,6 +112,10 @@ public class RegisterActivity extends AppCompatActivity {
         locationDataService = new LocationDataService(ClientFactory.appSyncClient());
         ownerDataService = new OwnerDataService(ClientFactory.appSyncClient());
         sitterDataService = new SitterDataService(ClientFactory.appSyncClient());
+        ownerList = new ArrayList<>();
+        ownerList = ownerDataService.searchOwners();
+        sitterList = new ArrayList<>();
+        sitterList = sitterDataService.searchSitters(this);
     }
 
     private void requestPermissions() {
@@ -262,7 +268,7 @@ public class RegisterActivity extends AppCompatActivity {
                 //check if owner is present already, if yes, dont add him again
                 Owner queryOwner = new Owner();
                 queryOwner.setEmailId(emailId);
-                List<Owner> ownerList = ownerDataService.searchOwners();
+                //List<Owner> ownerList = ownerDataService.searchOwners();
                 for(Owner owner : ownerList){
 
                     if(owner.getEmailId().equals(queryOwner.getEmailId())){
@@ -295,7 +301,7 @@ public class RegisterActivity extends AppCompatActivity {
                 //its a sitter
                 Sitter querySitter = new Sitter();
                 querySitter.setEmailId(emailId);
-                List<Sitter> sitterList = sitterDataService.searchSitters(this);
+                //List<Sitter> sitterList = sitterDataService.searchSitters(this);
                 for(Sitter sitter : sitterList){
 
                     if(sitter.getEmailId().equals(querySitter.getEmailId())){
