@@ -14,7 +14,6 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -22,41 +21,41 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
 public class MyLocationService extends Service {
 
-    private String latitude;
-    private String longitude;
-
-    private ArrayList<String> coordinates = new ArrayList<>();
-
+    private final IBinder binder = new LocationBinder();
     int PERMISSION_ID = 44;
     FusedLocationProviderClient mFusedLocationClient;
-
-    private final IBinder binder = new LocationBinder();
+    private String latitude;
+    private String longitude;
+    private ArrayList<String> coordinates = new ArrayList<>();
+    private LocationCallback mLocationCallback = new LocationCallback() {
+        @Override
+        public void onLocationResult(LocationResult locationResult) {
+            Location mLastLocation = locationResult.getLastLocation();
+            coordinates.add(latitude);
+            coordinates.add(longitude);
+        }
+    };
 
     @SuppressLint("MissingPermission")
     public ArrayList<String> getLastLocation() {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
                 mFusedLocationClient.getLastLocation().addOnCompleteListener(
-                        new OnCompleteListener<Location>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Location> task) {
-                                Location location = task.getResult();
-                                if (location == null) {
-                                    requestNewLocationData();
-                                } else {
-                                    latitude = location.getLatitude() + "";
-                                    longitude = location.getLongitude() + "";
-                                    coordinates.add(latitude);
-                                    coordinates.add(longitude);
+                        task -> {
+                            Location location = task.getResult();
+                            if (location == null) {
+                                requestNewLocationData();
+                            } else {
+                                latitude = location.getLatitude() + "";
+                                longitude = location.getLongitude() + "";
+                                coordinates.add(latitude);
+                                coordinates.add(longitude);
 
-                                }
                             }
                         }
                 );
@@ -101,38 +100,23 @@ public class MyLocationService extends Service {
 
     }
 
-    public class LocationBinder extends Binder {
-
-        public MyLocationService getLoc() {
-            return MyLocationService.this;
-        }
-    }
-
-    private LocationCallback mLocationCallback = new LocationCallback() {
-        @Override
-        public void onLocationResult(LocationResult locationResult) {
-            Location mLastLocation = locationResult.getLastLocation();
-            //aaaaalatTextView.setText(mLastLocation.getLatitude()+"");
-            //aaaalonTextView.setText(mLastLocation.getLongitude()+"");
-            coordinates.add(latitude);
-            coordinates.add(longitude);
-        }
-    };
-
     private boolean checkPermissions() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        return false;
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
     }
-
 
     private boolean isLocationEnabled() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
                 LocationManager.NETWORK_PROVIDER
         );
+    }
+
+    public class LocationBinder extends Binder {
+
+        public MyLocationService getLoc() {
+            return MyLocationService.this;
+        }
     }
 }
 

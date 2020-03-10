@@ -13,7 +13,7 @@
 		}
 	},
 	"api": {
-		"petWorldAPI": {
+      "petWorld2": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {
@@ -27,16 +27,16 @@
 						}
 					}
 				},
-				"GraphQLAPIIdOutput": "iy4ygbajxvhelp5tzdjia4yykm",
-				"GraphQLAPIEndpointOutput": "https://uotvzotcsbblvmnerm3pgq4qve.appsync-api.us-east-2.amazonaws.com/graphql",
-				"GraphQLAPIKeyOutput": "da2-cqmxbaycbvcmtna76yjzdfw5cu"
+              "GraphQLAPIIdOutput": "l3tatmagnbayhfzgxvxqiteipi",
+              "GraphQLAPIEndpointOutput": "https://ounvxenbl5fsbdfrr5oayrh5c4.appsync-api.us-east-2.amazonaws.com/graphql",
+              "GraphQLAPIKeyOutput": "da2-sjd52n7sorhhnddw4nwhi7wivy"
 			},
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-petworld-dev-162938-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-				"logicalId": "apipetWorldAPI"
+              "logicalId": "apipetWorld2"
 			},
-          "lastPushTimeStamp": "2020-03-10T08:46:23.060Z",
-          "lastPushDirHash": "r8IGKsiAK3berwCaYCqMpDBHQH8="
+        "lastPushTimeStamp": "2020-03-10T09:49:21.171Z",
+        "lastPushDirHash": "DomQuRAuJDXSeRNkVCRmWt4570c="
 		}
 	}
 }

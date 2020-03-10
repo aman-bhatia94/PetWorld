@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_default_padding"
     android:orientation="vertical"
+    android:padding="@dimen/activity_default_padding"
     tools:context=".activities.LoginActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/element_default_margin">
+
         <EditText
             android:id="@+id/et_user_email_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/userEmailId"
             android:ems="10"
             android:hint="@string/userEmailId"
             android:inputType="textEmailAddress"
-            android:autofillHints="@string/userEmailId"
             tools:layout_editor_absoluteX="90dp"
             tools:layout_editor_absoluteY="227dp" />
     </LinearLayout>
@@ -33,9 +33,9 @@
             android:id="@+id/et_user_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/userPassword"
             android:ems="10"
             android:hint="@string/userPassword"
-            android:autofillHints="@string/userPassword"
             android:inputType="textPassword"
             tools:layout_editor_absoluteX="90dp"
             tools:layout_editor_absoluteY="304dp" />
@@ -50,11 +50,11 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="onClickSignUp"
             android:text="@string/signUpLink"
             android:textColor="#2196F3"
             tools:layout_editor_absoluteX="276dp"
-            tools:layout_editor_absoluteY="376dp"
-            android:onClick="onClickSignUp"/>
+            tools:layout_editor_absoluteY="376dp" />
     </LinearLayout>
 
     <LinearLayout

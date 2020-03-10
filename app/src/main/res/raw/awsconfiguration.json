@@ -6,11 +6,11 @@
     },
     "AppSync": {
         "Default": {
-            "ApiUrl": "https://uotvzotcsbblvmnerm3pgq4qve.appsync-api.us-east-2.amazonaws.com/graphql",
+          "ApiUrl": "https://ounvxenbl5fsbdfrr5oayrh5c4.appsync-api.us-east-2.amazonaws.com/graphql",
             "Region": "us-east-2",
             "AuthMode": "API_KEY",
-            "ApiKey": "da2-cqmxbaycbvcmtna76yjzdfw5cu",
-            "ClientDatabasePrefix": "petWorldAPI_API_KEY"
+          "ApiKey": "da2-sjd52n7sorhhnddw4nwhi7wivy",
+          "ClientDatabasePrefix": "petWorld2_API_KEY"
         }
     }
 }

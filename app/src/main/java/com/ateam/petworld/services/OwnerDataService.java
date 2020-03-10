@@ -117,9 +117,8 @@ public class OwnerDataService {
     public List<Owner> searchOwners() {
         List<Owner> responseData = new ArrayList<>();
         awsAppSyncClient.query(ListOwnersQuery.builder()
-//                .filter()
                 .build())
-                .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
+                .responseFetcher(AppSyncResponseFetchers.NETWORK_ONLY)
                 .enqueue(new GraphQLCall.Callback<ListOwnersQuery.Data>() {
                     @Override
                     public void onResponse(@Nonnull Response<ListOwnersQuery.Data> response) {

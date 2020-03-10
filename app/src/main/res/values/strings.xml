@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">PetWorld</string>
-    <string name="userEmailId">EmailId</string>
-    <string name="userPassword">UserPassword</string>
+    <string name="userEmailId">Email Id</string>
+    <string name="userPassword">User Password</string>
     <string name="signUpLink">SignUp</string>
     <string name="userLogin">LogIn</string>
-    <string name="firstName">FirstName</string>
-    <string name="lastName">LastName</string>
-    <string name="location">Country</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="location">Location</string>
     <string name="phone">PhoneNumber</string>
     <string name="locationPrompt">Use my current location</string>
-    <string name="registerUser">RegisterMe!</string>
+    <string name="registerUser">Register Me!</string>
     <string name="owner">Owner</string>
     <string name="sitter">Sitter</string>
     <string name="dp_dateFormat" translatable="false">EE, dd MMM yyyy</string>
@@ -32,4 +32,15 @@
     <string name="enter_location">Enter Location</string>
     <string name="search_location">Search Location</string>
     <string name="search_by_name">Search By Name</string>
+    <string name="updateprofile">Update Profile</string>
+    <string name="bookappointment">Book Appointment</string>
+    <string name="personal_profile">Personal Profile</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="username">UserName</string>
+    <string name="email_id">Email Id</string>
+    <string name="password">Password</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
 </resources>

@@ -15,10 +15,8 @@ import com.apollographql.apollo.exception.ApolloException;
 import com.ateam.petworld.activities.OwnerDashboard;
 import com.ateam.petworld.activities.SitterDashboard;
 import com.ateam.petworld.models.Appointments;
-
 import com.ateam.petworld.models.Owner;
 import com.ateam.petworld.models.Sitter;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +31,10 @@ import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiTh
 public class AppointmentDataService {
     private AWSAppSyncClient awsAppSyncClient;
     private AppSyncSubscriptionCall subscriptionWatcher;
-
-    public AppointmentDataService(AWSAppSyncClient awsAppSyncClient) {
-        this.awsAppSyncClient = awsAppSyncClient;
-    }
-
     private AppSyncSubscriptionCall.Callback subCallback = new AppSyncSubscriptionCall.Callback() {
         @Override
         public void onResponse(@Nonnull Response response) {
-            Log.i("Subscribe", response.data().toString());
+            Log.i("Subscribe", response.data() != null ? response.data().toString() : null);
         }
 
         @Override
@@ -54,6 +47,10 @@ public class AppointmentDataService {
             Log.i("Completed", "Subscription completed");
         }
     };
+
+    public AppointmentDataService(AWSAppSyncClient awsAppSyncClient) {
+        this.awsAppSyncClient = awsAppSyncClient;
+    }
 
     private void subscribe() {
         OnUpdateAppointmentSubscription subscription = OnUpdateAppointmentSubscription.builder().build();
@@ -87,11 +84,10 @@ public class AppointmentDataService {
     }
 
 
-    public List<Appointments> getAllAppointments(Context context){
+    public List<Appointments> getAllAppointments(Context context) {
 
         List<Appointments> responseData = new ArrayList<>();
         awsAppSyncClient.query(ListAppointmentsQuery.builder()
-//                .filter()
                 .build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(new GraphQLCall.Callback<ListAppointmentsQuery.Data>() {
@@ -102,12 +98,6 @@ public class AppointmentDataService {
                         assert appointmentQueryResponse != null;
                         for (ListAppointmentsQuery.Item item : appointmentQueryResponse) {
                             Appointments eachAppointment = new Appointments();
-                            /*eachOwner.setId(item.id());
-                            eachOwner.setEmailId(item.emailId());
-                            eachOwner.setPhoneNumber(item.phoneNumber());
-                            eachOwner.setFirstName(item.firstName());
-                            eachOwner.setLastName(item.lastName());
-                            responseData.add(eachOwner);*/
                             Sitter sitter = new Sitter();
                             if (item.sitter() != null) {
                                 sitter.setId(item.sitter().id());
@@ -117,6 +107,7 @@ public class AppointmentDataService {
                                 sitter.setFirstName(item.sitter().firstName());
                                 sitter.setLastName(item.sitter().lastName());
                                 sitter.setPhoneNumber(item.sitter().phoneNumber());
+                                eachAppointment.setSitterId(item.sitter().id());
                             }
 
                             Owner owner = new Owner();
@@ -127,11 +118,10 @@ public class AppointmentDataService {
                                 owner.setFirstName(item.owner().firstName());
                                 owner.setLastName(item.owner().lastName());
                                 owner.setPhoneNumber(item.owner().phoneNumber());
+                                eachAppointment.setOwnerId(item.owner().id());
                             }
 
                             eachAppointment.setId(item.id());
-                            eachAppointment.setOwnerId(item.owner().id());
-                            eachAppointment.setSitterId(item.sitter().id());
                             eachAppointment.setAppointmentStartDate(item.startDate());
                             eachAppointment.setAppointmentEndDate(item.endDate());
                             eachAppointment.setTotalAmount(item.totalAmount());
@@ -139,15 +129,14 @@ public class AppointmentDataService {
                             eachAppointment.setSitter(sitter);
                             responseData.add(eachAppointment);
                         }
-                        runOnUiThread(()->{
-                            if(context instanceof OwnerDashboard){
-                                ((OwnerDashboard)context).setOwnerAppointmentList(responseData);
+                        runOnUiThread(() -> {
+                            if (context instanceof OwnerDashboard) {
+                                ((OwnerDashboard) context).setOwnerAppointmentList(responseData);
                             }
-                            if(context instanceof SitterDashboard){
+                            if (context instanceof SitterDashboard) {
                                 ((SitterDashboard) context).setSitterAppointmentList(responseData);
                             }
                         });
-
                     }
 
                     @Override

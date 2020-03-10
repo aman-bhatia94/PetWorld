@@ -1,6 +1,6 @@
 {
   "api": {
-    "petWorldAPI": {
+    "petWorld2": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {

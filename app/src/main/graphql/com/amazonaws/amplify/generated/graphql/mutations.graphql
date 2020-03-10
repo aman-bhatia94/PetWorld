@@ -19,11 +19,9 @@ mutation CreateOwner(
       displayAddress
       owner {
         nextToken
-        startedAt
       }
       sitter {
         nextToken
-        startedAt
       }
       name
       houseNo
@@ -35,9 +33,6 @@ mutation CreateOwner(
       postCode
       country
       countryCode
-      _version
-      _deleted
-      _lastChangedAt
     }
     appointment {
       items {
@@ -46,17 +41,10 @@ mutation CreateOwner(
         endDate
         totalAmount
         confirmed
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     displayImage
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateOwner(
@@ -79,11 +67,9 @@ mutation UpdateOwner(
       displayAddress
       owner {
         nextToken
-        startedAt
       }
       sitter {
         nextToken
-        startedAt
       }
       name
       houseNo
@@ -95,9 +81,6 @@ mutation UpdateOwner(
       postCode
       country
       countryCode
-      _version
-      _deleted
-      _lastChangedAt
     }
     appointment {
       items {
@@ -106,17 +89,10 @@ mutation UpdateOwner(
         endDate
         totalAmount
         confirmed
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     displayImage
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteOwner(
@@ -139,11 +115,9 @@ mutation DeleteOwner(
       displayAddress
       owner {
         nextToken
-        startedAt
       }
       sitter {
         nextToken
-        startedAt
       }
       name
       houseNo
@@ -155,9 +129,6 @@ mutation DeleteOwner(
       postCode
       country
       countryCode
-      _version
-      _deleted
-      _lastChangedAt
     }
     appointment {
       items {
@@ -166,17 +137,10 @@ mutation DeleteOwner(
         endDate
         totalAmount
         confirmed
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     displayImage
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateSitter(
@@ -199,11 +163,9 @@ mutation CreateSitter(
       displayAddress
       owner {
         nextToken
-        startedAt
       }
       sitter {
         nextToken
-        startedAt
       }
       name
       houseNo
@@ -215,9 +177,6 @@ mutation CreateSitter(
       postCode
       country
       countryCode
-      _version
-      _deleted
-      _lastChangedAt
     }
     appointment {
       items {
@@ -226,18 +185,11 @@ mutation CreateSitter(
         endDate
         totalAmount
         confirmed
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     displayImage
     payPerDay
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateSitter(
@@ -260,11 +212,9 @@ mutation UpdateSitter(
       displayAddress
       owner {
         nextToken
-        startedAt
       }
       sitter {
         nextToken
-        startedAt
       }
       name
       houseNo
@@ -276,9 +226,6 @@ mutation UpdateSitter(
       postCode
       country
       countryCode
-      _version
-      _deleted
-      _lastChangedAt
     }
     appointment {
       items {
@@ -287,18 +234,11 @@ mutation UpdateSitter(
         endDate
         totalAmount
         confirmed
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     displayImage
     payPerDay
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteSitter(
@@ -321,11 +261,9 @@ mutation DeleteSitter(
       displayAddress
       owner {
         nextToken
-        startedAt
       }
       sitter {
         nextToken
-        startedAt
       }
       name
       houseNo
@@ -337,9 +275,6 @@ mutation DeleteSitter(
       postCode
       country
       countryCode
-      _version
-      _deleted
-      _lastChangedAt
     }
     appointment {
       items {
@@ -348,18 +283,11 @@ mutation DeleteSitter(
         endDate
         totalAmount
         confirmed
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     displayImage
     payPerDay
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateAppointment(
@@ -394,18 +322,11 @@ mutation CreateAppointment(
         postCode
         country
         countryCode
-        _version
-        _deleted
-        _lastChangedAt
       }
       appointment {
         nextToken
-        startedAt
       }
       displayImage
-      _version
-      _deleted
-      _lastChangedAt
     }
     sitter {
       id
@@ -431,25 +352,15 @@ mutation CreateAppointment(
         postCode
         country
         countryCode
-        _version
-        _deleted
-        _lastChangedAt
       }
       appointment {
         nextToken
-        startedAt
       }
       displayImage
       payPerDay
-      _version
-      _deleted
-      _lastChangedAt
     }
     totalAmount
     confirmed
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateAppointment(
@@ -484,18 +395,11 @@ mutation UpdateAppointment(
         postCode
         country
         countryCode
-        _version
-        _deleted
-        _lastChangedAt
       }
       appointment {
         nextToken
-        startedAt
       }
       displayImage
-      _version
-      _deleted
-      _lastChangedAt
     }
     sitter {
       id
@@ -521,25 +425,15 @@ mutation UpdateAppointment(
         postCode
         country
         countryCode
-        _version
-        _deleted
-        _lastChangedAt
       }
       appointment {
         nextToken
-        startedAt
       }
       displayImage
       payPerDay
-      _version
-      _deleted
-      _lastChangedAt
     }
     totalAmount
     confirmed
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteAppointment(
@@ -574,18 +468,11 @@ mutation DeleteAppointment(
         postCode
         country
         countryCode
-        _version
-        _deleted
-        _lastChangedAt
       }
       appointment {
         nextToken
-        startedAt
       }
       displayImage
-      _version
-      _deleted
-      _lastChangedAt
     }
     sitter {
       id
@@ -611,25 +498,15 @@ mutation DeleteAppointment(
         postCode
         country
         countryCode
-        _version
-        _deleted
-        _lastChangedAt
       }
       appointment {
         nextToken
-        startedAt
       }
       displayImage
       payPerDay
-      _version
-      _deleted
-      _lastChangedAt
     }
     totalAmount
     confirmed
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation CreateLocation(
@@ -652,12 +529,8 @@ mutation CreateLocation(
         phoneNumber
         password
         displayImage
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     sitter {
       items {
@@ -669,12 +542,8 @@ mutation CreateLocation(
         password
         displayImage
         payPerDay
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     name
     houseNo
@@ -686,9 +555,6 @@ mutation CreateLocation(
     postCode
     country
     countryCode
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation UpdateLocation(
@@ -711,12 +577,8 @@ mutation UpdateLocation(
         phoneNumber
         password
         displayImage
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     sitter {
       items {
@@ -728,12 +590,8 @@ mutation UpdateLocation(
         password
         displayImage
         payPerDay
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     name
     houseNo
@@ -745,9 +603,6 @@ mutation UpdateLocation(
     postCode
     country
     countryCode
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 mutation DeleteLocation(
@@ -770,12 +625,8 @@ mutation DeleteLocation(
         phoneNumber
         password
         displayImage
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     sitter {
       items {
@@ -787,12 +638,8 @@ mutation DeleteLocation(
         password
         displayImage
         payPerDay
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     name
     houseNo
@@ -804,8 +651,5 @@ mutation DeleteLocation(
     postCode
     country
     countryCode
-    _version
-    _deleted
-    _lastChangedAt
   }
 }

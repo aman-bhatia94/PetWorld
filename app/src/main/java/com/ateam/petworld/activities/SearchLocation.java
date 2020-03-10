@@ -1,5 +1,6 @@
 package com.ateam.petworld.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -83,6 +84,14 @@ public class SearchLocation extends AppCompatActivity {
 
 
     public void setLocation(Location location) {
-        int i = 10;
+        Intent intent = new Intent(this, RegisterActivity.class);
+        intent.putExtra("id", location.getId());
+        intent.putExtra("lat", location.getLatitude());
+        intent.putExtra("lon", location.getLongitude());
+        intent.putExtra("displayName", location.getDisplayName());
+        intent.putExtra("displayAddress", location.getDisplayAddress());
+        intent.putExtra("displayPlace", location.getDisplayPlace());
+        intent.putExtra("name", location.getName());
+        startActivity(intent);
     }
 }

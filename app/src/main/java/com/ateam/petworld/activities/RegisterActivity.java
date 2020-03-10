@@ -12,6 +12,7 @@ import android.os.IBinder;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,12 +29,21 @@ import com.ateam.petworld.services.MyLocationService;
 import com.ateam.petworld.services.OwnerDataService;
 import com.ateam.petworld.services.SitterDataService;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class RegisterActivity extends AppCompatActivity {
 
+    List<Owner> ownerList;
+    List<Sitter> sitterList;
+    TextView tvLocationText;
+    //Android coordinates specific declarations
+    int PERMISSION_ID = 44;
+    Intent intentLocations;
+    ArrayList<String> coordinates = new ArrayList<>();
     private String emailId;
     private String password;
     private String firstName;
@@ -52,17 +62,8 @@ public class RegisterActivity extends AppCompatActivity {
     private boolean isInfoEmpty;
     private boolean isOwnerPresentInDatabase;
     private boolean isSitterPresentInDatabase;
-    List<Owner> ownerList;
-    List<Sitter> sitterList;
-
-
     private LocationIQRESTService locationIQRESTService;
-
-    //Android coordinates specific declarations
-    int PERMISSION_ID = 44;
     private MyLocationService locationService;
-    Intent intentLocations;
-    ArrayList<String> coordinates = new ArrayList<>();
     private boolean bound = false;
 
     //Create a service connection
@@ -88,8 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        if(savedInstanceState != null){
-
+        if (savedInstanceState != null) {
             emailId = savedInstanceState.getString("userEmail");
             password = savedInstanceState.getString("password");
             firstName = savedInstanceState.getString("firstName");
@@ -103,11 +103,11 @@ public class RegisterActivity extends AppCompatActivity {
             isOwnerPresentInDatabase = savedInstanceState.getBoolean("isOwnerPresentInDatabase");
             isSitterPresentInDatabase = savedInstanceState.getBoolean("isSitterPresentInDatabase");
             isInfoEmpty = savedInstanceState.getBoolean("isInfoEmpty");
-            bindService(intentLocations,connection, Context.BIND_AUTO_CREATE);
         }
+        tvLocationText = findViewById(R.id.tv_current_location);
         locationIQRESTService = new LocationIQRESTService();
-        intentLocations = new Intent(this,MyLocationService.class);
-        bindService(intentLocations,connection, Context.BIND_AUTO_CREATE);
+        intentLocations = new Intent(this, MyLocationService.class);
+        bindService(intentLocations, connection, Context.BIND_AUTO_CREATE);
         ClientFactory.init(this);
         locationDataService = new LocationDataService(ClientFactory.appSyncClient());
         ownerDataService = new OwnerDataService(ClientFactory.appSyncClient());
@@ -116,6 +116,19 @@ public class RegisterActivity extends AppCompatActivity {
         ownerList = ownerDataService.searchOwners();
         sitterList = new ArrayList<>();
         sitterList = sitterDataService.searchSitters(this);
+
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("id");
+        if (id != null) {
+            fetchedLocation = new Location();
+            fetchedLocation.setDisplayAddress(intent.getStringExtra("displayAddress"));
+            fetchedLocation.setDisplayPlace(intent.getStringExtra("displayPlace"));
+            fetchedLocation.setDisplayName(intent.getStringExtra("displayName"));
+            fetchedLocation.setId(intent.getStringExtra("id"));
+            fetchedLocation.setLongitude(intent.getDoubleExtra("lon", 0));
+            fetchedLocation.setLatitude(intent.getDoubleExtra("lat", 0));
+            tvLocationText.setText(fetchedLocation.getDisplayName());
+        }
     }
 
     private void requestPermissions() {
@@ -127,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NotNull String[] permissions, @NotNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_ID) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -138,20 +151,20 @@ public class RegisterActivity extends AppCompatActivity {
         longitude = coordinates.get(1);
 
         //fetched location based on the coordinates from LocationIQREST done(in RequestPermission)
-        System.out.println("latitude: "+latitude);
-        System.out.println("longitude"+longitude);
-        fetchedLocation = locationIQRESTService.fetchUserLocation(longitude,latitude);
+        System.out.println("latitude: " + latitude);
+        System.out.println("longitude" + longitude);
+        fetchedLocation = locationIQRESTService.fetchUserLocation(longitude, latitude);
 
         //creating a delayed handler to handle this event
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
-            if(fetchedLocation == null){
+            if (fetchedLocation == null) {
                 //couldn't fetch
                 System.out.println("could not fetch the location, check the api calls");
-            }
-            else{
+            } else {
                 //fetched
                 System.out.println("fetched the location");
+                tvLocationText.setText(fetchedLocation.getDisplayName());
                 //check if the location is already present in the database;
                 isLocationPresentInDatabase = checkLocationInDatabase(fetchedLocation);
 
@@ -160,7 +173,7 @@ public class RegisterActivity extends AppCompatActivity {
         }, 1000);
     }
 
-    private boolean checkLocationInDatabase(Location fetchedLocation){
+    private boolean checkLocationInDatabase(Location fetchedLocation) {
 
         Location location = locationDataService.getLocation(fetchedLocation);
 
@@ -175,54 +188,56 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //new code
-                if(bound){
+                if (bound) {
                     coordinates = locationService.getLastLocation();
-                    if(coordinates.size() == 0 || coordinates.get(0).equals("no_permission")){
+                    if (coordinates.size() == 0 || coordinates.get(0).equals("no_permission")) {
                         //request permission
                         requestPermissions();
-                    }
-                    else{
+                    } else {
                         latitude = coordinates.get(0);
                         longitude = coordinates.get(1);
                     }
                 }
-                if(!bound){
-                    handler.postDelayed(this,2000);
+                if (!bound) {
+                    handler.postDelayed(this, 2000);
                 }
             }
         });
 
     }
+
     @Override
     public void onSaveInstanceState(Bundle savedInstance) {
 
         super.onSaveInstanceState(savedInstance);
-        savedInstance.putString("userEmail",emailId);
-        savedInstance.putString("userPassword",password);
-        savedInstance.putString("firstName",firstName);
-        savedInstance.putString("lastName",lastName);
-        savedInstance.putString("location",location);
-        savedInstance.putString("phoneNumber",phoneNumber);
-        savedInstance.putString("latitude",latitude);
-        savedInstance.putString("longitude",longitude);
-        savedInstance.putBoolean("useUserLocation",useUserLocation);
-        savedInstance.putBoolean("isOwner",isOwner);
-        savedInstance.putBoolean("isOwnerPresentInDatabase",isOwnerPresentInDatabase);
-        savedInstance.putBoolean("isSitterPresentInDatabase",isSitterPresentInDatabase);
-        savedInstance.putBoolean("isInfoEmpty",isInfoEmpty);
+        savedInstance.putString("userEmail", emailId);
+        savedInstance.putString("userPassword", password);
+        savedInstance.putString("firstName", firstName);
+        savedInstance.putString("lastName", lastName);
+        savedInstance.putString("location", location);
+        savedInstance.putString("phoneNumber", phoneNumber);
+        savedInstance.putString("latitude", latitude);
+        savedInstance.putString("longitude", longitude);
+        savedInstance.putBoolean("useUserLocation", useUserLocation);
+        savedInstance.putBoolean("isOwner", isOwner);
+        savedInstance.putBoolean("isOwnerPresentInDatabase", isOwnerPresentInDatabase);
+        savedInstance.putBoolean("isSitterPresentInDatabase", isSitterPresentInDatabase);
+        savedInstance.putBoolean("isInfoEmpty", isInfoEmpty);
     }
 
     public void onSearchButtonClick(View view) {
 
         //List<com.ateam.petworld.models.Location> locations = locationIQRESTService.fetchUserLocation(location);
         //give the user an option to select one of these
+        Intent intent = new Intent(this, SearchLocation.class);
+        startActivity(intent);
+
 
     }
 
     public void onRegisterButtonClick(View view) {
 
         //Use the fetched location based on the coordinates from LocationIQREST done(in RequestPermission)
-
 
 
         //check that fields are not empty
@@ -243,35 +258,32 @@ public class RegisterActivity extends AppCompatActivity {
         EditText et_phoneNumber = findViewById(R.id.et_phone_number);
         phoneNumber = et_phoneNumber.getText().toString();
 
-        isInfoEmpty = checkFieldsEmpty(firstName,lastName, emailId, password, phoneNumber);
+        isInfoEmpty = checkFieldsEmpty(firstName, lastName, emailId, password, phoneNumber);
 
-        if(isInfoEmpty){
+        if (isInfoEmpty) {
             //create a toast to show user that fields are empty
             Toast.makeText(this,
                     getString(R.string.register_enter_missing_values),
                     Toast.LENGTH_LONG
             ).show();
-        }
-        else{
+        } else {
             //check if this location is present in database
             //if not add it
-            if(isLocationPresentInDatabase == true){
+            if (isLocationPresentInDatabase == true) {
                 //location is already present so no need to add;
                 System.out.println("Location already present, not adding to database");
-            }
-            else if(isLocationPresentInDatabase == false){
+            } else if (isLocationPresentInDatabase == false) {
                 locationDataService.createLocation(fetchedLocation);
                 System.out.println("Location added to database");
             }
             //check if owner or sitter
-            if(isOwner == true){
+            if (isOwner == true) {
                 //check if owner is present already, if yes, dont add him again
                 Owner queryOwner = new Owner();
                 queryOwner.setEmailId(emailId);
-                //List<Owner> ownerList = ownerDataService.searchOwners();
-                for(Owner owner : ownerList){
+                for (Owner owner : ownerList) {
 
-                    if(owner.getEmailId().equals(queryOwner.getEmailId())){
+                    if (owner.getEmailId().equals(queryOwner.getEmailId())) {
                         isOwnerPresentInDatabase = true;
                         Toast.makeText(this,
                                 getString(R.string.register_owner_present),
@@ -282,7 +294,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
 
-                if(isOwnerPresentInDatabase == false){
+                if (isOwnerPresentInDatabase == false) {
                     Owner owner = new Owner();
                     owner.setEmailId(emailId);
                     owner.setFirstName(firstName);
@@ -296,15 +308,13 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG
                     ).show();
                 }
-            }
-            else if(isOwner == false){
+            } else if (isOwner == false) {
                 //its a sitter
                 Sitter querySitter = new Sitter();
                 querySitter.setEmailId(emailId);
-                //List<Sitter> sitterList = sitterDataService.searchSitters(this);
-                for(Sitter sitter : sitterList){
+                for (Sitter sitter : sitterList) {
 
-                    if(sitter.getEmailId().equals(querySitter.getEmailId())){
+                    if (sitter.getEmailId().equals(querySitter.getEmailId())) {
                         isSitterPresentInDatabase = true;
                         Toast.makeText(this,
                                 getString(R.string.register_sitter_present),
@@ -316,7 +326,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
 
-                if(isSitterPresentInDatabase == false){
+                if (isSitterPresentInDatabase == false) {
                     Sitter sitter = new Sitter();
                     sitter.setEmailId(emailId);
                     sitter.setFirstName(firstName);
@@ -330,8 +340,6 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG
                     ).show();
                 }
-
-
             }
         }
     }
@@ -356,15 +364,15 @@ public class RegisterActivity extends AppCompatActivity {
         boolean checked = ((RadioButton) view).isChecked();
 
         // Check which radio button was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.rb_owner:
                 if (checked)
                     isOwner = true;
-                    break;
+                break;
             case R.id.rb_sitter:
                 if (checked)
                     isOwner = false;
-                    break;
+                break;
         }
     }
 }
