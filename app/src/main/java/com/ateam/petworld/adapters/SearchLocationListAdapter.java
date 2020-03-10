@@ -13,6 +13,7 @@ import com.ateam.petworld.R;
 import com.ateam.petworld.activities.SearchLocation;
 import com.ateam.petworld.models.Location;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchLocationListAdapter extends RecyclerView.Adapter<SearchLocationListAdapter.ViewHolder> {
@@ -41,6 +42,12 @@ public class SearchLocationListAdapter extends RecyclerView.Adapter<SearchLocati
     @Override
     public int getItemCount() {
         return mLocationList.size();
+    }
+
+    public void updateData(List<Location> locations) {
+        List<Location> temp = new ArrayList<>(locations);
+        mLocationList.clear();
+        mLocationList = temp;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

@@ -2,11 +2,15 @@ package com.ateam.petworld.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ateam.petworld.R;
@@ -23,18 +27,40 @@ public class SearchLocation extends AppCompatActivity {
     String searchText;
     Spinner spnCountries;
     EditText etSearchText;
+    TextView tvSearchNotFound;
     RecyclerView rvSearchLocationList;
+    ImageButton ibSearch;
     SearchLocationListAdapter searchLocationListAdapter;
     List<Location> locations;
     List<Country> countries;
     LocationIQRESTService locationIQRESTService;
+    View.OnClickListener searchListener = view -> {
+        searchText = String.valueOf(etSearchText.getText());
+        int countryIdx = spnCountries.getSelectedItemPosition();
+        Country selectedCountry = countries.get(countryIdx);
+        locationIQRESTService.autoCompleteLocations(searchText, selectedCountry == null ? "" : selectedCountry.getCode(), this);
+    };
+
+    public void setLocationList(List<Location> autoCompleteLocations) {
+        if (autoCompleteLocations.size() > 0) {
+            searchLocationListAdapter.updateData(autoCompleteLocations);
+            searchLocationListAdapter.notifyDataSetChanged();
+            tvSearchNotFound.setVisibility(View.GONE);
+        } else {
+            tvSearchNotFound.setVisibility(View.VISIBLE);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_location);
         etSearchText = findViewById(R.id.et_search_text);
+        ibSearch = findViewById(R.id.ib_search);
         rvSearchLocationList = findViewById(R.id.rv_search_location_result);
+        tvSearchNotFound = findViewById(R.id.tv_no_result_found);
+        rvSearchLocationList.setHasFixedSize(true);
+        rvSearchLocationList.setLayoutManager(new LinearLayoutManager(this));
         locations = new ArrayList<>();
         locationIQRESTService = new LocationIQRESTService();
         searchLocationListAdapter = new SearchLocationListAdapter(locations, this);
@@ -51,30 +77,11 @@ public class SearchLocation extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
             spnCountries.setAdapter(adapter);
         }, 1000);
-        getLocations();
-    }
+        ibSearch.setOnClickListener(searchListener);
 
-    private void getLocations() {
-        final Handler handler = new Handler();
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                String newSearchText = String.valueOf(etSearchText.getText());
-                if (newSearchText.length() > 2 && !newSearchText.equals(searchText)) {
-                    if (locations != null)
-                        locations.clear();
-                    searchText = newSearchText;
-                    int countryIdx = spnCountries.getSelectedItemPosition();
-                    Country selectedCountry = countries.get(countryIdx);
-                    locations = locationIQRESTService.autoCompleteLocations(searchText, selectedCountry == null ? "" : selectedCountry.getCode());
-                    searchLocationListAdapter.notifyDataSetChanged();
-                }
-                handler.postDelayed(this, 1000);
-            }
-        });
     }
 
     public void setLocation(Location location) {
-
+        int i = 10;
     }
 }

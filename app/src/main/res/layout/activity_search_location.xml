@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search Location"
+        android:text="@string/search_location"
         android:textAlignment="center"
         android:textSize="@dimen/text_view_header1_size" />
 
@@ -23,17 +23,33 @@
             android:id="@+id/et_search_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableRight="@drawable/ic_search"
+            android:autofillHints="Location Search Text"
             android:ems="10"
-            android:hint="Enter Location"
+            android:hint="@string/enter_location"
             android:inputType="textPersonName" />
+
+        <ImageButton
+            android:id="@+id/ib_search"
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-55dp"
+            android:contentDescription="@string/search_by_name"
+            android:paddingBottom="5dp"
+            android:src="@drawable/ic_search" />
 
         <Spinner
             android:id="@+id/spn_country_list"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:tooltipText="Select Country" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_no_result_found"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_results_found"
+        android:textSize="@dimen/text_view_default_size" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_search_location_result"
