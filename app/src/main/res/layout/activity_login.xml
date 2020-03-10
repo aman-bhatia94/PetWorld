@@ -41,6 +41,29 @@
             tools:layout_editor_absoluteY="304dp" />
     </LinearLayout>
 
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/login_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/owner" />
+
+        <RadioButton
+            android:id="@+id/login_sitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/sitter" />
+
+    </RadioGroup>
+
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">

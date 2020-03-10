@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private String password;
     private String ownerId;
     private String sitterId;
+    private boolean isOwnerClicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
             ).show();
 
         } else {
-            String userExists = checkUserExists();
+            String userExists = checkUserExists(isOwnerClicked);
             if (userExists.equals("err400")) {
                 //user doesn't exist
                 Toast.makeText(this,
@@ -119,30 +121,36 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private String checkUserExists() {
+    private String checkUserExists(boolean isOwnerClicked) {
 
         String exists = "err400";
         Owner queryOwner = checkOwnerExists(ownerList);
         Sitter querySitter = checkSitterExists(sitterList);
 
+        if(isOwnerClicked == true) {
 
-        if (queryOwner == null || queryOwner.getEmailId() == null) {
-            //Owner doesn't exist
-            exists = "err400";
-        } else {
-            exists = "owner";
-            //owner.setId(queryOwner.getId());
-            ownerId = queryOwner.getId();
-            return exists;
+            if (queryOwner == null || queryOwner.getEmailId() == null) {
+                //Owner doesn't exist
+                exists = "err400";
+                return exists;
+            } else {
+                exists = "owner";
+                //owner.setId(queryOwner.getId());
+                ownerId = queryOwner.getId();
+                return exists;
+            }
         }
-
-        if (querySitter == null || querySitter.getEmailId() == null) {
-            exists = "err400";
-        } else {
-            exists = "sitter";
-            sitterId = querySitter.getId();
-            return exists;
+        else if(!isOwnerClicked) {
+            if (querySitter == null || querySitter.getEmailId() == null) {
+                exists = "err400";
+                return exists;
+            } else {
+                exists = "sitter";
+                sitterId = querySitter.getId();
+                return exists;
+            }
         }
+        //return exists;
         return exists;
     }
 
@@ -193,14 +201,26 @@ public class LoginActivity extends AppCompatActivity {
         return emailId == null || emailId.isEmpty() || password == null || password.isEmpty();
     }
 
-    /*
-        method that handles the behavior after user has clicked SignUp
-        creates an intent and starts RegisterActivity
-     */
-
     public void onClickSignUp(View view) {
 
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+    }
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch (view.getId()) {
+            case R.id.login_owner:
+                if (checked)
+                    isOwnerClicked = true;
+                break;
+            case R.id.login_sitter:
+                if (checked)
+                    isOwnerClicked = false;
+                break;
+        }
     }
 }
