@@ -30,6 +30,7 @@ type Appointment @model {
   owner: Owner @connection(name: "OwnerAppointment")
   sitter: Sitter @connection(name: "SitterAppointment")
   totalAmount: Float!
+  confirmed: Boolean
 }
 
 type Location @model {

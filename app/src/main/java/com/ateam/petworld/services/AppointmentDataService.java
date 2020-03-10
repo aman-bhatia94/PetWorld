@@ -5,7 +5,9 @@ import android.util.Log;
 
 import com.amazonaws.amplify.generated.graphql.CreateAppointmentMutation;
 import com.amazonaws.amplify.generated.graphql.ListAppointmentsQuery;
+import com.amazonaws.amplify.generated.graphql.OnUpdateAppointmentSubscription;
 import com.amazonaws.mobileconnectors.appsync.AWSAppSyncClient;
+import com.amazonaws.mobileconnectors.appsync.AppSyncSubscriptionCall;
 import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
@@ -13,8 +15,10 @@ import com.apollographql.apollo.exception.ApolloException;
 import com.ateam.petworld.activities.OwnerDashboard;
 import com.ateam.petworld.activities.SitterDashboard;
 import com.ateam.petworld.models.Appointments;
+
 import com.ateam.petworld.models.Owner;
 import com.ateam.petworld.models.Sitter;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +32,33 @@ import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiTh
 
 public class AppointmentDataService {
     private AWSAppSyncClient awsAppSyncClient;
+    private AppSyncSubscriptionCall subscriptionWatcher;
 
     public AppointmentDataService(AWSAppSyncClient awsAppSyncClient) {
         this.awsAppSyncClient = awsAppSyncClient;
+    }
+
+    private AppSyncSubscriptionCall.Callback subCallback = new AppSyncSubscriptionCall.Callback() {
+        @Override
+        public void onResponse(@Nonnull Response response) {
+            Log.i("Subscribe", response.data().toString());
+        }
+
+        @Override
+        public void onFailure(@Nonnull ApolloException e) {
+            Log.e("Error", e.toString());
+        }
+
+        @Override
+        public void onCompleted() {
+            Log.i("Completed", "Subscription completed");
+        }
+    };
+
+    private void subscribe() {
+        OnUpdateAppointmentSubscription subscription = OnUpdateAppointmentSubscription.builder().build();
+        subscriptionWatcher = awsAppSyncClient.subscribe(subscription);
+        subscriptionWatcher.execute(subCallback);
     }
 
     public Appointments createAppointment(Appointments appointment) {
@@ -58,7 +86,9 @@ public class AppointmentDataService {
         return appointment;
     }
 
+
     public List<Appointments> getAllAppointments(Context context){
+
         List<Appointments> responseData = new ArrayList<>();
         awsAppSyncClient.query(ListAppointmentsQuery.builder()
 //                .filter()
@@ -71,7 +101,7 @@ public class AppointmentDataService {
                         List<ListAppointmentsQuery.Item> appointmentQueryResponse = Objects.requireNonNull(response.data().listAppointments()).items();
                         assert appointmentQueryResponse != null;
                         for (ListAppointmentsQuery.Item item : appointmentQueryResponse) {
-                            Appointments  eachAppointment = new Appointments();
+                            Appointments eachAppointment = new Appointments();
                             /*eachOwner.setId(item.id());
                             eachOwner.setEmailId(item.emailId());
                             eachOwner.setPhoneNumber(item.phoneNumber());

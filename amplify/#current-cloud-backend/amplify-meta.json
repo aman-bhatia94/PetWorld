@@ -35,8 +35,8 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-petworld-dev-162938-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"logicalId": "apipetWorldAPI"
 			},
-			"lastPushTimeStamp": "2020-03-07T09:44:21.088Z",
-			"lastPushDirHash": "Mfr9qafa/mrnmtnrNAcbC9SNXhE="
+          "lastPushTimeStamp": "2020-03-10T08:46:23.060Z",
+          "lastPushDirHash": "r8IGKsiAK3berwCaYCqMpDBHQH8="
 		}
 	}
 }

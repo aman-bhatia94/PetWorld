@@ -4,5 +4,5 @@
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
     "DynamoDBEnableServerSideEncryption": "false",
     "S3DeploymentBucket": "amplify-petworld-dev-162938-deployment",
-    "S3DeploymentRootKey": "amplify-appsync-files/f00af9073618f4d2389a5293f35276fefdfe3705"
+  "S3DeploymentRootKey": "amplify-appsync-files/300c502ffa99a58811e9afa5994a9d19b2fb28f9"
 }

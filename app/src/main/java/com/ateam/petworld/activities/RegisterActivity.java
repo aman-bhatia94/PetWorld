@@ -18,10 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.ateam.petworld.R;
-
 import com.ateam.petworld.factory.ClientFactory;
 import com.ateam.petworld.models.Location;
-
 import com.ateam.petworld.models.Owner;
 import com.ateam.petworld.models.Sitter;
 import com.ateam.petworld.services.LocationDataService;
@@ -29,7 +27,6 @@ import com.ateam.petworld.services.LocationIQRESTService;
 import com.ateam.petworld.services.MyLocationService;
 import com.ateam.petworld.services.OwnerDataService;
 import com.ateam.petworld.services.SitterDataService;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,10 +158,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         Location location = locationDataService.getLocation(fetchedLocation);
 
-        if(location.getId() == null){
-            return false;
-        }
-        return true;
+        return location.getId() != null;
 
     }
 
@@ -228,19 +222,19 @@ public class RegisterActivity extends AppCompatActivity {
         //check that fields are not empty
 
         //get info from the textfields
-        EditText et_firstName = (EditText) findViewById(R.id.et_first_name);
+        EditText et_firstName = findViewById(R.id.et_first_name);
         firstName = et_firstName.getText().toString();
 
-        EditText et_lastName = (EditText) findViewById(R.id.et_last_name);
+        EditText et_lastName = findViewById(R.id.et_last_name);
         lastName = et_lastName.getText().toString();
 
-        EditText et_emailId = (EditText) findViewById(R.id.et_register_email_id);
+        EditText et_emailId = findViewById(R.id.et_register_email_id);
         emailId = et_emailId.getText().toString();
 
-        EditText et_register_password = (EditText) findViewById(R.id.et_register_password);
+        EditText et_register_password = findViewById(R.id.et_register_password);
         password = et_register_password.getText().toString();
 
-        EditText et_phoneNumber = (EditText) findViewById(R.id.et_phone_number);
+        EditText et_phoneNumber = findViewById(R.id.et_phone_number);
         phoneNumber = et_phoneNumber.getText().toString();
 
         isInfoEmpty = checkFieldsEmpty(firstName,lastName, emailId, password, phoneNumber);
@@ -301,7 +295,7 @@ public class RegisterActivity extends AppCompatActivity {
                 //its a sitter
                 Sitter querySitter = new Sitter();
                 querySitter.setEmailId(emailId);
-                List<Sitter> sitterList = sitterDataService.searchSitters();
+                List<Sitter> sitterList = sitterDataService.searchSitters(this);
                 for(Sitter sitter : sitterList){
 
                     if(sitter.getEmailId().equals(querySitter.getEmailId())){
@@ -338,15 +332,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean checkFieldsEmpty(String firstName, String lastName, String emailId, String password, String phoneNumber) {
 
-        if(firstName == null || firstName.isEmpty()
+        return firstName == null || firstName.isEmpty()
                 || lastName == null || lastName.isEmpty()
                 || emailId == null || emailId.isEmpty()
                 || password == null || password.isEmpty()
-                || phoneNumber == null || phoneNumber.isEmpty()){
-
-            return true;
-        }
-        return false;
+                || phoneNumber == null || phoneNumber.isEmpty();
     }
 
 

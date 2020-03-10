@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -102,8 +101,7 @@ public class SearchSitters extends AppCompatActivity {
         setContentView(R.layout.activity_search_sitters);
         init();
         owner = ownerDataService.getOwner(owner);
-        sitterList = sitterDataService.searchSitters();
-        setSearchSitterResult();
+        sitterList = sitterDataService.searchSitters(this);
         setViewListeners();
     }
 
@@ -137,27 +135,25 @@ public class SearchSitters extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private void setSearchSitterResult() {
-        final Handler handler = new Handler();
+    public void setSearchSitterResult(List<Sitter> sitterListResult) {
         Owner finalOwner = owner;
-        handler.postDelayed(() -> {
-            for (Sitter sitter : sitterList) {
-                sitter.setDistanceFromOwner(DistanceCalculator.calculateDistance(finalOwner.getLocation().getLatitude(), finalOwner.getLocation().getLongitude(),
-                        sitter.getLocation().getLatitude(), sitter.getLocation().getLongitude(), "M"));
-            }
-            if (sitterList.size() > 0) {
-                sitterList = sitterList
-                        .stream()
-                        .filter(ListFunctions.distinctByKeys(Sitter::getId))
-                        .collect(Collectors.toList());
-                tvNoResultsFound.setVisibility(View.GONE);
-                searchSitterListAdapter = new SearchSitterListAdapter(sitterList, this);
-                sitterFullList = new ArrayList<>(sitterList);
-                rvSitterSearchResult.setAdapter(searchSitterListAdapter);
-            } else {
-                tvNoResultsFound.setVisibility(View.VISIBLE);
-            }
-        }, 500);
+        sitterList = new ArrayList<>(sitterListResult);
+        for (Sitter sitter : sitterList) {
+            sitter.setDistanceFromOwner(DistanceCalculator.calculateDistance(finalOwner.getLocation().getLatitude(), finalOwner.getLocation().getLongitude(),
+                    sitter.getLocation().getLatitude(), sitter.getLocation().getLongitude(), "M"));
+        }
+        if (sitterList.size() > 0) {
+            sitterList = sitterList
+                    .stream()
+                    .filter(ListFunctions.distinctByKeys(Sitter::getId))
+                    .collect(Collectors.toList());
+            tvNoResultsFound.setVisibility(View.GONE);
+            searchSitterListAdapter = new SearchSitterListAdapter(sitterList, this);
+            sitterFullList = new ArrayList<>(sitterList);
+            rvSitterSearchResult.setAdapter(searchSitterListAdapter);
+        } else {
+            tvNoResultsFound.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setViewListeners() {

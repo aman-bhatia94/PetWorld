@@ -5,6 +5,7 @@ import android.util.Log;
 import com.amazonaws.amplify.generated.graphql.CreateOwnerMutation;
 import com.amazonaws.amplify.generated.graphql.GetOwnerQuery;
 import com.amazonaws.amplify.generated.graphql.ListOwnersQuery;
+import com.amazonaws.amplify.generated.graphql.UpdateOwnerMutation;
 import com.amazonaws.mobileconnectors.appsync.AWSAppSyncClient;
 import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
 import com.apollographql.apollo.GraphQLCall;
@@ -20,6 +21,7 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 import type.CreateOwnerInput;
+import type.UpdateOwnerInput;
 
 public class OwnerDataService {
 
@@ -88,7 +90,29 @@ public class OwnerDataService {
         return responseData;
     }
 
-    //trying....
+    public void updateOwner(Owner owner) {
+        UpdateOwnerInput requestObj = UpdateOwnerInput.builder()
+                .id(owner.getId())
+                .displayImage(owner.getDisplayImage())
+                .emailId(owner.getEmailId())
+                .firstName(owner.getFirstName())
+                .lastName(owner.getLastName())
+                .ownerLocationId(owner.getLocation().getId())
+                .password(owner.getPassword())
+                .phoneNumber(owner.getPhoneNumber())
+                .build();
+        awsAppSyncClient.mutate(UpdateOwnerMutation.builder().input(requestObj).build()).enqueue(new GraphQLCall.Callback<UpdateOwnerMutation.Data>() {
+            @Override
+            public void onResponse(@Nonnull Response<UpdateOwnerMutation.Data> response) {
+
+            }
+
+            @Override
+            public void onFailure(@Nonnull ApolloException e) {
+
+            }
+        });
+    }
 
     public List<Owner> searchOwners() {
         List<Owner> responseData = new ArrayList<>();
