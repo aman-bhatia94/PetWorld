@@ -70,13 +70,10 @@ public class SearchSitters extends AppCompatActivity {
     private TextWatcher searchTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
         }
-
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
         }
 
         @RequiresApi(api = Build.VERSION_CODES.N)
