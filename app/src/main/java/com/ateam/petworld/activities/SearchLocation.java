@@ -1,7 +1,6 @@
 package com.ateam.petworld.activities;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -67,19 +66,21 @@ public class SearchLocation extends AppCompatActivity {
         rvSearchLocationList.setAdapter(searchLocationListAdapter);
         spnCountries = findViewById(R.id.spn_country_list);
         PrintfulRESTService printfulRESTService = new PrintfulRESTService();
-        countries = printfulRESTService.fetchAllCountries();
-        final Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            List<String> items = new ArrayList<>();
-            for (Country country : countries) {
-                items.add(country.getName());
-            }
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
-            spnCountries.setAdapter(adapter);
-        }, 1000);
+        printfulRESTService.fetchAllCountries(this);
         ibSearch.setOnClickListener(searchListener);
 
     }
+
+    public void setCountryList(List<Country> countriesResponse) {
+        countries = new ArrayList<>(countriesResponse);
+        List<String> items = new ArrayList<>();
+        for (Country country : countries) {
+            items.add(country.getName());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
+        spnCountries.setAdapter(adapter);
+    }
+
 
     public void setLocation(Location location) {
         int i = 10;

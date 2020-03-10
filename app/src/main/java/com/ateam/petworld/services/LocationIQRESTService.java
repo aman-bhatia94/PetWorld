@@ -19,6 +19,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiThread;
+
 
 public class LocationIQRESTService {
 
@@ -99,9 +101,11 @@ public class LocationIQRESTService {
                     location.setDisplayAddress(eachObj.getDisplayAddress());
                     possibleLocations.add(location);
                 }
-                if (context instanceof SearchLocation) {
-                    ((SearchLocation) context).setLocationList(possibleLocations);
-                }
+                runOnUiThread(() -> {
+                    if (context instanceof SearchLocation) {
+                        ((SearchLocation) context).setLocationList(possibleLocations);
+                    }
+                });
             }
 
             @Override

@@ -10,10 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.ateam.petworld.R;
 import com.ateam.petworld.factory.ClientFactory;
-import com.ateam.petworld.models.Location;
 import com.ateam.petworld.models.Owner;
 import com.ateam.petworld.models.Sitter;
-import com.ateam.petworld.services.LocationDataService;
 import com.ateam.petworld.services.OwnerDataService;
 import com.ateam.petworld.services.SitterDataService;
 
@@ -51,8 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         sitterList = new ArrayList<>();
 
         ownerList = ownerDataService.searchOwners();
-        sitterList = sitterDataService.searchSitters();
-
+        sitterList = sitterDataService.searchSitters(this);
     }
 
 
@@ -69,50 +66,48 @@ public class LoginActivity extends AppCompatActivity {
     public void onClickLogin(View view) {
 
 
-        EditText etEmail = (EditText) findViewById(R.id.et_user_email_id);
+        EditText etEmail = findViewById(R.id.et_user_email_id);
         emailId = etEmail.getText().toString();
 
-        EditText etPassword = (EditText) findViewById(R.id.et_user_password);
+        EditText etPassword = findViewById(R.id.et_user_password);
         password = etPassword.getText().toString();
 
         //check if fields are empty
         boolean isEmpty = checkFieldsEmpty(emailId, password);
 
-        if(isEmpty == true){
+        if (isEmpty == true) {
 
             Toast.makeText(this,
                     getString(R.string.login_missing_values),
                     Toast.LENGTH_LONG
             ).show();
 
-        }
-        else{
+        } else {
             String userExists = checkUserExists();
-            if(userExists.equals("err400")){
+            if (userExists.equals("err400")) {
                 //user doesn't exist
                 Toast.makeText(this,
                         getString(R.string.user_absent),
                         Toast.LENGTH_LONG
                 ).show();
-            }
-            else if(userExists.equals("owner")){
+            } else if (userExists.equals("owner")) {
                 loginOwner();
-            }
-            else{
+            } else {
                 loginSitter();
             }
         }
     }
+
     private void loginOwner() {
 
         //Owner owner = new Owner();
         //owner.setEmailId(emailId);
         //owner.setPassword(password);
 
-        Intent intent = new Intent(this,OwnerDashboard.class);
-        intent.putExtra("emailId",emailId);
-        intent.putExtra("password",password);
-        intent.putExtra("ownerId",ownerId);
+        Intent intent = new Intent(this, OwnerDashboard.class);
+        intent.putExtra("emailId", emailId);
+        intent.putExtra("password", password);
+        intent.putExtra("ownerId", ownerId);
         startActivity(intent);
 
     }
@@ -123,13 +118,12 @@ public class LoginActivity extends AppCompatActivity {
         //sitter.setEmailId(emailId);
         //sitter.setPassword(password);
 
-        Intent intent = new Intent(this,SitterDashboard.class);
-        intent.putExtra("emailId",emailId);
-        intent.putExtra("password",password);
-        intent.putExtra("sitterId",sitterId);
+        Intent intent = new Intent(this, SitterDashboard.class);
+        intent.putExtra("emailId", emailId);
+        intent.putExtra("password", password);
+        intent.putExtra("sitterId", sitterId);
         startActivity(intent);
     }
-
 
 
     private String checkUserExists() {
@@ -147,21 +141,19 @@ public class LoginActivity extends AppCompatActivity {
         Sitter querySitter = checkSitterExists(sitterList);
 
 
-        if(queryOwner== null || queryOwner.getEmailId() == null ){
+        if (queryOwner == null || queryOwner.getEmailId() == null) {
             //Owner doesn't exist
             exists = "err400";
-        }
-        else{
+        } else {
             exists = "owner";
             //owner.setId(queryOwner.getId());
             ownerId = queryOwner.getId();
             return exists;
         }
 
-        if(querySitter == null || querySitter.getEmailId() == null){
+        if (querySitter == null || querySitter.getEmailId() == null) {
             exists = "err400";
-        }
-        else{
+        } else {
             exists = "sitter";
             //sitter.setId(querySitter.getId());
             sitterId = querySitter.getId();
@@ -173,9 +165,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private Owner checkOwnerExists(List<Owner> ownerList) {
-        for(Owner owner : ownerList){
+        for (Owner owner : ownerList) {
 
-            if(owner.getEmailId().equals(emailId) && owner.getPassword().equals(password)){
+            if (owner.getEmailId().equals(emailId) && owner.getPassword().equals(password)) {
                 return owner;
             }
         }
@@ -184,9 +176,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private Sitter checkSitterExists(List<Sitter> sitterList) {
-        for(Sitter sitter : sitterList){
+        for (Sitter sitter : sitterList) {
 
-            if(sitter.getEmailId().equals(emailId) && sitter.getPassword().equals(password)){
+            if (sitter.getEmailId().equals(emailId) && sitter.getPassword().equals(password)) {
                 return sitter;
             }
         }
@@ -194,15 +186,15 @@ public class LoginActivity extends AppCompatActivity {
         return null;
     }
 
-    private Owner checkOwnerExists(String emailId,String password) {
+    private Owner checkOwnerExists(String emailId, String password) {
 
         List<Owner> ownerList = new ArrayList<>();
 
         ownerList = ownerDataService.searchOwners();
 
-        for(Owner owner : ownerList){
+        for (Owner owner : ownerList) {
 
-            if(owner.getEmailId().equals(emailId) && owner.getPassword().equals(password)){
+            if (owner.getEmailId().equals(emailId) && owner.getPassword().equals(password)) {
                 return owner;
             }
         }
@@ -212,13 +204,13 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private Sitter checkSitterExists(String emailId,String password) {
+    private Sitter checkSitterExists(String emailId, String password) {
 
         List<Sitter> sitterList = new ArrayList<>();
-        sitterList = sitterDataService.searchSitters();
-        for(Sitter sitter : sitterList){
+        sitterList = sitterDataService.searchSitters(this);
+        for (Sitter sitter : sitterList) {
 
-            if(sitter.getEmailId().equals(emailId) && sitter.getPassword().equals(password)){
+            if (sitter.getEmailId().equals(emailId) && sitter.getPassword().equals(password)) {
                 return sitter;
             }
         }
@@ -228,14 +220,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
     private boolean checkFieldsEmpty(String emailId, String password) {
 
-        if(emailId == null || emailId.isEmpty() || password == null || password.isEmpty()){
-            return true;
-        }
-        return false;
+        return emailId == null || emailId.isEmpty() || password == null || password.isEmpty();
     }
 
     /*
