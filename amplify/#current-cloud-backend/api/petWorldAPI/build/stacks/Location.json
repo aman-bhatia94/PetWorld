@@ -178,6 +178,10 @@
                             "Ref": "AWS::NoValue"
                         }
                     ]
+                },
+              "TimeToLiveSpecification": {
+                "AttributeName": "_ttl",
+                "Enabled": true
                 }
             },
             "DeletionPolicy": "Delete"
@@ -321,6 +325,80 @@
                                                     }
                                                 }
                                             ]
+                                        },
+                                      {
+                                        "Fn::Sub": [
+                                          "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}",
+                                          {
+                                            "tablename": {
+                                              "Fn::If": [
+                                                "HasEnvironmentParameter",
+                                                {
+                                                  "Fn::Join": [
+                                                    "-",
+                                                    [
+                                                      "AmplifyDataStore",
+                                                      {
+                                                        "Ref": "GetAttGraphQLAPIApiId"
+                                                      },
+                                                      {
+                                                        "Ref": "env"
+                                                      }
+                                                    ]
+                                                  ]
+                                                },
+                                                {
+                                                  "Fn::Join": [
+                                                    "-",
+                                                    [
+                                                      "AmplifyDataStore",
+                                                      {
+                                                        "Ref": "GetAttGraphQLAPIApiId"
+                                                      }
+                                                    ]
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "Fn::Sub": [
+                                          "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${tablename}/*",
+                                          {
+                                            "tablename": {
+                                              "Fn::If": [
+                                                "HasEnvironmentParameter",
+                                                {
+                                                  "Fn::Join": [
+                                                    "-",
+                                                    [
+                                                      "AmplifyDataStore",
+                                                      {
+                                                        "Ref": "GetAttGraphQLAPIApiId"
+                                                      },
+                                                      {
+                                                        "Ref": "env"
+                                                      }
+                                                    ]
+                                                  ]
+                                                },
+                                                {
+                                                  "Fn::Join": [
+                                                    "-",
+                                                    [
+                                                      "AmplifyDataStore",
+                                                      {
+                                                        "Ref": "GetAttGraphQLAPIApiId"
+                                                                        }
+                                                                    ]
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -377,13 +455,112 @@
                                 ]
                             }
                         ]
-                    }
+                    },
+                  "DeltaSyncConfig": {
+                    "DeltaSyncTableName": {
+                      "Fn::If": [
+                        "HasEnvironmentParameter",
+                        {
+                          "Fn::Join": [
+                            "-",
+                            [
+                              "AmplifyDataStore",
+                              {
+                                "Ref": "GetAttGraphQLAPIApiId"
+                              },
+                              {
+                                "Ref": "env"
+                              }
+                            ]
+                          ]
+                        },
+                        {
+                          "Fn::Join": [
+                            "-",
+                            [
+                              "AmplifyDataStore",
+                              {
+                                "Ref": "GetAttGraphQLAPIApiId"
+                              }
+                            ]
+                          ]
+                        }
+                      ]
+                    },
+                    "DeltaSyncTableTTL": 30,
+                    "BaseTableTTL": 43200
+                  },
+                  "Versioned": true
                 }
             },
             "DependsOn": [
                 "LocationIAMRole"
             ]
         },
+      "SyncLocationResolver": {
+        "Type": "AWS::AppSync::Resolver",
+        "Properties": {
+          "ApiId": {
+            "Ref": "GetAttGraphQLAPIApiId"
+          },
+          "DataSourceName": {
+            "Fn::GetAtt": [
+              "LocationDataSource",
+              "Name"
+            ]
+          },
+          "FieldName": "syncLocations",
+          "TypeName": "Query",
+          "RequestMappingTemplateS3Location": {
+            "Fn::Sub": [
+              "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+              {
+                "S3DeploymentBucket": {
+                  "Ref": "S3DeploymentBucket"
+                },
+                "S3DeploymentRootKey": {
+                  "Ref": "S3DeploymentRootKey"
+                },
+                "ResolverFileName": {
+                  "Fn::Join": [
+                    ".",
+                    [
+                      "Query",
+                      "syncLocations",
+                      "req",
+                      "vtl"
+                    ]
+                  ]
+                }
+              }
+            ]
+          },
+          "ResponseMappingTemplateS3Location": {
+            "Fn::Sub": [
+              "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+              {
+                "S3DeploymentBucket": {
+                  "Ref": "S3DeploymentBucket"
+                },
+                "S3DeploymentRootKey": {
+                  "Ref": "S3DeploymentRootKey"
+                },
+                "ResolverFileName": {
+                  "Fn::Join": [
+                    ".",
+                    [
+                      "Query",
+                      "syncLocations",
+                      "res",
+                      "vtl"
+                    ]
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      },
         "GetLocationResolver": {
             "Type": "AWS::AppSync::Resolver",
             "Properties": {
@@ -526,6 +703,10 @@
                 },
                 "FieldName": "createLocation",
                 "TypeName": "Mutation",
+              "SyncConfig": {
+                "ConflictDetection": "VERSION",
+                "ConflictHandler": "AUTOMERGE"
+              },
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
                         "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
@@ -590,6 +771,10 @@
                 },
                 "FieldName": "updateLocation",
                 "TypeName": "Mutation",
+              "SyncConfig": {
+                "ConflictDetection": "VERSION",
+                "ConflictHandler": "AUTOMERGE"
+              },
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
                         "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
@@ -654,6 +839,10 @@
                 },
                 "FieldName": "deleteLocation",
                 "TypeName": "Mutation",
+              "SyncConfig": {
+                "ConflictDetection": "VERSION",
+                "ConflictHandler": "AUTOMERGE"
+              },
                 "RequestMappingTemplateS3Location": {
                     "Fn::Sub": [
                         "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",

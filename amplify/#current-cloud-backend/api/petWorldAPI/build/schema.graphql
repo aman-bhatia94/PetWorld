@@ -8,6 +8,9 @@ type Owner {
   location: Location
   appointment(filter: ModelAppointmentFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelAppointmentConnection
   displayImage: String
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
 }
 
 type Sitter {
@@ -21,6 +24,9 @@ type Sitter {
   appointment(filter: ModelAppointmentFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelAppointmentConnection
   displayImage: String
   payPerDay: Float!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
 }
 
 type Appointment {
@@ -30,6 +36,10 @@ type Appointment {
   owner: Owner
   sitter: Sitter
   totalAmount: Float!
+  confirmed: Boolean
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
 }
 
 type Location {
@@ -51,6 +61,9 @@ type Location {
   postCode: String
   country: String
   countryCode: String
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
 }
 
 enum ModelSortDirection {
@@ -61,6 +74,7 @@ enum ModelSortDirection {
 type ModelOwnerConnection {
   items: [Owner]
   nextToken: String
+  startedAt: AWSTimestamp
 }
 
 input ModelStringInput {
@@ -150,12 +164,16 @@ input ModelOwnerFilterInput {
 }
 
 type Query {
+  syncOwners(filter: ModelOwnerFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelOwnerConnection
   getOwner(id: ID!): Owner
   listOwners(filter: ModelOwnerFilterInput, limit: Int, nextToken: String): ModelOwnerConnection
+  syncSitters(filter: ModelSitterFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelSitterConnection
   getSitter(id: ID!): Sitter
   listSitters(filter: ModelSitterFilterInput, limit: Int, nextToken: String): ModelSitterConnection
+  syncAppointments(filter: ModelAppointmentFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelAppointmentConnection
   getAppointment(id: ID!): Appointment
   listAppointments(filter: ModelAppointmentFilterInput, limit: Int, nextToken: String): ModelAppointmentConnection
+  syncLocations(filter: ModelLocationFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelLocationConnection
   getLocation(id: ID!): Location
   listLocations(filter: ModelLocationFilterInput, limit: Int, nextToken: String): ModelLocationConnection
 }
@@ -168,6 +186,7 @@ input CreateOwnerInput {
   phoneNumber: String
   password: String!
   displayImage: String
+  _version: Int
   ownerLocationId: ID
 }
 
@@ -179,11 +198,13 @@ input UpdateOwnerInput {
   phoneNumber: String
   password: String
   displayImage: String
+  _version: Int
   ownerLocationId: ID
 }
 
 input DeleteOwnerInput {
   id: ID
+  _version: Int
 }
 
 type Mutation {
@@ -244,6 +265,7 @@ type Subscription {
 type ModelSitterConnection {
   items: [Sitter]
   nextToken: String
+  startedAt: AWSTimestamp
 }
 
 input ModelSitterFilterInput {
@@ -269,6 +291,7 @@ input CreateSitterInput {
   password: String!
   displayImage: String
   payPerDay: Float!
+  _version: Int
   sitterLocationId: ID
 }
 
@@ -281,11 +304,13 @@ input UpdateSitterInput {
   password: String
   displayImage: String
   payPerDay: Float
+  _version: Int
   sitterLocationId: ID
 }
 
 input DeleteSitterInput {
   id: ID
+  _version: Int
 }
 
 input ModelSitterConditionInput {
@@ -301,9 +326,37 @@ input ModelSitterConditionInput {
   not: ModelSitterConditionInput
 }
 
+input OwnerInput {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  emailId: String!
+  phoneNumber: String
+  password: String!
+  displayImage: String
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+input SitterInput {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  emailId: String!
+  phoneNumber: String
+  password: String!
+  displayImage: String
+  payPerDay: Float!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
 type ModelAppointmentConnection {
   items: [Appointment]
   nextToken: String
+  startedAt: AWSTimestamp
 }
 
 input ModelAppointmentFilterInput {
@@ -311,6 +364,7 @@ input ModelAppointmentFilterInput {
   startDate: ModelStringInput
   endDate: ModelStringInput
   totalAmount: ModelFloatInput
+  confirmed: ModelBooleanInput
   and: [ModelAppointmentFilterInput]
   or: [ModelAppointmentFilterInput]
   not: ModelAppointmentFilterInput
@@ -320,7 +374,11 @@ input CreateAppointmentInput {
   id: ID
   startDate: String!
   endDate: String!
+  owner: OwnerInput
+  sitter: SitterInput
   totalAmount: Float!
+  confirmed: Boolean
+  _version: Int
   appointmentOwnerId: ID
   appointmentSitterId: ID
 }
@@ -329,27 +387,47 @@ input UpdateAppointmentInput {
   id: ID!
   startDate: String
   endDate: String
+  owner: OwnerInput
+  sitter: SitterInput
   totalAmount: Float
+  confirmed: Boolean
+  _version: Int
   appointmentOwnerId: ID
   appointmentSitterId: ID
 }
 
 input DeleteAppointmentInput {
   id: ID
+  _version: Int
 }
 
 input ModelAppointmentConditionInput {
   startDate: ModelStringInput
   endDate: ModelStringInput
   totalAmount: ModelFloatInput
+  confirmed: ModelBooleanInput
   and: [ModelAppointmentConditionInput]
   or: [ModelAppointmentConditionInput]
   not: ModelAppointmentConditionInput
 }
 
+input AppointmentInput {
+  id: ID!
+  startDate: String!
+  endDate: String!
+  owner: OwnerInput
+  sitter: SitterInput
+  totalAmount: Float!
+  confirmed: Boolean
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
 type ModelLocationConnection {
   items: [Location]
   nextToken: String
+  startedAt: AWSTimestamp
 }
 
 input ModelLocationFilterInput {
@@ -381,6 +459,8 @@ input CreateLocationInput {
   displayName: String!
   displayPlace: String!
   displayAddress: String!
+  owner: [OwnerInput]
+  sitter: [SitterInput]
   name: String
   houseNo: String
   neighbourhood: String
@@ -391,6 +471,7 @@ input CreateLocationInput {
   postCode: String
   country: String
   countryCode: String
+  _version: Int
 }
 
 input UpdateLocationInput {
@@ -400,6 +481,8 @@ input UpdateLocationInput {
   displayName: String
   displayPlace: String
   displayAddress: String
+  owner: [OwnerInput]
+  sitter: [SitterInput]
   name: String
   houseNo: String
   neighbourhood: String
@@ -410,10 +493,12 @@ input UpdateLocationInput {
   postCode: String
   country: String
   countryCode: String
+  _version: Int
 }
 
 input DeleteLocationInput {
   id: ID
+  _version: Int
 }
 
 input ModelLocationConditionInput {

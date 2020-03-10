@@ -33,6 +33,7 @@ import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiTh
 public class SitterDataService {
     private AWSAppSyncClient awsAppSyncClient;
 
+
     public SitterDataService(AWSAppSyncClient awsAppSyncClient) {
         this.awsAppSyncClient = awsAppSyncClient;
     }

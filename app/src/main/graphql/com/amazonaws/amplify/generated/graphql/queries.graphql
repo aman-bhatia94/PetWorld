@@ -1,4 +1,57 @@
 # this is an auto generated file. This will be overwritten
+query SyncOwners(
+  $filter: ModelOwnerFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncOwners(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      appointment {
+        nextToken
+        startedAt
+      }
+      displayImage
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
 query GetOwner($id: ID!) {
   getOwner(id: $id) {
     id
@@ -16,9 +69,11 @@ query GetOwner($id: ID!) {
       displayAddress
       owner {
         nextToken
+        startedAt
       }
       sitter {
         nextToken
+        startedAt
       }
       name
       houseNo
@@ -30,6 +85,9 @@ query GetOwner($id: ID!) {
       postCode
       country
       countryCode
+      _version
+      _deleted
+      _lastChangedAt
     }
     appointment {
       items {
@@ -37,10 +95,18 @@ query GetOwner($id: ID!) {
         startDate
         endDate
         totalAmount
+        confirmed
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
     displayImage
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 query ListOwners(
@@ -73,13 +139,75 @@ query ListOwners(
         postCode
         country
         countryCode
+        _version
+        _deleted
+        _lastChangedAt
       }
       appointment {
         nextToken
+        startedAt
       }
       displayImage
+      _version
+      _deleted
+      _lastChangedAt
     }
     nextToken
+    startedAt
+  }
+}
+query SyncSitters(
+  $filter: ModelSitterFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncSitters(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      firstName
+      lastName
+      emailId
+      phoneNumber
+      password
+      location {
+        id
+        longitude
+        latitude
+        displayName
+        displayPlace
+        displayAddress
+        name
+        houseNo
+        neighbourhood
+        road
+        suburb
+        city
+        state
+        postCode
+        country
+        countryCode
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      appointment {
+        nextToken
+        startedAt
+      }
+      displayImage
+      payPerDay
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
   }
 }
 query GetSitter($id: ID!) {
@@ -99,9 +227,11 @@ query GetSitter($id: ID!) {
       displayAddress
       owner {
         nextToken
+        startedAt
       }
       sitter {
         nextToken
+        startedAt
       }
       name
       houseNo
@@ -113,6 +243,9 @@ query GetSitter($id: ID!) {
       postCode
       country
       countryCode
+      _version
+      _deleted
+      _lastChangedAt
     }
     appointment {
       items {
@@ -120,11 +253,19 @@ query GetSitter($id: ID!) {
         startDate
         endDate
         totalAmount
+        confirmed
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
     displayImage
     payPerDay
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 query ListSitters(
@@ -157,14 +298,73 @@ query ListSitters(
         postCode
         country
         countryCode
+        _version
+        _deleted
+        _lastChangedAt
       }
       appointment {
         nextToken
+        startedAt
       }
       displayImage
       payPerDay
+      _version
+      _deleted
+      _lastChangedAt
     }
     nextToken
+    startedAt
+  }
+}
+query SyncAppointments(
+  $filter: ModelAppointmentFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncAppointments(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      startDate
+      endDate
+      owner {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      sitter {
+        id
+        firstName
+        lastName
+        emailId
+        phoneNumber
+        password
+        displayImage
+        payPerDay
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      totalAmount
+      confirmed
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
   }
 }
 query GetAppointment($id: ID!) {
@@ -196,11 +396,18 @@ query GetAppointment($id: ID!) {
         postCode
         country
         countryCode
+        _version
+        _deleted
+        _lastChangedAt
       }
       appointment {
         nextToken
+        startedAt
       }
       displayImage
+      _version
+      _deleted
+      _lastChangedAt
     }
     sitter {
       id
@@ -226,14 +433,25 @@ query GetAppointment($id: ID!) {
         postCode
         country
         countryCode
+        _version
+        _deleted
+        _lastChangedAt
       }
       appointment {
         nextToken
+        startedAt
       }
       displayImage
       payPerDay
+      _version
+      _deleted
+      _lastChangedAt
     }
     totalAmount
+    confirmed
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 query ListAppointments(
@@ -254,6 +472,9 @@ query ListAppointments(
         phoneNumber
         password
         displayImage
+        _version
+        _deleted
+        _lastChangedAt
       }
       sitter {
         id
@@ -264,10 +485,63 @@ query ListAppointments(
         password
         displayImage
         payPerDay
+        _version
+        _deleted
+        _lastChangedAt
       }
       totalAmount
+      confirmed
+      _version
+      _deleted
+      _lastChangedAt
     }
     nextToken
+    startedAt
+  }
+}
+query SyncLocations(
+  $filter: ModelLocationFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncLocations(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      longitude
+      latitude
+      displayName
+      displayPlace
+      displayAddress
+      owner {
+        nextToken
+        startedAt
+      }
+      sitter {
+        nextToken
+        startedAt
+      }
+      name
+      houseNo
+      neighbourhood
+      road
+      suburb
+      city
+      state
+      postCode
+      country
+      countryCode
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
   }
 }
 query GetLocation($id: ID!) {
@@ -287,8 +561,12 @@ query GetLocation($id: ID!) {
         phoneNumber
         password
         displayImage
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
     sitter {
       items {
@@ -300,8 +578,12 @@ query GetLocation($id: ID!) {
         password
         displayImage
         payPerDay
+        _version
+        _deleted
+        _lastChangedAt
       }
       nextToken
+      startedAt
     }
     name
     houseNo
@@ -313,6 +595,9 @@ query GetLocation($id: ID!) {
     postCode
     country
     countryCode
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 query ListLocations(
@@ -330,9 +615,11 @@ query ListLocations(
       displayAddress
       owner {
         nextToken
+        startedAt
       }
       sitter {
         nextToken
+        startedAt
       }
       name
       houseNo
@@ -344,7 +631,11 @@ query ListLocations(
       postCode
       country
       countryCode
+      _version
+      _deleted
+      _lastChangedAt
     }
     nextToken
+    startedAt
   }
 }
