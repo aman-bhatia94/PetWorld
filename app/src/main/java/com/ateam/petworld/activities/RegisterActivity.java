@@ -65,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
     private LocationIQRESTService locationIQRESTService;
     private MyLocationService locationService;
     private boolean bound = false;
+    Intent intentLoginActivity;
 
     //Create a service connection
     private ServiceConnection connection = new ServiceConnection() {
@@ -307,6 +308,7 @@ public class RegisterActivity extends AppCompatActivity {
                             getString(R.string.register_owner_added),
                             Toast.LENGTH_LONG
                     ).show();
+                    //goToDashboard(,owner);
                 }
             } else if (isOwner == false) {
                 //its a sitter
@@ -335,13 +337,43 @@ public class RegisterActivity extends AppCompatActivity {
                     sitter.setPhoneNumber(phoneNumber);
                     sitter.setLocation(fetchedLocation);
                     sitterDataService.createSitter(sitter);
+                    //goToDashboard(,sitter);
                     Toast.makeText(this,
                             getString(R.string.register_sitter_added),
                             Toast.LENGTH_LONG
                     ).show();
+
                 }
             }
+            //new_change344
+
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivity(intent);
+            finish();
+
+
         }
+    }
+
+    public void goToDashboard(int id,Sitter sitter){
+
+        Toast.makeText(this,
+                getString(R.string.register_sitter_added),
+                Toast.LENGTH_LONG
+        ).show();
+        Intent intent = new Intent(this,SitterDashboard.class);
+        intent.putExtra("emailId", sitter.getEmailId());
+        intent.putExtra("password", sitter.getPassword());
+        intent.putExtra("sitterId", sitter.getId());
+    }
+
+    public void goToDashboard(int id,Owner owner){
+
+
+        Intent intent = new Intent(this,OwnerDashboard.class);
+        intent.putExtra("emailId", owner.getEmailId());
+        intent.putExtra("password", owner.getPassword());
+        intent.putExtra("ownerId", owner.getId());
     }
 
     private boolean checkFieldsEmpty(String firstName, String lastName, String emailId, String password, String phoneNumber) {

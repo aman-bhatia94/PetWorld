@@ -21,6 +21,7 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static boolean alreadyRecreated = false;
     OwnerDataService ownerDataService;
     SitterDataService sitterDataService;
 
@@ -38,11 +39,16 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*if(!alreadyRecreated){
+            recreate();
+            alreadyRecreated = true;
+        }*/
         setContentView(R.layout.activity_login);
 
         if (savedInstanceState != null) {
             emailId = savedInstanceState.getString("userEmail");
             password = savedInstanceState.getString("password");
+            alreadyRecreated = savedInstanceState.getBoolean("alreadyRecreated");
         }
         ClientFactory.init(this);
         ownerDataService = new OwnerDataService(ClientFactory.appSyncClient());
@@ -56,6 +62,14 @@ public class LoginActivity extends AppCompatActivity {
         sitterList = sitterDataService.searchSitters(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!alreadyRecreated){
+            recreate();
+            alreadyRecreated = true;
+        }
+    }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstance) {
@@ -63,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstance);
         savedInstance.putString("userEmail", emailId);
         savedInstance.putString("userPassword", password);
+        savedInstance.putBoolean("alreadyRecreated",alreadyRecreated);
 
     }
 
@@ -99,6 +114,7 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 loginSitter();
             }
+            //new_change
         }
     }
 
@@ -109,6 +125,8 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra("password", password);
         intent.putExtra("ownerId", ownerId);
         startActivity(intent);
+        //new_change
+        //finish();
     }
 
     private void loginSitter() {
@@ -118,6 +136,8 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra("password", password);
         intent.putExtra("sitterId", sitterId);
         startActivity(intent);
+        //new_change
+        //finish();
     }
 
 
@@ -205,6 +225,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+        //new_change208
     }
 
     public void onRadioButtonClicked(View view) {
@@ -223,4 +244,5 @@ public class LoginActivity extends AppCompatActivity {
                 break;
         }
     }
+
 }
