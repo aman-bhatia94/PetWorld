@@ -21,6 +21,7 @@ public class OwnerDashboard extends AppCompatActivity {
     AppointmentDataService appointmentDataService;
     Intent intent;
     private String ownerEmailId;
+    private String ownerId;
     private List<Appointments> ownerAppointments;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +33,13 @@ public class OwnerDashboard extends AppCompatActivity {
 
         intent = getIntent();
         ownerEmailId = intent.getStringExtra("emailId");
+        ownerId = intent.getStringExtra("ownerId");
         List<Appointments> allAppointmentList = new ArrayList<>();
         allAppointmentList = appointmentDataService.getAllAppointments();
         ownerAppointments = new ArrayList<>();
 
         for(Appointments appointment : allAppointmentList){
-            if(appointment.getOwner().getEmailId().equals(ownerEmailId)){
+            if(appointment.getOwnerId().equals(ownerId)){
                 ownerAppointments.add(appointment);
             }
         }

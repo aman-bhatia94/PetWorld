@@ -20,6 +20,7 @@ public class SitterDashboard extends AppCompatActivity {
     AppointmentDataService appointmentDataService;
     Intent intent;
     private String sitterEmailId;
+    private String sitterId;
     private List<Appointments> sitterAppointments;
 
     @Override
@@ -31,12 +32,13 @@ public class SitterDashboard extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rv_sitter_appointment_list);
         intent = getIntent();
         sitterEmailId = intent.getStringExtra("emailId");
+        sitterId = intent.getStringExtra("sitterId");
         List<Appointments> allAppointmentList = new ArrayList<>();
         allAppointmentList = appointmentDataService.getAllAppointments();
         sitterAppointments = new ArrayList<>();
 
         for(Appointments appointment : allAppointmentList){
-            if(appointment.getSitter().getEmailId().equals(sitterEmailId)){
+            if(appointment.getSitterId().equals(sitterId)){
                 sitterAppointments.add(appointment);
             }
         }

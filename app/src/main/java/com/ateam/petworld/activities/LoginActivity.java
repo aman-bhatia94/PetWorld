@@ -24,10 +24,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private String emailId;
     private String password;
+    private String ownerId;
+    private String sitterId;
     OwnerDataService ownerDataService;
     SitterDataService sitterDataService;
     Owner owner;
     Sitter sitter;
+    List<Owner> ownerList;
+    List<Sitter> sitterList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         sitterDataService = new SitterDataService(ClientFactory.appSyncClient());
         owner = new Owner();
         sitter = new Sitter();
+        ownerList = new ArrayList<>();
+        sitterList = new ArrayList<>();
+
+        ownerList = ownerDataService.searchOwners();
+        sitterList = sitterDataService.searchSitters();
 
     }
 
@@ -96,24 +105,28 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void loginOwner() {
 
-        Owner owner = new Owner();
-        owner.setEmailId(emailId);
-        owner.setPassword(password);
+        //Owner owner = new Owner();
+        //owner.setEmailId(emailId);
+        //owner.setPassword(password);
 
         Intent intent = new Intent(this,OwnerDashboard.class);
-        intent.putExtra("emailId",owner.getEmailId());
+        intent.putExtra("emailId",emailId);
+        intent.putExtra("password",password);
+        intent.putExtra("ownerId",ownerId);
         startActivity(intent);
 
     }
 
     private void loginSitter() {
 
-        Sitter sitter = new Sitter();
-        sitter.setEmailId(emailId);
-        sitter.setPassword(password);
+        //Sitter sitter = new Sitter();
+        //sitter.setEmailId(emailId);
+        //sitter.setPassword(password);
 
         Intent intent = new Intent(this,SitterDashboard.class);
-        intent.putExtra("emailId",sitter.getEmailId());
+        intent.putExtra("emailId",emailId);
+        intent.putExtra("password",password);
+        intent.putExtra("sitterId",sitterId);
         startActivity(intent);
     }
 
@@ -122,15 +135,16 @@ public class LoginActivity extends AppCompatActivity {
     private String checkUserExists() {
 
         String exists = "err400";
-        Owner checkOwner = new Owner();
+        /*Owner checkOwner = new Owner();
         Sitter checkSitter = new Sitter();
 
         checkOwner.setEmailId(emailId);
         checkSitter.setEmailId(emailId);
 
-        Owner queryOwner = checkOwnerExists(emailId,password);
-        Sitter querySitter = checkSitterExists(emailId,password);
-
+        //Owner queryOwner = checkOwnerExists(emailId,password);
+        //Sitter querySitter = checkSitterExists(emailId,password);*/
+        Owner queryOwner = checkOwnerExists(ownerList);
+        Sitter querySitter = checkSitterExists(sitterList);
 
 
         if(queryOwner== null || queryOwner.getEmailId() == null ){
@@ -139,7 +153,8 @@ public class LoginActivity extends AppCompatActivity {
         }
         else{
             exists = "owner";
-            owner.setId(queryOwner.getId());
+            //owner.setId(queryOwner.getId());
+            ownerId = queryOwner.getId();
             return exists;
         }
 
@@ -148,12 +163,35 @@ public class LoginActivity extends AppCompatActivity {
         }
         else{
             exists = "sitter";
-            sitter.setId(querySitter.getId());
+            //sitter.setId(querySitter.getId());
+            sitterId = querySitter.getId();
             return exists;
 
         }
 
         return exists;
+    }
+
+    private Owner checkOwnerExists(List<Owner> ownerList) {
+        for(Owner owner : ownerList){
+
+            if(owner.getEmailId().equals(emailId) && owner.getPassword().equals(password)){
+                return owner;
+            }
+        }
+
+        return null;
+    }
+
+    private Sitter checkSitterExists(List<Sitter> sitterList) {
+        for(Sitter sitter : sitterList){
+
+            if(sitter.getEmailId().equals(emailId) && sitter.getPassword().equals(password)){
+                return sitter;
+            }
+        }
+
+        return null;
     }
 
     private Owner checkOwnerExists(String emailId,String password) {
