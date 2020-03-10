@@ -40,7 +40,7 @@ public class SitterAppointmentListAdapter extends RecyclerView.Adapter<SitterApp
     @NotNull
     @Override
     public SitterAppointmentListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.appointment_request_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.appointment_row, parent, false);
         return new SitterAppointmentListAdapter.ViewHolder(view);
     }
 
@@ -48,6 +48,7 @@ public class SitterAppointmentListAdapter extends RecyclerView.Adapter<SitterApp
     public int getItemCount() {
         return appointmentsList.size();
     }
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
 

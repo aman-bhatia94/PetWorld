@@ -1,7 +1,10 @@
 package com.ateam.petworld.services;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import com.amazonaws.amplify.generated.graphql.CreateAppointmentMutation;
 import com.amazonaws.amplify.generated.graphql.ListAppointmentsQuery;
@@ -17,10 +20,12 @@ import com.ateam.petworld.activities.SitterDashboard;
 import com.ateam.petworld.models.Appointments;
 import com.ateam.petworld.models.Owner;
 import com.ateam.petworld.models.Sitter;
+import com.ateam.petworld.utils.ListFunctions;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 
@@ -31,6 +36,7 @@ import static com.amazonaws.mobile.auth.core.internal.util.ThreadUtils.runOnUiTh
 public class AppointmentDataService {
     private AWSAppSyncClient awsAppSyncClient;
     private AppSyncSubscriptionCall subscriptionWatcher;
+    List<Appointments> responseData;
     private AppSyncSubscriptionCall.Callback subCallback = new AppSyncSubscriptionCall.Callback() {
         @Override
         public void onResponse(@Nonnull Response response) {
@@ -86,11 +92,12 @@ public class AppointmentDataService {
 
     public List<Appointments> getAllAppointments(Context context) {
 
-        List<Appointments> responseData = new ArrayList<>();
+        responseData = new ArrayList<>();
         awsAppSyncClient.query(ListAppointmentsQuery.builder()
                 .build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(new GraphQLCall.Callback<ListAppointmentsQuery.Data>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onResponse(@Nonnull Response<ListAppointmentsQuery.Data> response) {
                         assert response.data() != null;
@@ -129,6 +136,10 @@ public class AppointmentDataService {
                             eachAppointment.setSitter(sitter);
                             responseData.add(eachAppointment);
                         }
+                        responseData = responseData
+                                .stream()
+                                .filter(ListFunctions.distinctByKeys(Appointments::getId))
+                                .collect(Collectors.toList());
                         runOnUiThread(() -> {
                             if (context instanceof OwnerDashboard) {
                                 ((OwnerDashboard) context).setOwnerAppointmentList(responseData);
