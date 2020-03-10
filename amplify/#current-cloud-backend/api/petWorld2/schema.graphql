@@ -1,0 +1,55 @@
+type Owner @model {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  emailId: String!
+  phoneNumber: String
+  password: String!
+  location: Location @connection(name: "OwnerLocation")
+  appointment: [Appointment] @connection(name: "OwnerAppointment")  
+  displayImage: String
+}
+
+type Sitter @model {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  emailId: String!
+  phoneNumber: String
+  password: String!
+  location: Location @connection(name: "SitterLocation")
+  appointment:[Appointment] @connection(name: "SitterAppointment")  
+  displayImage: String
+  payPerDay: Float!
+}
+
+type Appointment @model {
+  id: ID!
+  startDate: String!
+  endDate: String!
+  owner: Owner @connection(name: "OwnerAppointment")
+  sitter: Sitter @connection(name: "SitterAppointment")
+  totalAmount: Float!
+  confirmed: Boolean
+}
+
+type Location @model {
+  id: ID!
+  longitude: String!
+  latitude: String!
+  displayName: String!
+  displayPlace: String
+  displayAddress: String
+  owner: [Owner] @connection(name: "OwnerLocation")
+  sitter: [Sitter] @connection(name: "SitterLocation")
+  name: String
+  houseNo: String
+  neighbourhood: String
+  road: String
+  suburb: String
+  city: String
+  state: String
+  postCode: String
+  country: String
+  countryCode: String
+}

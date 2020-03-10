@@ -10,6 +10,13 @@
           "region": "us-east-2",
           "authorizationType": "API_KEY",
           "apiKey": "da2-cqmxbaycbvcmtna76yjzdfw5cu"
+        },
+        "petWorld2": {
+          "endpointType": "GraphQL",
+          "endpoint": "https://ounvxenbl5fsbdfrr5oayrh5c4.appsync-api.us-east-2.amazonaws.com/graphql",
+          "region": "us-east-2",
+          "authorizationType": "API_KEY",
+          "apiKey": "da2-sjd52n7sorhhnddw4nwhi7wivy"
         }
       }
     }

@@ -128,7 +128,9 @@ public class SearchSitters extends AppCompatActivity {
         spnSitterSortList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sortingList));
 
         owner = new Owner();
-        owner.setId("f0d809ae-4c78-482a-8887-0e331e6f56d6");
+        Intent intent = getIntent();
+        String id = intent.getStringExtra("ownerId");
+        owner.setId(id);
 
         rvSitterSearchResult.setHasFixedSize(true);
         rvSitterSearchResult.setLayoutManager(new LinearLayoutManager(this));
@@ -137,6 +139,8 @@ public class SearchSitters extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void setSearchSitterResult(List<Sitter> sitterListResult) {
         Owner finalOwner = owner;
+        if (sitterListResult == null)
+            return;
         sitterList = new ArrayList<>(sitterListResult);
         for (Sitter sitter : sitterList) {
             sitter.setDistanceFromOwner(DistanceCalculator.calculateDistance(finalOwner.getLocation().getLatitude(), finalOwner.getLocation().getLongitude(),

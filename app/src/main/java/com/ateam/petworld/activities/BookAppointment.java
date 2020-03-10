@@ -123,7 +123,8 @@ public class BookAppointment extends AppCompatActivity implements SlyCalendarDia
     }
 
     void goToDashBoard() {
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, OwnerDashboard.class);
+        intent.putExtra("ownerId", ownerId);
         startActivity(intent);
     }
 }

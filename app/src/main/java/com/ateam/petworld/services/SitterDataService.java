@@ -54,7 +54,7 @@ public class SitterDataService {
                     @Override
                     public void onResponse(@Nonnull Response<CreateSitterMutation.Data> response) {
                         Log.i("Results", "Added Todo" + (response.data() != null ? Objects.requireNonNull(response.data().createSitter()).id() : null));
-                        sitter.setId(response.data().createSitter().id());
+                        sitter.setId(response.data() != null ? response.data().createSitter().id() : null);
                     }
 
                     @Override

@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".activities.RegisterActivity">
-    
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/et_first_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/firstName"
             android:ems="10"
             android:hint="@string/firstName"
-            android:autofillHints="@string/firstName"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="182dp"
             tools:layout_editor_absoluteY="84dp" />
     </LinearLayout>
 
     <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
         <EditText
             android:id="@+id/et_last_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/lastName"
             android:ems="10"
             android:hint="@string/lastName"
-            android:autofillHints="@string/lastName"
             android:inputType="textPersonName"
             tools:layout_editor_absoluteX="182dp"
             tools:layout_editor_absoluteY="152dp" />
@@ -47,52 +47,53 @@
             android:id="@+id/et_register_email_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/userEmailId"
             android:ems="10"
             android:hint="@string/userEmailId"
-            android:autofillHints="@string/userEmailId"
             android:inputType="textEmailAddress"
             tools:layout_editor_absoluteX="182dp"
             tools:layout_editor_absoluteY="297dp" />
-        
-    </LinearLayout>
-    
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    
-        <EditText
-            android:id="@+id/et_register_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/userPassword"
-            android:autofillHints="@string/userPassword"
-            android:inputType="textPassword"
-            tools:layout_editor_absoluteX="181dp"
-            tools:layout_editor_absoluteY="365dp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
+
+        <EditText
+            android:id="@+id/et_register_password"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <RadioButton android:id="@+id/rb_owner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/owner"
-                android:onClick="onRadioButtonClicked"
-                tools:ignore="OnClick" />
-            <RadioButton android:id="@+id/rb_sitter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="@string/sitter"
-                android:onClick="onRadioButtonClicked"/>
-        </RadioGroup>
+            android:autofillHints="@string/userPassword"
+            android:ems="10"
+            android:hint="@string/userPassword"
+            android:inputType="textPassword"
+            tools:layout_editor_absoluteX="181dp"
+            tools:layout_editor_absoluteY="365dp" />
     </LinearLayout>
+
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rb_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/owner"
+            tools:ignore="OnClick" />
+
+        <RadioButton
+            android:id="@+id/rb_sitter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/sitter" />
+    </RadioGroup>
 
     <LinearLayout
 
@@ -103,26 +104,26 @@
             android:id="@+id/et_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/phone"
             android:ems="10"
             android:hint="@string/phone"
-            android:autofillHints="@string/phone"
             tools:layout_editor_absoluteX="176dp"
             tools:layout_editor_absoluteY="432dp"
-            />
+            android:inputType="number" />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    
-        <EditText
+
+        <TextView
+            android:id="@+id/tv_current_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/location"
             android:ems="10"
             android:hint="@string/location"
-            android:autofillHints="@string/location"
-            android:inputType="text"
             tools:layout_editor_absoluteX="176dp"
             tools:layout_editor_absoluteY="432dp" />
     </LinearLayout>
@@ -134,12 +135,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/search"
             android:ems="10"
             android:hint="@string/search"
-            android:autofillHints="@string/search"
+            android:onClick="onSearchButtonClick"
             tools:layout_editor_absoluteX="176dp"
-            tools:layout_editor_absoluteY="432dp"
-            android:onClick="onSearchButtonClick"/>
+            tools:layout_editor_absoluteY="432dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -150,22 +151,23 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="21dp"
-            tools:layout_editor_absoluteY="525dp"
+            android:onClick="onUseMyLocationButtonClick"
             android:text="@string/locationPrompt"
-            android:onClick="onUseMyLocationButtonClick"/>
-        
+            tools:layout_editor_absoluteX="21dp"
+            tools:layout_editor_absoluteY="525dp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onRegisterButtonClick"
             android:text="@string/registerUser"
             tools:layout_editor_absoluteX="125dp"
-            tools:layout_editor_absoluteY="661dp"
-            android:onClick="onRegisterButtonClick"/>
+            tools:layout_editor_absoluteY="661dp" />
     </LinearLayout>
 </LinearLayout>

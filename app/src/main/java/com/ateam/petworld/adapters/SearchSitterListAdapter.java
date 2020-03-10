@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ateam.petworld.R;
 import com.ateam.petworld.activities.SearchSitters;
 import com.ateam.petworld.models.Sitter;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,7 +41,7 @@ public class SearchSitterListAdapter extends RecyclerView.Adapter<SearchSitterLi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Sitter sitter = mSitterList.get(position);
-        Picasso.get().load("https://static-cdn.jtvnw.net/jtv_user_pictures/dogdog-profile_image-5550ade194780dfc-300x300.jpeg").into(holder.ivDisplayPicture);
+//        Picasso.get().load("https://static-cdn.jtvnw.net/jtv_user_pictures/dogdog-profile_image-5550ade194780dfc-300x300.jpeg").into(holder.ivDisplayPicture);
         holder.tvDisplayName.setText(String.format("%s %s", sitter.getFirstName(), sitter.getLastName()));
         holder.tvDisplayLocation.setText(sitter.getLocation().getDisplayName());
         String distanceString = "%.2f Miles Away";
@@ -90,7 +88,6 @@ public class SearchSitterListAdapter extends RecyclerView.Adapter<SearchSitterLi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        ImageView ivDisplayPicture;
         TextView tvDisplayName;
         TextView tvDisplayLocation;
         TextView tvDistance;
@@ -98,7 +95,6 @@ public class SearchSitterListAdapter extends RecyclerView.Adapter<SearchSitterLi
 
         ViewHolder(View itemView) {
             super(itemView);
-            ivDisplayPicture = itemView.findViewById(R.id.iv_display_picture);
             tvDisplayName = itemView.findViewById(R.id.tv_display_name);
             tvDisplayLocation = itemView.findViewById(R.id.tv_display_location);
             tvDistance = itemView.findViewById(R.id.tv_distance);

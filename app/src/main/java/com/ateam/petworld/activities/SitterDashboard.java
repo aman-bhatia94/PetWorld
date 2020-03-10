@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ateam.petworld.R;
-import com.ateam.petworld.adapters.OwnerAppointmentListAdapter;
 import com.ateam.petworld.adapters.SitterAppointmentListAdapter;
 import com.ateam.petworld.factory.ClientFactory;
 import com.ateam.petworld.models.Appointments;
@@ -25,11 +24,21 @@ public class SitterDashboard extends AppCompatActivity {
     Context context;
     AppointmentDataService appointmentDataService;
     Intent intent;
-    private String sitterEmailId;
-    private String sitterId;
-    private List<Appointments> sitterAppointments;
+
     Button updateProfileButton;
     RecyclerView recyclerView;
+
+    private String sitterEmailId;
+    private String sitterId;
+    View.OnClickListener updateProfileListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, Profile.class);
+            intent.putExtra("sitterId", sitterId);
+            startActivity(intent);
+        }
+    };
+    private List<Appointments> sitterAppointments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,31 +54,21 @@ public class SitterDashboard extends AppCompatActivity {
         intent = getIntent();
         sitterEmailId = intent.getStringExtra("emailId");
         sitterId = intent.getStringExtra("sitterId");
-        List<Appointments> allAppointmentList = new ArrayList<>();
-        allAppointmentList = appointmentDataService.getAllAppointments(this);
+        List<Appointments> allAppointmentList = appointmentDataService.getAllAppointments(this);
         sitterAppointments = new ArrayList<>();
 
-        for(Appointments appointment : allAppointmentList){
-            if(appointment.getSitterId().equals(sitterId)){
+        for (Appointments appointment : allAppointmentList) {
+            if (appointment.getSitterId().equals(sitterId)) {
                 sitterAppointments.add(appointment);
             }
         }
         recyclerView.setAdapter(new SitterAppointmentListAdapter(sitterAppointments));
     }
 
-    View.OnClickListener updateProfileListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(context,Profile.class);
-            intent.putExtra("sitterId",sitterId);
-            startActivity(intent);
-        }
-    } ;
-
     public void setSitterAppointmentList(List<Appointments> allAppointmentList) {
         sitterAppointments = new ArrayList<>();
-        for(Appointments appointment : allAppointmentList){
-            if(appointment.getSitterId().equals(sitterId)){
+        for (Appointments appointment : allAppointmentList) {
+            if (appointment.getSitterId().equals(sitterId)) {
                 sitterAppointments.add(appointment);
             }
         }

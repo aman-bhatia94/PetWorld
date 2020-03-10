@@ -20,18 +20,6 @@ public class Appointments {
         this.totalAmount = totalAmount;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
-    }
-
-    public void setSitter(Sitter sitter) {
-        this.sitter = sitter;
-    }
-
     public String getOwnerId() {
         return ownerId;
     }
@@ -48,39 +36,51 @@ public class Appointments {
         this.sitterId = sitterId;
     }
 
-    public void setAppointmentStartDate(String appointmentStartDate) {
-        this.appointmentStartDate = appointmentStartDate;
-    }
-
-    public void setAppointmentEndDate(String appointmentEndDate) {
-        this.appointmentEndDate = appointmentEndDate;
-    }
-
-    public void setUpcomingAppointment(boolean upcomingAppointment) {
-        this.upcomingAppointment = upcomingAppointment;
-    }
-
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Owner getOwner() {
         return owner;
     }
 
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
     public Sitter getSitter() {
         return sitter;
+    }
+
+    public void setSitter(Sitter sitter) {
+        this.sitter = sitter;
     }
 
     public String getAppointmentStartDate() {
         return appointmentStartDate;
     }
 
+    public void setAppointmentStartDate(String appointmentStartDate) {
+        this.appointmentStartDate = appointmentStartDate;
+    }
+
     public String getAppointmentEndDate() {
         return appointmentEndDate;
     }
 
+    public void setAppointmentEndDate(String appointmentEndDate) {
+        this.appointmentEndDate = appointmentEndDate;
+    }
+
     public boolean isUpcomingAppointment() {
         return upcomingAppointment;
+    }
+
+    public void setUpcomingAppointment(boolean upcomingAppointment) {
+        this.upcomingAppointment = upcomingAppointment;
     }
 }

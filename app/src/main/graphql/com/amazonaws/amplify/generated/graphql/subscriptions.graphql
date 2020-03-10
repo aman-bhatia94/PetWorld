@@ -16,11 +16,9 @@ subscription OnCreateOwner {
       displayAddress
       owner {
         nextToken
-        startedAt
       }
       sitter {
         nextToken
-        startedAt
       }
       name
       houseNo
@@ -32,9 +30,6 @@ subscription OnCreateOwner {
       postCode
       country
       countryCode
-      _version
-      _deleted
-      _lastChangedAt
     }
     appointment {
       items {
@@ -43,17 +38,10 @@ subscription OnCreateOwner {
         endDate
         totalAmount
         confirmed
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     displayImage
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateOwner {
@@ -73,11 +61,9 @@ subscription OnUpdateOwner {
       displayAddress
       owner {
         nextToken
-        startedAt
       }
       sitter {
         nextToken
-        startedAt
       }
       name
       houseNo
@@ -89,9 +75,6 @@ subscription OnUpdateOwner {
       postCode
       country
       countryCode
-      _version
-      _deleted
-      _lastChangedAt
     }
     appointment {
       items {
@@ -100,17 +83,10 @@ subscription OnUpdateOwner {
         endDate
         totalAmount
         confirmed
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     displayImage
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteOwner {
@@ -130,11 +106,9 @@ subscription OnDeleteOwner {
       displayAddress
       owner {
         nextToken
-        startedAt
       }
       sitter {
         nextToken
-        startedAt
       }
       name
       houseNo
@@ -146,9 +120,6 @@ subscription OnDeleteOwner {
       postCode
       country
       countryCode
-      _version
-      _deleted
-      _lastChangedAt
     }
     appointment {
       items {
@@ -157,17 +128,10 @@ subscription OnDeleteOwner {
         endDate
         totalAmount
         confirmed
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     displayImage
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnCreateSitter {
@@ -187,11 +151,9 @@ subscription OnCreateSitter {
       displayAddress
       owner {
         nextToken
-        startedAt
       }
       sitter {
         nextToken
-        startedAt
       }
       name
       houseNo
@@ -203,9 +165,6 @@ subscription OnCreateSitter {
       postCode
       country
       countryCode
-      _version
-      _deleted
-      _lastChangedAt
     }
     appointment {
       items {
@@ -214,18 +173,11 @@ subscription OnCreateSitter {
         endDate
         totalAmount
         confirmed
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     displayImage
     payPerDay
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateSitter {
@@ -245,11 +197,9 @@ subscription OnUpdateSitter {
       displayAddress
       owner {
         nextToken
-        startedAt
       }
       sitter {
         nextToken
-        startedAt
       }
       name
       houseNo
@@ -261,9 +211,6 @@ subscription OnUpdateSitter {
       postCode
       country
       countryCode
-      _version
-      _deleted
-      _lastChangedAt
     }
     appointment {
       items {
@@ -272,18 +219,11 @@ subscription OnUpdateSitter {
         endDate
         totalAmount
         confirmed
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     displayImage
     payPerDay
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteSitter {
@@ -303,11 +243,9 @@ subscription OnDeleteSitter {
       displayAddress
       owner {
         nextToken
-        startedAt
       }
       sitter {
         nextToken
-        startedAt
       }
       name
       houseNo
@@ -319,9 +257,6 @@ subscription OnDeleteSitter {
       postCode
       country
       countryCode
-      _version
-      _deleted
-      _lastChangedAt
     }
     appointment {
       items {
@@ -330,18 +265,11 @@ subscription OnDeleteSitter {
         endDate
         totalAmount
         confirmed
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     displayImage
     payPerDay
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnCreateAppointment {
@@ -373,18 +301,11 @@ subscription OnCreateAppointment {
         postCode
         country
         countryCode
-        _version
-        _deleted
-        _lastChangedAt
       }
       appointment {
         nextToken
-        startedAt
       }
       displayImage
-      _version
-      _deleted
-      _lastChangedAt
     }
     sitter {
       id
@@ -410,25 +331,15 @@ subscription OnCreateAppointment {
         postCode
         country
         countryCode
-        _version
-        _deleted
-        _lastChangedAt
       }
       appointment {
         nextToken
-        startedAt
       }
       displayImage
       payPerDay
-      _version
-      _deleted
-      _lastChangedAt
     }
     totalAmount
     confirmed
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateAppointment {
@@ -460,18 +371,11 @@ subscription OnUpdateAppointment {
         postCode
         country
         countryCode
-        _version
-        _deleted
-        _lastChangedAt
       }
       appointment {
         nextToken
-        startedAt
       }
       displayImage
-      _version
-      _deleted
-      _lastChangedAt
     }
     sitter {
       id
@@ -497,25 +401,15 @@ subscription OnUpdateAppointment {
         postCode
         country
         countryCode
-        _version
-        _deleted
-        _lastChangedAt
       }
       appointment {
         nextToken
-        startedAt
       }
       displayImage
       payPerDay
-      _version
-      _deleted
-      _lastChangedAt
     }
     totalAmount
     confirmed
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteAppointment {
@@ -547,18 +441,11 @@ subscription OnDeleteAppointment {
         postCode
         country
         countryCode
-        _version
-        _deleted
-        _lastChangedAt
       }
       appointment {
         nextToken
-        startedAt
       }
       displayImage
-      _version
-      _deleted
-      _lastChangedAt
     }
     sitter {
       id
@@ -584,25 +471,15 @@ subscription OnDeleteAppointment {
         postCode
         country
         countryCode
-        _version
-        _deleted
-        _lastChangedAt
       }
       appointment {
         nextToken
-        startedAt
       }
       displayImage
       payPerDay
-      _version
-      _deleted
-      _lastChangedAt
     }
     totalAmount
     confirmed
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnCreateLocation {
@@ -622,12 +499,8 @@ subscription OnCreateLocation {
         phoneNumber
         password
         displayImage
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     sitter {
       items {
@@ -639,12 +512,8 @@ subscription OnCreateLocation {
         password
         displayImage
         payPerDay
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     name
     houseNo
@@ -656,9 +525,6 @@ subscription OnCreateLocation {
     postCode
     country
     countryCode
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnUpdateLocation {
@@ -678,12 +544,8 @@ subscription OnUpdateLocation {
         phoneNumber
         password
         displayImage
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     sitter {
       items {
@@ -695,12 +557,8 @@ subscription OnUpdateLocation {
         password
         displayImage
         payPerDay
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     name
     houseNo
@@ -712,9 +570,6 @@ subscription OnUpdateLocation {
     postCode
     country
     countryCode
-    _version
-    _deleted
-    _lastChangedAt
   }
 }
 subscription OnDeleteLocation {
@@ -734,12 +589,8 @@ subscription OnDeleteLocation {
         phoneNumber
         password
         displayImage
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     sitter {
       items {
@@ -751,12 +602,8 @@ subscription OnDeleteLocation {
         password
         displayImage
         payPerDay
-        _version
-        _deleted
-        _lastChangedAt
       }
       nextToken
-      startedAt
     }
     name
     houseNo
@@ -768,8 +615,5 @@ subscription OnDeleteLocation {
     postCode
     country
     countryCode
-    _version
-    _deleted
-    _lastChangedAt
   }
 }

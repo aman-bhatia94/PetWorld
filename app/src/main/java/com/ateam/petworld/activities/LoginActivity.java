@@ -20,16 +20,18 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private String emailId;
-    private String password;
-    private String ownerId;
-    private String sitterId;
     OwnerDataService ownerDataService;
     SitterDataService sitterDataService;
+
     Owner owner;
     Sitter sitter;
     List<Owner> ownerList;
     List<Sitter> sitterList;
+
+    private String emailId;
+    private String password;
+    private String ownerId;
+    private String sitterId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         //check if fields are empty
         boolean isEmpty = checkFieldsEmpty(emailId, password);
 
-        if (isEmpty == true) {
+        if (isEmpty) {
 
             Toast.makeText(this,
                     getString(R.string.login_missing_values),
@@ -100,23 +102,14 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginOwner() {
 
-        //Owner owner = new Owner();
-        //owner.setEmailId(emailId);
-        //owner.setPassword(password);
-
         Intent intent = new Intent(this, OwnerDashboard.class);
         intent.putExtra("emailId", emailId);
         intent.putExtra("password", password);
         intent.putExtra("ownerId", ownerId);
         startActivity(intent);
-
     }
 
     private void loginSitter() {
-
-        //Sitter sitter = new Sitter();
-        //sitter.setEmailId(emailId);
-        //sitter.setPassword(password);
 
         Intent intent = new Intent(this, SitterDashboard.class);
         intent.putExtra("emailId", emailId);
@@ -129,14 +122,6 @@ public class LoginActivity extends AppCompatActivity {
     private String checkUserExists() {
 
         String exists = "err400";
-        /*Owner checkOwner = new Owner();
-        Sitter checkSitter = new Sitter();
-
-        checkOwner.setEmailId(emailId);
-        checkSitter.setEmailId(emailId);
-
-        //Owner queryOwner = checkOwnerExists(emailId,password);
-        //Sitter querySitter = checkSitterExists(emailId,password);*/
         Owner queryOwner = checkOwnerExists(ownerList);
         Sitter querySitter = checkSitterExists(sitterList);
 
@@ -155,23 +140,18 @@ public class LoginActivity extends AppCompatActivity {
             exists = "err400";
         } else {
             exists = "sitter";
-            //sitter.setId(querySitter.getId());
             sitterId = querySitter.getId();
             return exists;
-
         }
-
         return exists;
     }
 
     private Owner checkOwnerExists(List<Owner> ownerList) {
         for (Owner owner : ownerList) {
-
             if (owner.getEmailId().equals(emailId) && owner.getPassword().equals(password)) {
                 return owner;
             }
         }
-
         return null;
     }
 
@@ -187,36 +167,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private Owner checkOwnerExists(String emailId, String password) {
-
-        List<Owner> ownerList = new ArrayList<>();
-
-        ownerList = ownerDataService.searchOwners();
-
+        List<Owner> ownerList = ownerDataService.searchOwners();
         for (Owner owner : ownerList) {
-
             if (owner.getEmailId().equals(emailId) && owner.getPassword().equals(password)) {
                 return owner;
             }
         }
-
         return null;
-
-
     }
 
     private Sitter checkSitterExists(String emailId, String password) {
-
-        List<Sitter> sitterList = new ArrayList<>();
-        sitterList = sitterDataService.searchSitters(this);
+        List<Sitter> sitterList = sitterDataService.searchSitters(this);
         for (Sitter sitter : sitterList) {
 
             if (sitter.getEmailId().equals(emailId) && sitter.getPassword().equals(password)) {
                 return sitter;
             }
         }
-
         return null;
-
     }
 
 
