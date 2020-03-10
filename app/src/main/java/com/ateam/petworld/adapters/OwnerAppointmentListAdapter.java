@@ -41,26 +41,37 @@ public class OwnerAppointmentListAdapter extends RecyclerView.Adapter<OwnerAppoi
         TODO set color background
          */
 
-        holder.userName.setText(appointment.getSitter().getFirstName());
-        holder.appointmentDate.setText(appointment.getAppointmentStartDate());
+        holder.userName.setText(appointment.getSitter().getFirstName()+" "+ appointment.getSitter().getLastName());
+        holder.appointmentStartDate.setText(appointment.getAppointmentStartDate());
+        holder.appointmentEndDate.setText(appointment.getAppointmentEndDate());
+        holder.totalAmount.setText(String.valueOf(appointment.getTotalAmount()));
+        //holder.bookButton.setOnClickListener(bookListener);
 //        holder.appointmentTime.setText(appointment.getAppointMentTime());
 
-        if (appointment.isUpcomingAppointment()) {
-            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(), R.color.upcomingAppointment));
-        } else {
-            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(), R.color.pastAppointment));
-        }
+//        if (appointment.isUpcomingAppointment()) {
+//            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(), R.color.upcomingAppointment));
+//        } else {
+//            holder.horizontalDivider.setBackgroundColor(ContextCompat.getColor(MainApplication.getAppContext(), R.color.pastAppointment));
+//        }
 
     }
+
+    View.OnClickListener bookListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    } ;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView userName;
-        TextView appointmentDate;
-        TextView appointmentTime;
-        Button cancelButton;
-        Button rescheduleButton;
-        View horizontalDivider;
+        TextView appointmentStartDate;
+        TextView appointmentEndDate;
+        TextView totalAmount;
+        //Button bookButton;
+        //Button rescheduleButton;
+        //View horizontalDivider;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -69,11 +80,11 @@ public class OwnerAppointmentListAdapter extends RecyclerView.Adapter<OwnerAppoi
         return new MovieListAdapter.ViewHolder(view);*/
 
             userName = itemView.findViewById(R.id.appointmentUserName);
-            appointmentDate = itemView.findViewById(R.id.appointmentDate);
-            appointmentTime = itemView.findViewById(R.id.appointmentTime);
-            cancelButton = itemView.findViewById(R.id.cancelAppointmentButton);
-            rescheduleButton = itemView.findViewById(R.id.rescheduleAppointmentButton);
-            horizontalDivider = itemView.findViewById(R.id.divider);
+            appointmentStartDate = itemView.findViewById(R.id.appointmentStartDate);
+            appointmentEndDate = itemView.findViewById(R.id.appointmentEndDate);
+            totalAmount = itemView.findViewById(R.id.totalAmount);
+            //bookButton = itemView.findViewById(R.id.bookAppointmentButton);
+            //horizontalDivider = itemView.findViewById(R.id.divider);
 
         }
 

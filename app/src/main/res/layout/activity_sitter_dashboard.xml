@@ -5,7 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activities.SitterDashboard">
+
+    <Button
+        android:id="@+id/updateProfileButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UpdateProfile">
+
+    </Button>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_sitter_appointment_list"
