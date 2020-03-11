@@ -13,6 +13,7 @@ import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.ateam.petworld.activities.Profile;
+import com.ateam.petworld.activities.RegisterActivity;
 import com.ateam.petworld.models.Location;
 import com.ateam.petworld.models.Owner;
 
@@ -33,7 +34,7 @@ public class OwnerDataService {
         this.awsAppSyncClient = awsAppSyncClient;
     }
 
-    public void createOwner(Owner owner) {
+    public void createOwner(Owner owner, Context context) {
         CreateOwnerInput requestObj = CreateOwnerInput.builder()
                 .firstName(owner.getFirstName())
                 .lastName(owner.getLastName())
@@ -47,6 +48,10 @@ public class OwnerDataService {
                     @Override
                     public void onResponse(@Nonnull Response<CreateOwnerMutation.Data> response) {
                         Log.i("Results", "Added Todo" + (response.data() != null ? Objects.requireNonNull(response.data().createOwner()).id() : null));
+                        owner.setId(response.data().createOwner().id());
+                        if (context instanceof RegisterActivity){
+                            ((RegisterActivity)context).goToDashboard(owner);
+                        }
                     }
 
                     @Override

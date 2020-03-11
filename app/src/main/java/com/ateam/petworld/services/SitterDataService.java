@@ -16,6 +16,7 @@ import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
 import com.ateam.petworld.activities.Profile;
+import com.ateam.petworld.activities.RegisterActivity;
 import com.ateam.petworld.activities.SearchSitters;
 import com.ateam.petworld.models.Location;
 import com.ateam.petworld.models.Sitter;
@@ -39,7 +40,7 @@ public class SitterDataService {
         this.awsAppSyncClient = awsAppSyncClient;
     }
 
-    public Sitter createSitter(Sitter sitter) {
+    public Sitter createSitter(Sitter sitter, Context context) {
         CreateSitterInput requestObj = CreateSitterInput.builder()
                 .firstName(sitter.getFirstName())
                 .lastName(sitter.getLastName())
@@ -56,6 +57,9 @@ public class SitterDataService {
                     public void onResponse(@Nonnull Response<CreateSitterMutation.Data> response) {
                         Log.i("Results", "Added Todo" + (response.data() != null ? Objects.requireNonNull(response.data().createSitter()).id() : null));
                         sitter.setId(response.data() != null ? response.data().createSitter().id() : null);
+                        if (context instanceof RegisterActivity){
+                            ((RegisterActivity)context).goToDashboard(sitter);
+                        }
                     }
 
                     @Override

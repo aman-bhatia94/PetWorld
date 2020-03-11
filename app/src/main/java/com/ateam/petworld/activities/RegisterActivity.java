@@ -309,7 +309,7 @@ public class RegisterActivity extends AppCompatActivity {
                     owner.setPassword(password);
                     owner.setPhoneNumber(phoneNumber);
                     owner.setLocation(fetchedLocation);
-                    ownerDataService.createOwner(owner);
+                    ownerDataService.createOwner(owner, this);
                     Toast.makeText(this,
                             getString(R.string.register_owner_added),
                             Toast.LENGTH_LONG
@@ -343,7 +343,7 @@ public class RegisterActivity extends AppCompatActivity {
                     sitter.setPhoneNumber(phoneNumber);
                     sitter.setLocation(fetchedLocation);
                     sitter.setPayPerDay(payPerDay);
-                    sitterDataService.createSitter(sitter);
+                    sitterDataService.createSitter(sitter, this);
                     //goToDashboard(,sitter);
                     Toast.makeText(this,
                             getString(R.string.register_sitter_added),
@@ -353,16 +353,16 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
             //new_change344
-
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+//
+//            Intent intent = new Intent(this, LoginActivity.class);
+//            startActivity(intent);
+//            finish();
 
 
         }
     }
 
-    public void goToDashboard(int id, Sitter sitter) {
+    public void goToDashboard(Sitter sitter) {
 
         Toast.makeText(this,
                 getString(R.string.register_sitter_added),
@@ -372,15 +372,17 @@ public class RegisterActivity extends AppCompatActivity {
         intent.putExtra("emailId", sitter.getEmailId());
         intent.putExtra("password", sitter.getPassword());
         intent.putExtra("sitterId", sitter.getId());
+        startActivity(intent);
     }
 
-    public void goToDashboard(int id, Owner owner) {
+    public void goToDashboard(Owner owner) {
 
 
         Intent intent = new Intent(this, OwnerDashboard.class);
         intent.putExtra("emailId", owner.getEmailId());
         intent.putExtra("password", owner.getPassword());
         intent.putExtra("ownerId", owner.getId());
+        startActivity(intent);
     }
 
     private boolean checkFieldsEmpty(String firstName, String lastName, String emailId, String password, String phoneNumber, Double pay) {
