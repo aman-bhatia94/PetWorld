@@ -26,6 +26,9 @@ public class Profile extends AppCompatActivity {
     Owner owner;
     Sitter sitter;
 
+    String ownerId;
+    String sitterId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +42,8 @@ public class Profile extends AppCompatActivity {
         sitterDataService = new SitterDataService(ClientFactory.appSyncClient());
 
         Intent intent = getIntent();
-        String ownerId = intent.getStringExtra("ownerId");
-        String sitterId = intent.getStringExtra("sitterId");
+        ownerId = intent.getStringExtra("ownerId");
+        sitterId = intent.getStringExtra("sitterId");
 
         if (sitterId == null) {
             etPayPerDay.setVisibility(View.GONE);
@@ -70,29 +73,33 @@ public class Profile extends AppCompatActivity {
         } else {
             if (isOwner) {
                 Owner owner = new Owner();
+                owner.setId(ownerId);
                 owner.setFirstName(first);
                 owner.setLastName(last);
                 owner.setPassword(password);
                 ownerDataService.updateOwner(owner);
+                Intent intent = new Intent(this, OwnerDashboard.class);
+                intent.putExtra("ownerId", ownerId);
+                startActivity(intent);
             } else {
                 Sitter sitter = new Sitter();
+                sitter.setId(sitterId);
                 sitter.setFirstName(first);
                 sitter.setLastName(last);
                 sitter.setPassword(password);
                 sitter.setPayPerDay(Double.parseDouble(pay));
                 sitterDataService.updateSitter(sitter);
+                Intent intent = new Intent(this, SitterDashboard.class);
+                intent.putExtra("sitterId", sitterId);
+                startActivity(intent);
             }
-
         }
-
-
     }
 
     public void setOwner(Owner owner) {
         etFirstName.setText(owner.getFirstName());
         etLastName.setText(owner.getLastName());
         etPassword.setText(owner.getPassword());
-
     }
 
     public void setSitter(Sitter sitter) {
@@ -100,7 +107,6 @@ public class Profile extends AppCompatActivity {
         etFirstName.setText(sitter.getFirstName());
         etLastName.setText(sitter.getLastName());
         etPassword.setText(sitter.getPassword());
-
     }
 }
 
