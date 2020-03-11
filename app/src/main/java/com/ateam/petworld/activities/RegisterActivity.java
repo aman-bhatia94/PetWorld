@@ -262,7 +262,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText et_phoneNumber = findViewById(R.id.et_phone_number);
         phoneNumber = et_phoneNumber.getText().toString();
 
-        payPerDay = etPayPerDay.getText().toString().isEmpty() ? null : Double.parseDouble(etPayPerDay.getText().toString());
+        payPerDay = isOwner ? 0 : etPayPerDay.getText().toString().isEmpty() ? null : Double.parseDouble(etPayPerDay.getText().toString());
 
 
         isInfoEmpty = checkFieldsEmpty(firstName, lastName, emailId, password, phoneNumber, payPerDay);
@@ -389,7 +389,7 @@ public class RegisterActivity extends AppCompatActivity {
                 || lastName == null || lastName.isEmpty()
                 || emailId == null || emailId.isEmpty()
                 || password == null || password.isEmpty()
-                || phoneNumber == null || phoneNumber.isEmpty() || pay == null;
+                || phoneNumber == null || phoneNumber.isEmpty() || (isOwner && pay == null);
     }
 
 

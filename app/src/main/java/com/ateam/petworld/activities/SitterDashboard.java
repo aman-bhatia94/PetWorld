@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -90,7 +92,17 @@ public class SitterDashboard extends AppCompatActivity {
 
             if (appointment.getSitterId().equals(sitterId)) {
                 runOnUiThread(() -> {
-                    recreate();
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "1")
+                            .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark_normal_background)
+                            .setContentTitle("PetWorld Notification")
+                            .setContentText("New Appointment Added!")
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                            .setAutoCancel(true);
+
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+                    notificationManager.notify(123, builder.build());
+//                    recreate();
                 });
             }
         }
