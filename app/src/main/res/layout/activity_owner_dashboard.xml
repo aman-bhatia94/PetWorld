@@ -4,30 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bk4"
     android:orientation="vertical"
+    android:padding="@dimen/activity_default_padding"
     tools:context=".activities.OwnerDashboard">
 
-    <Button
-        android:id="@+id/bookAppointmentButton"
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bookappointment">
+        android:layout_gravity="center"
+        android:layout_marginBottom="50dp"
+        android:text="@string/woof"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_view_header1_size" />
 
-    </Button>
-
-    <Button
-        android:id="@+id/updateProfileButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        style="@style/Widget.AppCompat.ButtonBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/updateprofile">
+        android:layout_marginBottom="@dimen/element_default_margin"
+        android:orientation="horizontal">
 
-    </Button>
+        <Button
+            android:id="@+id/bookAppointmentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/bookAppointment" />
 
+        <Button
+            android:id="@+id/updateProfileButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/updateProfile" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_owner_appointment_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

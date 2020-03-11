@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bk4"
     android:orientation="vertical"
     android:padding="@dimen/activity_default_padding"
     tools:context="com.ateam.petworld.activities.Profile">
@@ -16,8 +17,8 @@
         android:textAlignment="center"
         android:textSize="@dimen/text_view_header1_size" />
 
-
     <EditText
+        android:id="@+id/et_first_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="First Name"
@@ -26,6 +27,7 @@
         android:inputType="textPersonName" />
 
     <EditText
+        android:id="@+id/et_last_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="Last Name"
@@ -34,22 +36,16 @@
         android:inputType="textPersonName" />
 
     <EditText
+        android:id="@+id/et_pay_per_day"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints="UserName"
+        android:autofillHints="Pay Per Day"
         android:ems="10"
-        android:hint="@string/username"
-        android:inputType="textPersonName" />
+        android:hint="@string/payPerDay"
+        android:inputType="numberDecimal" />
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints="Email Address"
-        android:ems="10"
-        android:hint="@string/email_id"
-        android:inputType="textPersonName" />
-
-    <EditText
+        android:id="@+id/et_user_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="Password"
@@ -61,7 +57,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:onClick="saveProfileChanges"
         android:text="@string/save_changes" />
 
 

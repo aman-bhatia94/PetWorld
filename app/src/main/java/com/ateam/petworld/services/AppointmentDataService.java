@@ -22,6 +22,7 @@ import com.ateam.petworld.models.Owner;
 import com.ateam.petworld.models.Sitter;
 import com.ateam.petworld.utils.ListFunctions;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -134,18 +135,27 @@ public class AppointmentDataService {
                             eachAppointment.setTotalAmount(item.totalAmount());
                             eachAppointment.setOwner(owner);
                             eachAppointment.setSitter(sitter);
+
                             responseData.add(eachAppointment);
                         }
                         responseData = responseData
                                 .stream()
                                 .filter(ListFunctions.distinctByKeys(Appointments::getId))
+
                                 .collect(Collectors.toList());
+
                         runOnUiThread(() -> {
-                            if (context instanceof OwnerDashboard) {
-                                ((OwnerDashboard) context).setOwnerAppointmentList(responseData);
-                            }
-                            if (context instanceof SitterDashboard) {
-                                ((SitterDashboard) context).setSitterAppointmentList(responseData);
+                            try {
+                                if (context instanceof OwnerDashboard) {
+
+                                    ((OwnerDashboard) context).setOwnerAppointmentList(responseData);
+                                }
+
+                                if (context instanceof SitterDashboard) {
+                                    ((SitterDashboard) context).setSitterAppointmentList(responseData);
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
                         });
                     }

@@ -44,7 +44,7 @@ public class OwnerAppointmentListAdapter extends RecyclerView.Adapter<OwnerAppoi
         holder.userName.setText(String.format("%s %s", appointment.getSitter().getFirstName(), appointment.getSitter().getLastName()));
         holder.appointmentStartDate.setText(appointment.getAppointmentStartDate());
         holder.appointmentEndDate.setText(appointment.getAppointmentEndDate());
-        holder.totalAmount.setText(String.valueOf(appointment.getTotalAmount()));
+        holder.totalAmount.setText(String.format("$ %s", String.valueOf(appointment.getTotalAmount())));
     }
 
     @Override
@@ -61,7 +61,6 @@ public class OwnerAppointmentListAdapter extends RecyclerView.Adapter<OwnerAppoi
 
         ViewHolder(View itemView) {
             super(itemView);
-
             userName = itemView.findViewById(R.id.appointmentUserName);
             appointmentStartDate = itemView.findViewById(R.id.appointmentStartDate);
             appointmentEndDate = itemView.findViewById(R.id.appointmentEndDate);

@@ -1,5 +1,6 @@
 package com.ateam.petworld.services;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.amazonaws.amplify.generated.graphql.CreateOwnerMutation;
@@ -11,6 +12,7 @@ import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.ateam.petworld.activities.Profile;
 import com.ateam.petworld.models.Location;
 import com.ateam.petworld.models.Owner;
 
@@ -55,7 +57,7 @@ public class OwnerDataService {
         );
     }
 
-    public Owner getOwner(Owner owner) {
+    public Owner getOwner(Owner owner, Context context) {
         Owner responseData = new Owner();
         awsAppSyncClient.query(GetOwnerQuery.builder().id(owner.getId()).build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
@@ -79,6 +81,10 @@ public class OwnerDataService {
                                  location.setLongitude(Double.parseDouble((ownerQueryResponse.location()).longitude()));
                                  location.setDisplayName(ownerQueryResponse.location().displayName());
                                  responseData.setLocation(location);
+
+                                 if (context instanceof Profile) {
+                                     ((Profile) context).setOwner(responseData);
+                                 }
                              }
 
                              @Override

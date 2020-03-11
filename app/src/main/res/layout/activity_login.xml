@@ -5,51 +5,51 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/activity_default_padding"
-    tools:context=".activities.LoginActivity">
+    tools:context=".activities.LoginActivity"
+    android:background="@drawable/bk4">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/element_default_margin">
+        android:layout_gravity="center"
+        android:layout_marginBottom="100dp"
+        android:text="@string/login"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_view_header1_size" />
 
-        <EditText
-            android:id="@+id/et_user_email_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autofillHints="@string/userEmailId"
-            android:ems="10"
-            android:hint="@string/userEmailId"
-            android:inputType="textEmailAddress"
-            tools:layout_editor_absoluteX="90dp"
-            tools:layout_editor_absoluteY="227dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/et_user_email_id"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/element_default_margin">
+        android:autofillHints="@string/userEmailId"
+        android:ems="10"
+        android:hint="@string/userEmailId"
+        android:inputType="textEmailAddress"
+        tools:layout_editor_absoluteX="90dp"
+        tools:layout_editor_absoluteY="227dp" />
 
-        <EditText
-            android:id="@+id/et_user_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:autofillHints="@string/userPassword"
-            android:ems="10"
-            android:hint="@string/userPassword"
-            android:inputType="textPassword"
-            tools:layout_editor_absoluteX="90dp"
-            tools:layout_editor_absoluteY="304dp" />
-    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_user_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/userPassword"
+        android:ems="10"
+        android:hint="@string/userPassword"
+        android:inputType="textPassword"
+        tools:layout_editor_absoluteX="90dp"
+        tools:layout_editor_absoluteY="304dp" />
 
     <RadioGroup
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/login_owner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
             android:onClick="onRadioButtonClicked"
             android:text="@string/owner" />
 
@@ -63,35 +63,23 @@
 
     </RadioGroup>
 
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="onClickSignUp"
-            android:text="@string/signUpLink"
-            android:textColor="#2196F3"
-            tools:layout_editor_absoluteX="276dp"
-            tools:layout_editor_absoluteY="376dp" />
-    </LinearLayout>
-
-    <LinearLayout
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/element_default_margin">
+        android:layout_marginVertical="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="onClickSignUp"
+        android:text="@string/signUpLink"
+        android:textColor="#2196F3"
+        android:textSize="@dimen/text_view_header3_size"
+        android:textStyle="italic" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onClickLogin"
-            android:text="@string/userLogin"
-            tools:layout_editor_absoluteX="138dp"
-            tools:layout_editor_absoluteY="422dp" />
-    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickLogin"
+        android:text="@string/userLogin" />
 
 </LinearLayout>

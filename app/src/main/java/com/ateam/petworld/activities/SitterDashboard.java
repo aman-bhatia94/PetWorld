@@ -23,8 +23,12 @@ import com.ateam.petworld.models.Owner;
 import com.ateam.petworld.models.Sitter;
 import com.ateam.petworld.services.AppointmentDataService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
@@ -36,18 +40,18 @@ public class SitterDashboard extends AppCompatActivity {
 
     Button updateProfileButton;
     RecyclerView recyclerView;
-
+    SitterAppointmentListAdapter sitterAppointmentListAdapter;
     private String sitterEmailId;
     private String sitterId;
-
+    View.OnClickListener updateProfileListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, Profile.class);
+            intent.putExtra("sitterId", sitterId);
+            startActivity(intent);
+        }
+    };
     private AppSyncSubscriptionCall subscriptionWatcher;
-
-    private void subscribe() {
-        OnCreateAppointmentSubscription subscription = OnCreateAppointmentSubscription.builder().build();
-        subscriptionWatcher = ClientFactory.appSyncClient().subscribe(subscription);
-        subscriptionWatcher.execute(subCallback);
-    }
-
     private AppSyncSubscriptionCall.Callback subCallback = new AppSyncSubscriptionCall.Callback() {
         @Override
         public void onResponse(@Nonnull Response response) {
@@ -101,26 +105,22 @@ public class SitterDashboard extends AppCompatActivity {
             Log.i("Completed", "Subscription completed");
         }
     };
-
-    View.OnClickListener updateProfileListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(context, Profile.class);
-            intent.putExtra("sitterId", sitterId);
-            startActivity(intent);
-        }
-    };
     private List<Appointments> sitterAppointments;
-    SitterAppointmentListAdapter sitterAppointmentListAdapter;
+
+    private void subscribe() {
+        OnCreateAppointmentSubscription subscription = OnCreateAppointmentSubscription.builder().build();
+        subscriptionWatcher = ClientFactory.appSyncClient().subscribe(subscription);
+        subscriptionWatcher.execute(subCallback);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sitter_dashboard);
         ClientFactory.init(this);
+        context = this;
         appointmentDataService = new AppointmentDataService(ClientFactory.appSyncClient());
         recyclerView = findViewById(R.id.rv_sitter_appointment_list);
-//        recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         updateProfileButton = findViewById(R.id.updateProfileButton);
         updateProfileButton.setOnClickListener(updateProfileListener);
@@ -128,15 +128,6 @@ public class SitterDashboard extends AppCompatActivity {
         sitterEmailId = intent.getStringExtra("emailId");
         sitterId = intent.getStringExtra("sitterId");
         appointmentDataService.getAllAppointments(this);
-//        sitterAppointments = new ArrayList<>();
-//
-//        for (Appointments appointment : allAppointmentList) {
-//            if (appointment.getSitterId().equals(sitterId)) {
-//                sitterAppointments.add(appointment);
-//            }
-//        }
-//        sitterAppointmentListAdapter = new SitterAppointmentListAdapter(sitterAppointments);
-//        recyclerView.setAdapter(sitterAppointmentListAdapter);
     }
 
     @Override
@@ -145,10 +136,14 @@ public class SitterDashboard extends AppCompatActivity {
         subscribe();
     }
 
-    public void setSitterAppointmentList(List<Appointments> allAppointmentList) {
+    public void setSitterAppointmentList(List<Appointments> allAppointmentList) throws ParseException {
         sitterAppointments = new ArrayList<>();
         for (Appointments appointment : allAppointmentList) {
             if (appointment.getSitterId().equals(sitterId)) {
+                Date startDate = new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).parse(appointment.getAppointmentStartDate());
+                Date endDate = new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).parse(appointment.getAppointmentEndDate());
+                appointment.setAppointmentStartDate(new SimpleDateFormat(getString(R.string.dp_dateFormat), Locale.getDefault()).format(startDate));
+                appointment.setAppointmentEndDate(new SimpleDateFormat(getString(R.string.dp_dateFormat), Locale.getDefault()).format(endDate));
                 sitterAppointments.add(appointment);
             }
         }

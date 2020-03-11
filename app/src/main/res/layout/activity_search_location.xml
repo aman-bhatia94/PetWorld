@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bk4"
     android:orientation="vertical"
     android:padding="@dimen/activity_default_padding"
     tools:context=".activities.SearchLocation">
@@ -34,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="-55dp"
+            android:layout_marginTop="-2dp"
             android:contentDescription="@string/search_by_name"
             android:paddingBottom="5dp"
             android:src="@drawable/ic_search" />

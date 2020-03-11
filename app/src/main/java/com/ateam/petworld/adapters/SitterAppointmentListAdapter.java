@@ -34,7 +34,7 @@ public class SitterAppointmentListAdapter extends RecyclerView.Adapter<SitterApp
         holder.userName.setText(String.format("%s %s", appointment.getOwner().getFirstName(), appointment.getOwner().getLastName()));
         holder.appointmentStartDate.setText(appointment.getAppointmentStartDate());
         holder.appointmentEndDate.setText(appointment.getAppointmentEndDate());
-        holder.totalAmount.setText(String.valueOf(appointment.getTotalAmount()));
+        holder.totalAmount.setText(String.format("$ %s", String.valueOf(appointment.getTotalAmount())));
     }
 
     @NotNull

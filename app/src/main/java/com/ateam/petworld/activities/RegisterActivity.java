@@ -49,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String firstName;
     private String lastName;
     private String location;
+    private double payPerDay;
     private String phoneNumber;
     private String latitude;
     private String longitude;
@@ -66,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
     private MyLocationService locationService;
     private boolean bound = false;
     Intent intentLoginActivity;
+    EditText etPayPerDay;
 
     //Create a service connection
     private ServiceConnection connection = new ServiceConnection() {
@@ -110,6 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
         intentLocations = new Intent(this, MyLocationService.class);
         bindService(intentLocations, connection, Context.BIND_AUTO_CREATE);
         ClientFactory.init(this);
+        etPayPerDay = findViewById(R.id.et_pay_per_day);
         locationDataService = new LocationDataService(ClientFactory.appSyncClient());
         ownerDataService = new OwnerDataService(ClientFactory.appSyncClient());
         sitterDataService = new SitterDataService(ClientFactory.appSyncClient());
@@ -259,7 +262,10 @@ public class RegisterActivity extends AppCompatActivity {
         EditText et_phoneNumber = findViewById(R.id.et_phone_number);
         phoneNumber = et_phoneNumber.getText().toString();
 
-        isInfoEmpty = checkFieldsEmpty(firstName, lastName, emailId, password, phoneNumber);
+        payPerDay = etPayPerDay.getText().toString().isEmpty() ? null : Double.parseDouble(etPayPerDay.getText().toString());
+
+
+        isInfoEmpty = checkFieldsEmpty(firstName, lastName, emailId, password, phoneNumber, payPerDay);
 
         if (isInfoEmpty) {
             //create a toast to show user that fields are empty
@@ -336,6 +342,7 @@ public class RegisterActivity extends AppCompatActivity {
                     sitter.setPassword(password);
                     sitter.setPhoneNumber(phoneNumber);
                     sitter.setLocation(fetchedLocation);
+                    sitter.setPayPerDay(payPerDay);
                     sitterDataService.createSitter(sitter);
                     //goToDashboard(,sitter);
                     Toast.makeText(this,
@@ -347,7 +354,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
             //new_change344
 
-            Intent intent = new Intent(this,LoginActivity.class);
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
 
@@ -355,34 +362,34 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    public void goToDashboard(int id,Sitter sitter){
+    public void goToDashboard(int id, Sitter sitter) {
 
         Toast.makeText(this,
                 getString(R.string.register_sitter_added),
                 Toast.LENGTH_LONG
         ).show();
-        Intent intent = new Intent(this,SitterDashboard.class);
+        Intent intent = new Intent(this, SitterDashboard.class);
         intent.putExtra("emailId", sitter.getEmailId());
         intent.putExtra("password", sitter.getPassword());
         intent.putExtra("sitterId", sitter.getId());
     }
 
-    public void goToDashboard(int id,Owner owner){
+    public void goToDashboard(int id, Owner owner) {
 
 
-        Intent intent = new Intent(this,OwnerDashboard.class);
+        Intent intent = new Intent(this, OwnerDashboard.class);
         intent.putExtra("emailId", owner.getEmailId());
         intent.putExtra("password", owner.getPassword());
         intent.putExtra("ownerId", owner.getId());
     }
 
-    private boolean checkFieldsEmpty(String firstName, String lastName, String emailId, String password, String phoneNumber) {
+    private boolean checkFieldsEmpty(String firstName, String lastName, String emailId, String password, String phoneNumber, Double pay) {
 
         return firstName == null || firstName.isEmpty()
                 || lastName == null || lastName.isEmpty()
                 || emailId == null || emailId.isEmpty()
                 || password == null || password.isEmpty()
-                || phoneNumber == null || phoneNumber.isEmpty();
+                || phoneNumber == null || phoneNumber.isEmpty() || pay == null;
     }
 
 
@@ -398,12 +405,16 @@ public class RegisterActivity extends AppCompatActivity {
         // Check which radio button was clicked
         switch (view.getId()) {
             case R.id.rb_owner:
-                if (checked)
+                if (checked) {
+                    etPayPerDay.setVisibility(View.GONE);
                     isOwner = true;
+                }
                 break;
             case R.id.rb_sitter:
-                if (checked)
+                if (checked) {
+                    etPayPerDay.setVisibility(View.VISIBLE);
                     isOwner = false;
+                }
                 break;
         }
     }

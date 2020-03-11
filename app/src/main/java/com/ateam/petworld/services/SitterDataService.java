@@ -15,6 +15,7 @@ import com.amazonaws.mobileconnectors.appsync.fetcher.AppSyncResponseFetchers;
 import com.apollographql.apollo.GraphQLCall;
 import com.apollographql.apollo.api.Response;
 import com.apollographql.apollo.exception.ApolloException;
+import com.ateam.petworld.activities.Profile;
 import com.ateam.petworld.activities.SearchSitters;
 import com.ateam.petworld.models.Location;
 import com.ateam.petworld.models.Sitter;
@@ -66,7 +67,7 @@ public class SitterDataService {
         return sitter;
     }
 
-    public Sitter getSitter(Sitter sitter) {
+    public Sitter getSitter(Sitter sitter, Context context) {
         Sitter responseData = new Sitter();
         awsAppSyncClient.query(GetSitterQuery.builder().id(sitter.getId()).build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
@@ -90,6 +91,10 @@ public class SitterDataService {
                                  location.setLongitude(Double.parseDouble(Objects.requireNonNull(ownerQueryResponse.location()).longitude()));
                                  location.setDisplayName(Objects.requireNonNull(ownerQueryResponse.location()).displayName());
                                  responseData.setLocation(location);
+
+                                 if (context instanceof Profile){
+                                     ((Profile)context).setSitter(responseData);
+                                 }
                              }
 
                              @Override
@@ -107,38 +112,38 @@ public class SitterDataService {
                 .build())
                 .responseFetcher(AppSyncResponseFetchers.CACHE_AND_NETWORK)
                 .enqueue(new GraphQLCall.Callback<ListSittersQuery.Data>() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onResponse(@Nonnull Response<ListSittersQuery.Data> response) {
-                        assert response.data() != null;
-                        List<ListSittersQuery.Item> sitterQueryResponse = Objects.requireNonNull(response.data().listSitters()).items();
-                        assert sitterQueryResponse != null;
-                        for (ListSittersQuery.Item item : sitterQueryResponse) {
-                            Sitter eachSitter = new Sitter();
-                            eachSitter.setId(item.id());
-                            eachSitter.setEmailId(item.emailId());
-                            eachSitter.setPhoneNumber(item.phoneNumber());
-                            eachSitter.setPassword(item.password());
-                            eachSitter.setFirstName(item.firstName());
-                            eachSitter.setLastName(item.lastName());
-                            eachSitter.setPayPerDay(item.payPerDay());
-                            Location location = new Location();
-                            if (item.location() == null)
-                                return;
-                            location.setId(Objects.requireNonNull(item.location()).id());
-                            location.setLatitude(Double.parseDouble(Objects.requireNonNull(item.location()).latitude()));
-                            location.setLongitude(Double.parseDouble(Objects.requireNonNull(item.location()).longitude()));
-                            location.setDisplayName(Objects.requireNonNull(item.location()).displayName());
-                            eachSitter.setLocation(location);
-                            responseData.add(eachSitter);
-                        }
-                        runOnUiThread(() -> {
-                            if (context instanceof SearchSitters) {
-                                ((SearchSitters) context).setSearchSitterResult(responseData);
-                            }
-                        });
+                             @RequiresApi(api = Build.VERSION_CODES.N)
+                             @Override
+                             public void onResponse(@Nonnull Response<ListSittersQuery.Data> response) {
+                                 assert response.data() != null;
+                                 List<ListSittersQuery.Item> sitterQueryResponse = Objects.requireNonNull(response.data().listSitters()).items();
+                                 assert sitterQueryResponse != null;
+                                 for (ListSittersQuery.Item item : sitterQueryResponse) {
+                                     Sitter eachSitter = new Sitter();
+                                     eachSitter.setId(item.id());
+                                     eachSitter.setEmailId(item.emailId());
+                                     eachSitter.setPhoneNumber(item.phoneNumber());
+                                     eachSitter.setPassword(item.password());
+                                     eachSitter.setFirstName(item.firstName());
+                                     eachSitter.setLastName(item.lastName());
+                                     eachSitter.setPayPerDay(item.payPerDay());
+                                     Location location = new Location();
+                                     if (item.location() == null)
+                                         return;
+                                     location.setId(Objects.requireNonNull(item.location()).id());
+                                     location.setLatitude(Double.parseDouble(Objects.requireNonNull(item.location()).latitude()));
+                                     location.setLongitude(Double.parseDouble(Objects.requireNonNull(item.location()).longitude()));
+                                     location.setDisplayName(Objects.requireNonNull(item.location()).displayName());
+                                     eachSitter.setLocation(location);
+                                     responseData.add(eachSitter);
+                                 }
+                                 runOnUiThread(() -> {
+                                     if (context instanceof SearchSitters) {
+                                         ((SearchSitters) context).setSearchSitterResult(responseData);
+                                     }
+                                 });
 
-                    }
+                             }
 
                              @Override
                              public void onFailure(@Nonnull ApolloException e) {

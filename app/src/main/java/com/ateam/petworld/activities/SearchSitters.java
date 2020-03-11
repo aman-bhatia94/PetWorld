@@ -23,8 +23,8 @@ import com.ateam.petworld.adapters.SearchSitterListAdapter;
 import com.ateam.petworld.factory.ClientFactory;
 import com.ateam.petworld.models.Owner;
 import com.ateam.petworld.models.Sitter;
-import com.ateam.petworld.services.OwnerDataService;
 import com.ateam.petworld.services.SitterDataService;
+import com.ateam.petworld.services.OwnerDataService;
 import com.ateam.petworld.utils.DistanceCalculator;
 import com.ateam.petworld.utils.ListFunctions;
 
@@ -100,7 +100,7 @@ public class SearchSitters extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_sitters);
         init();
-        owner = ownerDataService.getOwner(owner);
+        owner = ownerDataService.getOwner(owner, this);
         sitterList = sitterDataService.searchSitters(this);
         setViewListeners();
     }

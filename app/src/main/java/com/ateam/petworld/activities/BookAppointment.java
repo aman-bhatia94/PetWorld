@@ -54,7 +54,7 @@ public class BookAppointment extends AppCompatActivity implements SlyCalendarDia
         sitterDataService = new SitterDataService(ClientFactory.appSyncClient());
         sitter = new Sitter();
         sitter.setId(sitterId);
-        sitter = sitterDataService.getSitter(sitter);
+        sitter = sitterDataService.getSitter(sitter, this);
 
         tvNoOfDays = findViewById(R.id.tv_no_of_days);
         tvPayPerDay = findViewById(R.id.tv_per_day_price);
@@ -80,7 +80,7 @@ public class BookAppointment extends AppCompatActivity implements SlyCalendarDia
             TextView tvEndDate = findViewById(R.id.tv_end_date);
             startDate = firstDate;
             endDate = secondDate;
-            long noOfDays = DateFunctions.calculateNoOfDays(startDate, endDate);
+            long noOfDays = DateFunctions.calculateNoOfDays(startDate, endDate) + 1;
             double totalAmount = noOfDays * sitter.getPayPerDay();
             tvPayPerDay.setText(String.format("%s %s", getString(R.string.dollarSign), sitter.getPayPerDay()));
             tvTotalAmount.setText(String.format("%s %s", getString(R.string.dollarSign), totalAmount));
@@ -100,7 +100,7 @@ public class BookAppointment extends AppCompatActivity implements SlyCalendarDia
 
     public void bookAppointment(View view) {
         if (startDate != null && endDate != null) {
-            long noOfDays = DateFunctions.calculateNoOfDays(startDate, endDate);
+            long noOfDays = DateFunctions.calculateNoOfDays(startDate, endDate) + 1;
             double totalAmount = noOfDays * sitter.getPayPerDay();
             Appointments appointment = new Appointments();
             appointment.setAppointmentStartDate(new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).format(startDate.getTime()));

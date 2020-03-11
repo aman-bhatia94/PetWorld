@@ -16,8 +16,12 @@ import com.ateam.petworld.factory.ClientFactory;
 import com.ateam.petworld.models.Appointments;
 import com.ateam.petworld.services.AppointmentDataService;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class OwnerDashboard extends AppCompatActivity {
     Context context;
@@ -69,10 +73,14 @@ public class OwnerDashboard extends AppCompatActivity {
         appointmentDataService.getAllAppointments(this);
     }
 
-    public void setOwnerAppointmentList(List<Appointments> allAppointmentList) {
+    public void setOwnerAppointmentList(List<Appointments> allAppointmentList) throws ParseException {
         ownerAppointments = new ArrayList<>();
         for (Appointments appointment : allAppointmentList) {
             if (appointment.getOwnerId().equals(ownerId)) {
+                Date startDate = new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).parse(appointment.getAppointmentStartDate());
+                Date endDate = new SimpleDateFormat(getString(R.string.dateFormat), Locale.getDefault()).parse(appointment.getAppointmentEndDate());
+                appointment.setAppointmentStartDate(new SimpleDateFormat(getString(R.string.dp_dateFormat), Locale.getDefault()).format(startDate));
+                appointment.setAppointmentEndDate(new SimpleDateFormat(getString(R.string.dp_dateFormat), Locale.getDefault()).format(endDate));
                 ownerAppointments.add(appointment);
             }
         }
